@@ -65,10 +65,10 @@ include('menu.php');
 										<button type="button" class="btn btn-sm btn-info btn-filter">
 											<i class="fas fa-filter"></i> Filtro
 										</button>
-										<a href="../back/pdf.php?modo=1" class="btn btn-sm btn-danger">
+										<a href="../back/pdf.php?modo=3" class="btn btn-sm btn-danger">
 											<i class="fas fa-print"></i> PDF
 										</a>
-										<a href="../back/excel.php?modo=1" class="btn btn-sm btn-primary">
+										<a href="../back/excel.php?modo=3" class="btn btn-sm btn-primary">
 											<i class="fab fa-windows"></i> Excel
 										</a>
 										<a href="novoPatrimonio.php?pagina=5" class="btn btn-sm btn-success" style="display: <?= $_SESSION['patrimonio_adicionar'] == 1 ? "inline-block" : "none" ?>;">

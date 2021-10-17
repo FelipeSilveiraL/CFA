@@ -8,17 +8,16 @@ require_once('query.php');
 switch ($_GET['modo']) {
 
 	case '2':
-		
+
 
 		if (!empty($_GET['mes'])) {
 
 			$queryUsuarios .= " WHERE U.deletar = 0 AND U.data_nascimento like '%/" . $_GET['mes'] . "/%'";
-			$titulo = "<div><h1>Anivesariantes do Mês " . $_GET['mes'] . "</h1></div>";			
+			$titulo = "<div><h1>Anivesariantes do Mês " . $_GET['mes'] . "</h1></div>";
 			$nomeArq = "cfa_aniversariantes.pdf";
-
 		} else {
 
-			$titulo = "<div><h1>Lista Membros</h1></div>";			
+			$titulo = "<div><h1>Lista Membros</h1></div>";
 			$nomeArq = "cfa_membros.pdf";
 		}
 
@@ -137,26 +136,26 @@ switch ($_GET['modo']) {
 			$colspan = 3;
 
 			$html .= "<tr>";
-			$html .=  empty($celula ['nome']) ? '<td>----------</td>' : '<td>' . $celula['nome'] . '</td>';
-			$html .=  empty($celula ['dia_semana']) ? '<td>----------</td>' : '<td>' . $celula['dia_semana']  . '</td>';
-			$html .=  empty($celula  ['horario']) ? '<td>----------</td>' : '<td>' . $celula['horario']  . '</td>';
+			$html .=  empty($celula['nome']) ? '<td>----------</td>' : '<td>' . $celula['nome'] . '</td>';
+			$html .=  empty($celula['dia_semana']) ? '<td>----------</td>' : '<td>' . $celula['dia_semana']  . '</td>';
+			$html .=  empty($celula['horario']) ? '<td>----------</td>' : '<td>' . $celula['horario']  . '</td>';
 
 			$queryLIderesCelulas = "SELECT 
 										U.nome,
 										U.id
 									FROM cfa_celula_lideres CLC
 									LEFT JOIN cfa_usuarios U ON (CLC.id_usuario = U.id)
-									WHERE CLC.id_celula = ".$celula['id'];
+									WHERE CLC.id_celula = " . $celula['id'];
 
 			$resultLideres = $conn->query($queryLIderesCelulas);
 
-			while($lideres = $resultLideres->fetch_assoc()){
+			while ($lideres = $resultLideres->fetch_assoc()) {
 				$html .= '<td>' . $lideres['nome'] . '</td>';
 
 				$colspan--;
 			}
-		
-			$html .=  empty($celula ['data_abertura']) ? '<td colspan="'.$colspan.'">----------</td>' : '<td colspan="'.$colspan.'">' . $celula['data_abertura'] . '</td>';
+
+			$html .=  empty($celula['data_abertura']) ? '<td colspan="' . $colspan . '">----------</td>' : '<td colspan="' . $colspan . '">' . $celula['data_abertura'] . '</td>';
 			$html .=  empty($celula['endereco']) ? '<td>----------</td>' : '<td>' . $celula['endereco'] . '</td>';
 			$html .=  empty($celula['numero']) ? '<td>----------</td>' : '<td>' . $celula['numero'] . '</td>';
 			$html .=  empty($celula['bairro']) ? '<td>----------</td>' : '<td>' . $celula['bairro']  . '</td>';
@@ -173,6 +172,67 @@ switch ($_GET['modo']) {
 			</body>
 		</html>";
 
+		break;
+
+	case '3':
+		$titulo = "<div><h1>Patrimonios - C.F.A</h1></div>";
+		$nomeArq = "cfa_patrimonio.pdf";
+
+		//corpo da msn
+		$html = "
+			<html>
+				<style>
+					td{
+						border: solid 1px;
+					}
+				</style>	
+				<body>
+					";
+		$html .= $titulo;
+		$html .= "
+					<table class='table table-sm' style='font-size:12px;'>
+					<thead>
+						<tr>				
+							<th scope='col'>NOME / MODELO</th>
+							<th scope='col'>CODIGO</th>
+							<th scope='col'>CATEGORIA</th>
+							<th scope='col'>LOCAL</th>
+							<th scope='col'>SITUACAO</th>		
+							<th scope='col'>CONSERVACAO</th>
+							<th scope='col'>ORIGEM</th>
+							<th scope='col'>VALOR</th>
+							<th scope='col'>QUANTIDADE</th>
+							<th scope='col'>DATA COMPRA</th>
+							<th scope='col'>DOC. NUMERO</th>
+							<th scope='col'>OBRSERVACAO</th>
+						</tr>
+					  </thead>
+					  <tbody>";
+		$resultPatrimonio = $conn->query($queryPatrimonio);
+
+		while ($patrimonio = $resultPatrimonio->fetch_assoc()) {
+
+			$html .= "<tr>";
+			$html .=  empty($patrimonio['nome']) ? '<td>----------</td>' : '<td>' . $patrimonio['nome'] . '</td>';
+			$html .=  empty($patrimonio['codigo']) ? '<td>----------</td>' : '<td>' . $patrimonio['codigo']  . '</td>';
+			$html .=  empty($patrimonio['categoria']) ? '<td>----------</td>' : '<td>' . $patrimonio['categoria']  . '</td>';
+			$html .=  empty($patrimonio['local']) ? '<td>----------</td>' : '<td>' . $patrimonio['local'] . '</td>';
+			$html .=  empty($patrimonio['situacao']) ? '<td>----------</td>' : '<td>' . $patrimonio['situacao'] . '</td>';
+			$html .=  empty($patrimonio['conservacao']) ? '<td>----------</td>' : '<td>' . $patrimonio['conservacao']  . '</td>';
+			$html .=  empty($patrimonio['origem']) ? '<td>----------</td>' : '<td>' . $patrimonio['origem'] . '</td>';
+			$html .=  empty($patrimonio['valor']) ? '<td>----------</td>' : '<td>' . $patrimonio['valor'] . '</td>';
+			$html .=  empty($patrimonio['quantidade']) ? '<td>----------</td>' : '<td>' . $patrimonio['quantidade'] . '</td>';
+			$html .=  empty($patrimonio['data_compra']) ? '<td>----------</td>' : '<td>' . $patrimonio['data_compra'] . '</td>';
+			$html .=  empty($patrimonio['numero_documento']) ? '<td>----------</td>' : '<td>' . $patrimonio['numero_documento'] . '</td>';
+			$html .=  empty($patrimonio['observacao']) ? '<td>----------</td>' : '<td>' . $patrimonio['observacao'] . '</td>';
+
+			$html .= "
+									  </tr>";
+		}
+		$html .= "</tbody>
+					</table>
+				</body>
+			</html>";
 		break;
 }
 
