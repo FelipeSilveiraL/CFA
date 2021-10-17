@@ -160,3 +160,9 @@ $queryUltimaReuniao = "SELECT distinct(CR.id_celula) AS id_celula, max(CR.data_r
 $queryPatrimonio = "SELECT * FROM cfa_patrimonio CFP";
                         
 /* ============================================================================== */
+
+//DOCUMENTOS PERMITIDOS
+$queryDocumentosPermitidos = "SELECT * FROM cfa_documento_permitido";
+                        
+/* ============================================================================== */
+                        

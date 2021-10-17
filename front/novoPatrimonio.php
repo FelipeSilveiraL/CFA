@@ -19,12 +19,14 @@ if (!empty($_GET['idPatrimonio'])) {
 	$titulo = "ID: " . $patrimonio['id'];
 	$icon = '<i class="fas fa-hotel"></i>';
 	$button = 'Editar';
+	$file = "style='display: none'";
 } else {
 
 	$titulo = " Dados - Patrimônio";
 	$icon = '<i class="fas fa-plus"></i>';
 	$button = 'Salvar';
 	$display = "style='display: none'";
+	
 }
 
 ?>
@@ -73,6 +75,14 @@ if (!empty($_GET['idPatrimonio'])) {
 					</div>
 				</div>
 			</div>
+
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="alert bg-danger" role="alert" id="msnAlertaDocumento" style="display: <?= $_GET['msn'] == 3 ? "block" : "none" ?>;">
+						<em class="fa fa-lg fa-warning">&nbsp;</em> Documentos Permitidos: [ doc, docx, PDF, txt ]<a href="javascript:" class="pull-right" onclick="fecharDoc()"><em class="fa fa-lg fa-close"></em></a>
+					</div>
+				</div>
+			</div>
 			<!--/.row-->
 			<div class="panel panel-default">
 				<div class="panel-heading textNome">
@@ -81,7 +91,7 @@ if (!empty($_GET['idPatrimonio'])) {
 				</div>
 				<div class="panel-body">
 					<div class="col-md-6">
-						<form role="form" method="POST" action="../back/novaCelula.php?idCelula=<?= $_GET['idCelula'] ?>" enctype="multipart/form-data">
+						<form role="form" method="POST" action="../back/novoPatrimonio.php?idPatrimonio=<?= $_GET['idCelula'] ?>" enctype="multipart/form-data">
 							<div class="col-xs-12">
 								<div class="form-group">
 									<label>Nome</label>
@@ -201,27 +211,34 @@ if (!empty($_GET['idPatrimonio'])) {
 									<input class="form-control" placeholder="R$ 0.000,00" name="valor" maxlength="10" value="<?= !empty($patrimonio['valor']) ? $patrimonio['valor'] : ""  ?>">
 								</div>
 							</div>
+
+							<div class="col-xs-4">
+								<div class="form-group">
+									<label>Quantidade</label>
+									<input type="number" class="form-control" name="quantidade" value="<?= !empty($patrimonio['quantidade']) ? $patrimonio['quantidade'] : ""  ?>">
+								</div>
+							</div>
+
+							<div class="col-xs-8">
+								<div class="form-group">
+									<label>Data de compra</label>
+									<input type="date" class="form-control" name="data_compra" maxlength="10" value="<?= !empty($patrimonio['data_compra']) ? $patrimonio['data_compra'] : ""  ?>">
+								</div>
+							</div>
 					</div>
 					<div class="col-md-6">
-
-						<div class="col-xs-4">
-							<div class="form-group">
-								<label>Quantidade</label>
-								<input type="number" class="form-control" name="quantidade" value="<?= !empty($patrimonio['quantidade']) ? $patrimonio['quantidade'] : ""  ?>">
-							</div>
-						</div>
-
-						<div class="col-xs-8">
-							<div class="form-group">
-								<label>Data de compra</label>
-								<input type="date" class="form-control" name="data_compra" maxlength="10" value="<?= !empty($patrimonio['data_compra']) ? $patrimonio['data_compra'] : ""  ?>">
-							</div>
-						</div>
 
 						<div class="col-xs-12">
 							<div class="form-group">
 								<label>Doc. nº</label>
 								<input type="text" class="form-control" name="numero_documento" maxlength="10" value="<?= !empty($patrimonio['numero_documento']) ? $patrimonio['numero_documento'] : ""  ?>">
+							</div>
+						</div>
+
+						<div class="col-xs-12" <?= $file ?> >
+							<div class="form-group">
+								<label>Documento</label>
+								<input type="file" class="form-control" name="anexo">
 							</div>
 						</div>
 
@@ -233,7 +250,7 @@ if (!empty($_GET['idPatrimonio'])) {
 						</div>
 
 						<div style="display: <?= $_SESSION['patrimonio_adicionar'] == 1 ? "block" : "none" ?>;">
-							<button type="submit" class="btn btn-success" id="enviar" disabled>
+							<button type="submit" class="btn btn-success" id="enviar">
 								<i class="fas fa-share fa-sm text-white-50"></i>&nbsp;<?= $button ?>
 							</button>
 							<button type="reset" class="btn btn-info pull-right">
@@ -414,7 +431,7 @@ if (!empty($_GET['idPatrimonio'])) {
 											<td>17/10/2021 11:54</td>
 											<td>Olá Mundo</td>
 										</tr>
-										
+
 										<tr>
 											<td>Felipe Lara</td>
 											<td>17/10/2021 11:54</td>
@@ -482,12 +499,24 @@ if (!empty($_GET['idPatrimonio'])) {
 	}
 </script>
 
+
+
 <script>
 	function fecharInfo() {
 		let msn = document.getElementById("msnAlertaInfo").style.display;
 
 		if (msn == "block") {
 			document.getElementById("msnAlertaInfo").style.display = "none";
+		}
+	}
+</script>
+
+<script>
+	function fecharDoc() {
+		let msn = document.getElementById("msnAlertaDocumento").style.display;
+
+		if (msn == "block") {
+			document.getElementById("msnAlertaDocumento").style.display = "none";
 		}
 	}
 </script>
