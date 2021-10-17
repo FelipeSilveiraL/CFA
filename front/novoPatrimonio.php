@@ -24,6 +24,7 @@ if (!empty($_GET['idPatrimonio'])) {
 	$file = "style='display: none'";
 } else {
 
+	$nome = "Novo";
 	$titulo = " Dados - Patrimônio";
 	$icon = '<i class="fas fa-plus"></i>';
 	$button = 'Salvar';
