@@ -43,6 +43,7 @@
 		$_SESSION['tela_configuracao'] = $usuario['tela_configuracoes'];
 		$_SESSION['tela_membros'] = $usuario['tela_membros'];
 		$_SESSION['tela_celula'] = $usuario['tela_celula'];
+		$_SESSION['tela_patrimonio'] = $usuario['tela_patrimonio'];
 
 		//TELA CONFIGURAÇÔES
 		$_SESSION['config_informacao'] = $usuario['config_informacao'];
@@ -64,6 +65,10 @@
 		$_SESSION['celula_incluir_membro'] = $usuario['celula_incluir_membro'];
 		$_SESSION['celula_excluir_membro'] = $usuario['celula_excluir_membro'];
 		$_SESSION['celula_incluir_reuniao'] = $usuario['celula_incluir_reuniao'];
+
+		//TELA PATRIMONIO		
+		$_SESSION['patrimonio_adicionar'] = $usuario['patrimonio_adicionar'];
+		$_SESSION['patrimonio_excluir'] = $usuario['patrimonio_excluir'];
 
 
 		//levando o usuário para a pagina principal

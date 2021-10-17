@@ -1,5 +1,3 @@
-<!DOCTYPE html>
-<html>
 <?php
 include('head.php');
 include('header.php');
@@ -68,13 +66,13 @@ if (!empty($_GET['idMembro'])) {
 
 								echo '<li class="todo-list-item">
 											<div class="checkbox">
-												<input name="tela_configuracoes" value="1" type="checkbox" id="checkbox-1"';
+												<input name="tela_configuracoes" value="1" type="checkbox" id="checkboxMenu-1"';
 
 								if ($permissao['tela_configuracoes'] == 1) {
 									echo 'checked';
 								}
 								echo '>
-												<label for="checkbox-1"><span style="color: red;">Configuracões</span></label>
+												<label for="checkboxMenu-1"><span style="color: red;">Configuracões</span></label>
 											</div>
 										</li>';
 
@@ -84,14 +82,14 @@ if (!empty($_GET['idMembro'])) {
 
 								echo '<li class="todo-list-item">
 										<div class="checkbox">
-											<input name="tela_membros" value="1" type="checkbox" id="checkbox-2"';
+											<input name="tela_membros" value="1" type="checkbox" id="checkboxMenu-2"';
 
 								if ($permissao['tela_membros'] == 1) {
 									echo 'checked';
 								}
 
 								echo '>
-											<label for="checkbox-2"><span style="color: #45c745">Membros</span></label>
+											<label for="checkboxMenu-2"><span style="color: #45c745">Membros</span></label>
 										</div>
 									</li>';
 
@@ -99,16 +97,31 @@ if (!empty($_GET['idMembro'])) {
 
 								echo '<li class="todo-list-item">
 										<div class="checkbox">
-											<input name="tela_celula" value="1" type="checkbox" id="checkbox-3"';
+											<input name="tela_celula" value="1" type="checkbox" id="checkboxMenu-3"';
 
 								if ($permissao['tela_celula'] == 1) {
 									echo 'checked';
 								}
 
 								echo '>
-												<label for="checkbox-3"><span style="color: blue">Células</span></label>
+												<label for="checkboxMenu-3"><span style="color: blue">Células</span></label>
 											</div>
 										</li>';
+
+								//Menu Patrimonio
+
+								echo '<li class="todo-list-item">
+								<div class="checkbox">
+									<input name="tela_patrimonio" value="1" type="checkbox" id="checkboxMenu-4"';
+
+								if ($permissao['tela_patrimonio'] == 1) {
+									echo 'checked';
+								}
+
+								echo '>
+										<label for="checkboxMenu-4"><span style="color: yellow">Patrimônio</span></label>
+									</div>
+								</li>';
 
 
 								//Configura TITULO
@@ -350,6 +363,42 @@ if (!empty($_GET['idMembro'])) {
 											<label for="checkbox-19">Incluir Reunião</label>
 										</div>
 									</li>';
+
+
+								//Patrimonio TITULO
+
+								echo '<div class="panel-heading">
+								Permissões - <span style="color: yellow">Tela Patrimônio</span>
+									</div>';
+
+								echo '<li class="todo-list-item">
+								<div class="checkbox">
+									<input name="patrimonio_adicionar" value="1" type="checkbox" id="checkbox-20"';
+
+								if ($permissao['patrimonio_adicionar'] == 1) {
+									echo 'checked';
+								}
+
+								echo '>
+									<label for="checkbox-20">Adicionar</label>
+								</div>
+							</li>';
+
+								//Celula Excluir
+
+								echo '<li class="todo-list-item">
+									<div class="checkbox">
+										<input name="patrimonio_excluir" value="1" type="checkbox" id="checkbox-21"';
+
+								if ($permissao['patrimonio_excluir'] == 1) {
+									echo 'checked';
+								}
+
+								echo '>
+										<label for="checkbox-21">Excluir</label>
+									</div>
+								</li>';
+								
 							}
 
 							?>

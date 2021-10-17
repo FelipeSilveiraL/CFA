@@ -1,6 +1,3 @@
-<!DOCTYPE html>
-<html>
-
 <!--HEAD-->
 <?php include('head.php'); ?>
 <!--FIM HEAD-->

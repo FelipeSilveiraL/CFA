@@ -6,9 +6,8 @@
 include('header.php');
 /* <!--FIM HEADER--> */
 
-
 /* <!--PERMISSÃO--> */
-$_SESSION['tela_celula'] == 1 ?: header('location: dashboard.php?pagina=1');
+$_SESSION['tela_patrimonio'] == 1 ?: header('location: dashboard.php?pagina=1');
 
 /* <!--MENU LATERAL--> */
 include('menu.php');
@@ -28,7 +27,7 @@ include('menu.php');
 				</a>
 			</li>
 			<li class="active">
-				<i class="fas fa-project-diagram"></i> Células
+				<i class="fas fa-hotel"></i> Patrimônio
 			</li>
 		</ol>
 	</div>
@@ -201,7 +200,8 @@ include('menu.php');
 									<label for="checkbox-1">Membros - <span class="text-sn">Sem Célula </span></label>
 								</div>
 
-							</li><!-- 
+							</li>
+							<!-- 
 							<li class="todo-list-item">
 								<div class="checkbox">
 									<input type="checkbox" id="checkbox-2" onclick="ausentes()">
@@ -345,21 +345,21 @@ include('menu.php');
 										</tr>
 									</thead>
 									<tbody>
-											<?php
-											$resultUltima = $conn->query($queryUltimaReuniao);
+										<?php
+										$resultUltima = $conn->query($queryUltimaReuniao);
 
-											
-											while($ultimaReuniao = $resultUltima->fetch_assoc()){
-												
-												$dataReuniao = date('d/m/Y', strtotime($ultimaReuniao['dataReuniao']));
 
-												echo '
+										while ($ultimaReuniao = $resultUltima->fetch_assoc()) {
+
+											$dataReuniao = date('d/m/Y', strtotime($ultimaReuniao['dataReuniao']));
+
+											echo '
 												<tr>
-													<td><a href="novaCelula.php?pagina=4&idCelula='.$ultimaReuniao['id_celula'].'">'.$ultimaReuniao['nome'].'</a></td>
-													<td>'.$dataReuniao.'</td>
+													<td><a href="novaCelula.php?pagina=4&idCelula=' . $ultimaReuniao['id_celula'] . '">' . $ultimaReuniao['nome'] . '</a></td>
+													<td>' . $dataReuniao . '</td>
 												</tr>';
-											}
-											?>
+										}
+										?>
 									</tbody>
 								</table>
 							</div>
@@ -421,4 +421,4 @@ include('menu.php');
 		}
 	</script>
 
-</html>
+	</html>

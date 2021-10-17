@@ -24,6 +24,10 @@
 		<li <?= $celula ?>>
 			<a href="celula.php?pagina=4&modo=1"><i class="fas fa-project-diagram"></i>&nbsp; Células</a>
 		</li>
+		
+		<li <?= $patrimonio ?>>
+			<a href="patrimonio.php?pagina=5"><i class="fas fa-hotel"></i>&nbsp; Patrimônio</a>
+		</li>
 		<li>
 			<a href="../back/sair.php" style="color: red">
 				<em class="fa fa-power-off">&nbsp;</em> Sair
