@@ -301,7 +301,7 @@ if (!empty($_GET['idPatrimonio'])) {
 								<div class="panel-heading">
 									<div class="pull-right">
 										<!-- Button trigger modal -->
-										<button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#exampleModal" style="display: <?= $_SESSION['patrimonio_adicionar'] == 1 ? "inline-block" : "none" ?>;">
+										<button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#doc" style="display: <?= $_SESSION['patrimonio_adicionar'] == 1 ? "inline-block" : "none" ?>;">
 											<i class="fas fa-plus"></i> Novo Documento
 										</button>
 									</div>
@@ -319,14 +319,15 @@ if (!empty($_GET['idPatrimonio'])) {
 									</thead>
 									<tbody>
 										<?php
-											$resultadoDocumentos = $conn->query($queryDocumentosPatrimonios);
+										$queryDocumentosPatrimonios .= " WHERE id_patrimonio = ".$_GET['idPatrimonio'];
+										$resultadoDocumentos = $conn->query($queryDocumentosPatrimonios);
 
-											while($documentos = $resultadoDocumentos->fetch_assoc()){
-												echo '<tr>
-														<td>'.$documentos['nome'].'</td>
-														<td><a href="'.$documentos['documento'].'" target="_blank"><i class="fas fa-download fa-2x"></i></a></td>
+										while ($documentos = $resultadoDocumentos->fetch_assoc()) {
+											echo '<tr>
+														<td>' . $documentos['nome'] . '</td>
+														<td><a href="' . $documentos['documento'] . '" target="_blank"><i class="fas fa-download fa-2x"></i></a></td>
 													</tr>';
-											}
+										}
 										?>
 									</tbody>
 								</table>
@@ -337,8 +338,8 @@ if (!empty($_GET['idPatrimonio'])) {
 			</div>
 		</div>
 
-		<!-- DOCUMENTAÇÃO -->
-		<div class="col-lg-6" id="documentacao">
+		<!-- REGISTROS -->
+		<div class="col-lg-6" id="registros">
 			<div class="panel panel-default">
 				<div class="panel-heading textNome">
 					Registros
@@ -351,7 +352,7 @@ if (!empty($_GET['idPatrimonio'])) {
 								<div class="panel-heading">
 									<div class="pull-right">
 										<!-- Button trigger modal -->
-										<button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#exampleModal" style="display: <?= $_SESSION['patrimonio_adicionar'] == 1 ? "inline-block" : "none" ?>;">
+										<button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#registro" style="display: <?= $_SESSION['patrimonio_adicionar'] == 1 ? "inline-block" : "none" ?>;">
 											<i class="fas fa-plus"></i> Novo Registro
 										</button>
 									</div>
@@ -371,17 +372,19 @@ if (!empty($_GET['idPatrimonio'])) {
 										</tr>
 									</thead>
 									<tbody>
-										<tr>
-											<td>Felipe Lara</td>
-											<td>17/10/2021 11:54</td>
-											<td>Olá Mundo</td>
-										</tr>
+										<?php
 
-										<tr>
-											<td>Felipe Lara</td>
-											<td>17/10/2021 11:54</td>
-											<td>Olá Mundo</td>
-										</tr>
+										$queryrRegistrosPatrimonios .= ' WHERE CR.id_patrimonio = ' . $_GET['idPatrimonio'];
+										$resultadoRegistros = $conn->query($queryrRegistrosPatrimonios);
+
+										while ($registros = $resultadoRegistros->fetch_assoc()) {
+											echo '<tr>
+														<td>' . $registros['nome'] . '</td>
+														<td>' . $registros['data_registro'] . '</td>
+														<td>' . $registros['observacao'] . '</td>
+													</tr>';
+										}
+										?>
 									</tbody>
 								</table>
 							</div>
@@ -393,8 +396,8 @@ if (!empty($_GET['idPatrimonio'])) {
 
 	</div>
 
-	<!-- Modal -->
-	<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<!-- Modal REGSITROS-->
+	<div class="modal fade" id="registro" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -404,7 +407,7 @@ if (!empty($_GET['idPatrimonio'])) {
 					</button>
 				</div>
 				<div class="modal-body">
-					<form class="form-horizontal" action="../back/patrimonioRegistro.php?idPatrimonio=<?= $_GET['idPatrimonio'] ?>" method="post">
+					<form class="form-horizontal" action="../back/novoPatrimonio.php?idPatrimonio=<?= $_GET['idPatrimonio'] ?>&modo=1" method="post">
 						<fieldset>
 							<!-- Assunto -->
 							<div class="form-group">
@@ -423,7 +426,38 @@ if (!empty($_GET['idPatrimonio'])) {
 				</form>
 			</div>
 		</div>
-	</div>
+	</div><!-- FIM MODAL REGISTROS -->
+
+	<!-- MODAL DOCUMENTOS-->
+	<div class="modal fade" id="doc" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel"><i class="fas fa-plus"></i> Novo Documentos - <?= $titulo ?></h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<form class="form-horizontal" action="../back/novoPatrimonio.php?idPatrimonio=<?= $_GET['idPatrimonio'] ?>&modo=2" method="post" enctype="multipart/form-data">
+						<fieldset>
+							<div class="col-xs-12">
+								<div class="form-group">
+									<label>Documento</label>
+									<input type="file" class="form-control" name="anexo">
+								</div>
+							</div>
+
+						</fieldset>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+					<button type="submit" class="btn btn-primary">Salvar</button>
+				</div>
+				</form>
+			</div>
+		</div>
+	</div><!-- FIM MODAL DOCUMENTOS -->
 
 </div><!-- /.panel-->
 </div><!-- /.col-->

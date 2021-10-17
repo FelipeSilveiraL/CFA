@@ -194,4 +194,14 @@ $queryDocumentosPermitidos = "SELECT * FROM cfa_documento_permitido";
 $queryDocumentosPatrimonios = "SELECT * FROM cfa_patrimonio_documentos";
                         
 /* ============================================================================== */
+
+//REGISTROS DO PATRIMONIO
+$queryrRegistrosPatrimonios = "SELECT 
+CR.observacao,
+CR.data_registro,
+CU.nome
+FROM cfa_patrimonio_registros CR
+LEFT JOIN cfa_usuarios CU ON (CR.id_usuario = CU.id)";
+                        
+/* ============================================================================== */
                         

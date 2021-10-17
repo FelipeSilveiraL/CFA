@@ -1,0 +1,18 @@
+4at.servopa_uat
+
+!@PREMIERit34
+
+3uS0uALendia
+            
+
+VPN:
+Senha: @SSLvpnGsVP2020
+
+
+10.100.1.7
+usuário: administrador
+senha: #ADSrvWIN_2017
+
+
+Senha ramal
+346578#
