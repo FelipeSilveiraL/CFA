@@ -63,7 +63,7 @@ if(!empty($_GET['idPatrimonio'])){
 			//caminho documento
 			$dir = '../documentos/patrimonio/'; //Diretório para uploads
 			$ext = strtolower(substr($_FILES['anexo']['name'],-4)); //Pegando extensão do arquivo
-			$new_name = date('dmyHi'). $_FILES['anexo']['name'] . $ext; //Definindo um novo nome para o arquivo    
+			$new_name = date('dmyHi'). $_FILES['anexo']['name']; //Definindo um novo nome para o arquivo    
 	
 			if(move_uploaded_file($_FILES['anexo']['tmp_name'], $dir.$new_name)){
 
@@ -122,9 +122,12 @@ if(!$result = $conn->query($query)){
 
 		if($documentoOK == 1){
 
-			$insertDocumento = "INSERT INTO cfa_patrimonio_documentos (id_patrimonio, documento) VALUES ('".$idPatrimonio['id']."', '".$dir.$new_name."')";
+			$insertDocumento = "INSERT INTO cfa_patrimonio_documentos (id_patrimonio, documento, nome) VALUES ('".$idPatrimonio['id']."', '".$dir.$new_name."', '".$new_name."')";
 
-			$resultQueryS = $conn->query($insertDocumento);
+			if(!$resultQueryS = $conn->query($insertDocumento)){
+				echo 'Erro[3] <br />';
+				echo $insertDocumento;
+			}
 		}
 
 		header('Location: ../front/novoPatrimonio.php?pagina=5&msn=1&idPatrimonio='.$idPatrimonio['id'].'');		

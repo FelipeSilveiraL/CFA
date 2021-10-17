@@ -189,4 +189,9 @@ LEFT JOIN menu_origem MO ON (CFP.origem = MO.id)";
 $queryDocumentosPermitidos = "SELECT * FROM cfa_documento_permitido";
                         
 /* ============================================================================== */
+
+//DOCUMENTOS DO PATRIMONIO
+$queryDocumentosPatrimonios = "SELECT * FROM cfa_patrimonio_documentos";
+                        
+/* ============================================================================== */
                         

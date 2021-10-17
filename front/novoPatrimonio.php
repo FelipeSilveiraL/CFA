@@ -92,7 +92,7 @@ if (!empty($_GET['idPatrimonio'])) {
 						<form role="form" method="POST" action="../back/novoPatrimonio.php?idPatrimonio=<?= $_GET['idPatrimonio'] ?>" enctype="multipart/form-data">
 							<div class="col-xs-12">
 								<div class="form-group">
-									<label>Nome</label>
+									<label>Nome / Modelo</label>
 									<input class="form-control" name="nome" maxlength="50" value="<?= !empty($patrimonio['nome']) ? $patrimonio['nome'] : ""  ?>" required>
 								</div>
 							</div>
@@ -289,7 +289,7 @@ if (!empty($_GET['idPatrimonio'])) {
 	<div class="row" <?= $display ?>>
 
 		<div class="col-lg-6">
-		<div class="panel panel-default">
+			<div class="panel panel-default">
 				<div class="panel-heading textNome">
 					Documentos
 					<span class="pull-right clickable panel-toggle panel-button-tab-left"><em class="fa fa-toggle-up"></em></span>
@@ -318,15 +318,16 @@ if (!empty($_GET['idPatrimonio'])) {
 										</tr>
 									</thead>
 									<tbody>
-										<tr>
-											<td>Felipe Lara</td>
-											<td><a href="#" target="_blank">17/10/2021 11:54</a></td>
-										</tr>
+										<?php
+											$resultadoDocumentos = $conn->query($queryDocumentosPatrimonios);
 
-										<tr>
-											<td>Felipe Lara</td>
-											<td><a href="#" target="_blank">17/10/2021 11:54</a></td>
-										</tr>
+											while($documentos = $resultadoDocumentos->fetch_assoc()){
+												echo '<tr>
+														<td>'.$documentos['nome'].'</td>
+														<td><a href="'.$documentos['documento'].'" target="_blank"><i class="fas fa-download fa-2x"></i></a></td>
+													</tr>';
+											}
+										?>
 									</tbody>
 								</table>
 							</div>

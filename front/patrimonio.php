@@ -83,6 +83,9 @@ include('menu.php');
 												<input type="text" class="form-control" placeholder="ID" disabled>
 											</th>
 											<th>
+												<input type="text" class="form-control" placeholder="Nome / Modelo" disabled>
+											</th>
+											<th>
 												<input type="text" class="form-control" placeholder="Código" disabled>
 											</th>
 											<th>
@@ -107,6 +110,7 @@ include('menu.php');
 										while ($patrimonio = $resultPatrimonio->fetch_assoc()) {
 
 											echo '<tr>
+												<td>' . $patrimonio['id'] . '</td>
 												<td>' . $patrimonio['nome'] . '</td>
 												<td>' . $patrimonio['codigo'] . '</td>
 												<td>' . $patrimonio['local'] . '</td>
