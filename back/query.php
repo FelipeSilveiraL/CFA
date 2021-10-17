@@ -157,7 +157,31 @@ $queryUltimaReuniao = "SELECT distinct(CR.id_celula) AS id_celula, max(CR.data_r
 /* ============================================================================== */
 
 //PATRIMONIO
-$queryPatrimonio = "SELECT * FROM cfa_patrimonio CFP";
+$queryPatrimonio = "SELECT 
+CFP.nome,
+CFP.codigo,
+CFP.valor,
+CFP.quantidade,
+CFP.data_compra,
+CFP.numero_documento,
+CFP.observacao,
+CFP.id,
+CFP.categoria AS id_categoria,
+MC.nome AS categoria,
+CFP.local AS id_local,
+ML.nome AS local,
+CFP.situacao AS id_situacao,
+MS.nome AS situacao,
+CFP.conservacao AS id_conservacao,
+MCS.nome AS conservacao,
+CFP.origem AS id_origem,
+MO.nome AS origem
+FROM cfa_patrimonio CFP
+LEFT JOIN menu_categoria MC ON (CFP.categoria = MC.id)
+LEFT JOIN menu_local ML ON (CFP.local = ML.id)
+LEFT JOIN menu_situacao MS ON (CFP.situacao = MS.id)
+LEFT JOIN menu_conservacao MCS ON (CFP.conservacao = MCS.id)
+LEFT JOIN menu_origem MO ON (CFP.origem = MO.id)";
                         
 /* ============================================================================== */
 

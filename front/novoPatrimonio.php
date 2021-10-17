@@ -16,6 +16,8 @@ if (!empty($_GET['idPatrimonio'])) {
 	$queryPatrimonio .= " WHERE CFP.id = " . $_GET['idPatrimonio'];
 	$resultPatrimonio = $conn->query($queryPatrimonio);
 	$patrimonio = $resultPatrimonio->fetch_assoc();
+
+	$nome = $patrimonio['nome'];
 	$titulo = "ID: " . $patrimonio['id'];
 	$icon = '<i class="fas fa-hotel"></i>';
 	$button = 'Editar';
@@ -26,13 +28,9 @@ if (!empty($_GET['idPatrimonio'])) {
 	$icon = '<i class="fas fa-plus"></i>';
 	$button = 'Salvar';
 	$display = "style='display: none'";
-	
 }
 
 ?>
-
-
-
 <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
 	<!--DIV é finalizada no footer.php-->
 
@@ -43,7 +41,7 @@ if (!empty($_GET['idPatrimonio'])) {
 				<a href="dashboard.php?pagina=1"><i class="fas fa-home"></i> Home</a>
 			</li>
 			<li><a href="patrimonio.php?pagina=5"><i class="fas fa-hotel"></i> Patrimônio</li></a>
-			<li class="active"><?= $icon ?> Novo</li>
+			<li class="active"><?= $icon . " " . $nome ?></li>
 		</ol>
 	</div>
 	<!-- /.NAVEGAÇÃO-->
@@ -91,7 +89,7 @@ if (!empty($_GET['idPatrimonio'])) {
 				</div>
 				<div class="panel-body">
 					<div class="col-md-6">
-						<form role="form" method="POST" action="../back/novoPatrimonio.php?idPatrimonio=<?= $_GET['idCelula'] ?>" enctype="multipart/form-data">
+						<form role="form" method="POST" action="../back/novoPatrimonio.php?idPatrimonio=<?= $_GET['idPatrimonio'] ?>" enctype="multipart/form-data">
 							<div class="col-xs-12">
 								<div class="form-group">
 									<label>Nome</label>
@@ -113,6 +111,9 @@ if (!empty($_GET['idPatrimonio'])) {
 										if (!empty($patrimonio['id_categoria'])) {
 											echo '<option value="' . $patrimonio['id_categoria'] . '">' . $patrimonio['categoria'] . '</option>';
 											echo '<option>------------</option>';
+											while ($categoria = $resultCategoria->fetch_assoc()) {
+												echo '<option value="' . $categoria['id'] . '">' . $categoria['nome'] . '</option>';
+											}
 										} else {
 											echo '<option>Selecione...</option>';
 
@@ -133,6 +134,9 @@ if (!empty($_GET['idPatrimonio'])) {
 										if (!empty($patrimonio['id_local'])) {
 											echo '<option value="' . $patrimonio['id_local'] . '">' . $patrimonio['local'] . '</option>';
 											echo '<option>------------</option>';
+											while ($local = $resultLocal->fetch_assoc()) {
+												echo '<option value="' . $local['id'] . '">' . $local['nome'] . '</option>';
+											}
 										} else {
 											echo '<option>Selecione...</option>';
 
@@ -153,6 +157,9 @@ if (!empty($_GET['idPatrimonio'])) {
 										if (!empty($patrimonio['id_situacao'])) {
 											echo '<option value="' . $patrimonio['id_situacao'] . '">' . $patrimonio['situacao'] . '</option>';
 											echo '<option>------------</option>';
+											while ($situacao = $resultSituacao->fetch_assoc()) {
+												echo '<option value="' . $situacao['id'] . '">' . $situacao['nome'] . '</option>';
+											}
 										} else {
 											echo '<option>Selecione...</option>';
 
@@ -173,6 +180,9 @@ if (!empty($_GET['idPatrimonio'])) {
 										if (!empty($patrimonio['id_conservacao'])) {
 											echo '<option value="' . $patrimonio['id_conservacao'] . '">' . $patrimonio['conservacao'] . '</option>';
 											echo '<option>------------</option>';
+											while ($conservacao = $resultConservacao->fetch_assoc()) {
+												echo '<option value="' . $conservacao['id'] . '">' . $conservacao['nome'] . '</option>';
+											}
 										} else {
 											echo '<option>Selecione...</option>';
 
@@ -193,6 +203,9 @@ if (!empty($_GET['idPatrimonio'])) {
 										if (!empty($patrimonio['id_origem'])) {
 											echo '<option value="' . $patrimonio['id_origem'] . '">' . $patrimonio['origem'] . '</option>';
 											echo '<option>------------</option>';
+											while ($origem = $resultOrigem->fetch_assoc()) {
+												echo '<option value="' . $origem['id'] . '">' . $origem['nome'] . '</option>';
+											}
 										} else {
 											echo '<option>Selecione...</option>';
 
@@ -222,7 +235,16 @@ if (!empty($_GET['idPatrimonio'])) {
 							<div class="col-xs-8">
 								<div class="form-group">
 									<label>Data de compra</label>
-									<input type="date" class="form-control" name="data_compra" maxlength="10" value="<?= !empty($patrimonio['data_compra']) ? $patrimonio['data_compra'] : ""  ?>">
+									<input class="form-control" name="data_compra" maxlength="10" <?php
+																									if (!empty($patrimonio['data_compra'])) {
+
+																										$data = date('d/m/Y', strtotime($patrimonio['data_compra']));
+																										echo 'value="' . $data . '"';
+																										echo 'type="text"';
+																									} else {
+																										echo 'type="date"';
+																									}
+																									?>>
 								</div>
 							</div>
 					</div>
@@ -235,7 +257,7 @@ if (!empty($_GET['idPatrimonio'])) {
 							</div>
 						</div>
 
-						<div class="col-xs-12" <?= $file ?> >
+						<div class="col-xs-12" <?= $file ?>>
 							<div class="form-group">
 								<label>Documento</label>
 								<input type="file" class="form-control" name="anexo">
@@ -267,130 +289,52 @@ if (!empty($_GET['idPatrimonio'])) {
 	<div class="row" <?= $display ?>>
 
 		<div class="col-lg-6">
-			<div class="panel panel-default">
-				<div class="panel-heading textNome" id="lider">
-					Lideres (<?= $countLidere['quantidade'] ?>)
-					<span class="pull-right clickable panel-toggle panel-button-tab-left"><em class="fa fa-toggle-up"></em></span>
-				</div>
-				<div class="panel-body">
-					<ul class="todo-list">
-						<?php
-						$resultlideres = $conn->query($queryLIderesCelulas);
-
-						while ($listalideres = $resultlideres->fetch_assoc()) {
-							echo '<li class="todo-list-item">
-							<div class="checkbox textNome">
-								<a href="novopatrimonio.php?pagina=3&idpatrimonio=' . $listalideres['id'] . '">
-									<label for="checkbox-1">' . $listalideres['nome'] . '</label>
-								</a>
-							</div>
-							<div class="pull-right action-buttons"  style="display:';
-							echo  $_SESSION['celula_excluir_lider'] == 1 ? "block" : "none";
-							echo '">
-								<a href="../back/desvincular.php?idCelula=' . $_GET['idCelula'] . '&modo=1&idpatrimonio=' . $listalideres['id'] . '" class="trash" title="Excluir">
-									<em class="fa fa-trash"></em>
-								</a>
-							</div>
-						</li>';
-						}
-						?>
-					</ul>
-					<br />
-					<div style="display: <?= $_SESSION['celula_incluir_lider'] == 1 ? "block" : "none" ?>;">
-						<form action="../back/vincular.php?modo=1&idCelula=<?= $_GET['idCelula'] ?>" class="" method="POST">
-							<div class="panel-footer">
-								<div class="input-group">
-									<select class="form-control largo textNome" name="lider">
-										<option>Selecione...</option>
-										<?php
-										$query = "SELECT id, nome FROM cfa_usuarios WHERE deletar = 0";
-
-										$resultadoTodos = $conn->query($query);
-
-										while ($todopatrimonios = $resultadoTodos->fetch_assoc()) {
-											echo '<option value="' . $todopatrimonios['id'] . '">' . $todopatrimonios['nome'] . '</option>';
-										}
-										?>
-									</select>
-
-									<span class="input-group-btn">
-										<button type="submit" class="btn btn-sm btn-primary" id="btn-todo">
-											<i class="fas fa-plus"></i> Vicular lider
-										</button>
-									</span>
-
-								</div>
-							</div>
-						</form>
-					</div>
-
-				</div>
-			</div>
-		</div>
-
-		<div class="col-lg-6">
-			<div class="panel panel-default" id="patrimonio">
+		<div class="panel panel-default">
 				<div class="panel-heading textNome">
-					patrimonios (<?= $count['quantidade'] ?>)
+					Documentos
 					<span class="pull-right clickable panel-toggle panel-button-tab-left"><em class="fa fa-toggle-up"></em></span>
 				</div>
 				<div class="panel-body">
-					<ul class="todo-list">
-						<?php
-						$resultpatrimonios = $conn->query($queryUsuarios);
-
-						while ($listapatrimonios = $resultpatrimonios->fetch_assoc()) {
-							echo '<li class="todo-list-item">
-							<div class="checkbox textNome">
-								<a href="novopatrimonio.php?pagina=3&idpatrimonio=' . $listapatrimonios['id'] . '">
-									<label for="checkbox-1">' . $listapatrimonios['nome'] . '</label>
-								</a>
-							</div>
-							<div class="pull-right action-buttons" style="display:';
-							echo  $_SESSION['celula_excluir_patrimonio'] == 1 ? "block" : "none";
-							echo '">
-								<a href="../back/desvincular.php?idCelula=' . $_GET['idCelula'] . '&modo=2&idpatrimonio=' . $listapatrimonios['id'] . '" class="trash" title="Excluir">
-									<em class="fa fa-trash"></em>
-								</a>
-							</div>
-						</li>';
-						}
-						?>
-					</ul>
-					<br />
-					<div style="display: <?= $_SESSION['celula_incluir_patrimonio'] == 1 ? "block" : "none" ?>;">
-						<form action="../back/vincular.php?modo=2&idCelula=<?= $_GET['idCelula'] ?>" class="" method="POST">
-							<div class="panel-footer">
-								<div class="input-group">
-									<select class="form-control largo textNome" name="patrimonio">
-										<option>Selecione...</option>
-										<?php
-										$query = "SELECT id, nome FROM cfa_usuarios WHERE deletar = 0";
-
-										$resultadoTodos = $conn->query($query);
-
-										while ($todopatrimonios = $resultadoTodos->fetch_assoc()) {
-											echo '<option value="' . $todopatrimonios['id'] . '">' . $todopatrimonios['nome'] . '</option>';
-										}
-										?>
-									</select>
-
-									<span class="input-group-btn">
-										<button type="submit" class="btn btn-sm btn-primary" id="btn-todo">
-											<i class="fas fa-plus"></i> Vincular patrimonio
+					<div class="col-md-12">
+						<div class="row">
+							<div class="panel panel-primary filterable col-md-13">
+								<div class="panel-heading">
+									<div class="pull-right">
+										<!-- Button trigger modal -->
+										<button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#exampleModal" style="display: <?= $_SESSION['patrimonio_adicionar'] == 1 ? "inline-block" : "none" ?>;">
+											<i class="fas fa-plus"></i> Novo Documento
 										</button>
-									</span>
-
+									</div>
 								</div>
+								<table class="table table-bordered table-hover table-responsive">
+									<thead>
+										<tr class="filters">
+											<th>
+												<input type="text" class="form-control" placeholder="Nome" disabled>
+											</th>
+											<th>
+												<input type="text" class="form-control" placeholder="Caminho" disabled>
+											</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td>Felipe Lara</td>
+											<td><a href="#" target="_blank">17/10/2021 11:54</a></td>
+										</tr>
+
+										<tr>
+											<td>Felipe Lara</td>
+											<td><a href="#" target="_blank">17/10/2021 11:54</a></td>
+										</tr>
+									</tbody>
+								</table>
 							</div>
-						</form>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-
-	<div class="row" <?= $display ?>>
 
 		<!-- DOCUMENTAÇÃO -->
 		<div class="col-lg-6" id="documentacao">
@@ -445,7 +389,8 @@ if (!empty($_GET['idPatrimonio'])) {
 				</div>
 			</div>
 		</div>
-	</div> <!-- FIM CHART REUNIÔES -->
+
+	</div>
 
 	<!-- Modal -->
 	<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

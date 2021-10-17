@@ -108,16 +108,16 @@ include('menu.php');
 
 											echo '<tr>
 												<td>' . $patrimonio['nome'] . '</td>
-												<td>' . $patrimonio['dia_semana'] . '</td>
-												<td>' . $patrimonio['horario'] . '</td>
-												<td>' . $patrimonio['estado'] . '</td>
-												<td>' . $patrimonio['horario'] . '</td>
+												<td>' . $patrimonio['codigo'] . '</td>
+												<td>' . $patrimonio['local'] . '</td>
+												<td>' . $patrimonio['situacao'] . '</td>
+												<td>' . $patrimonio['conservacao'] . '</td>
 												<td>
 													<div class="pull-right action-buttons tabela">
-														<a href="novapatrimonio.php?pagina=4&idPatrimonio=' . $patrimonio['id'] . '" class="edit" title="Ver mais sobre">
+														<a href="novoPatrimonio.php?pagina=5&idPatrimonio=' . $patrimonio['id'] . '" class="edit" title="Ver mais sobre">
 															<em class="fa fa-eye"></em>
 														</a>
-														<a href="excluirpatrimonio.php?pagina=4&idPatrimonio=' . $patrimonio['id'] . '" class="trash" title="Excluir" style="display:';
+														<a href="excluirPatrimonio.php?pagina=5&idPatrimonio=' . $patrimonio['id'] . '" class="trash" title="Excluir" style="display:';
 
 											echo $_SESSION['patrimonio_excluir'] == 1 ? 'inline-block' : 'none';
 

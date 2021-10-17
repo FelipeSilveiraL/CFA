@@ -15,7 +15,7 @@ $origem = $_POST['origem'];
 $str =  str_replace("R$ ", "", $_POST['valor']);
 $valor = "R$ ". $str;
 $quantidade = $_POST['quantidade'];
-$datacompra = $_POST['data_compra'];
+$datacompra = date('Y-m-d', strtotime($_POST['data_compra']));
 $numerodocumento = $_POST['numero_documento'];
 $responsavel = $_SESSION['id_usuario'];
 $observacao = $_POST['observacao'];
@@ -25,21 +25,21 @@ $observacao = $_POST['observacao'];
 if(!empty($_GET['idPatrimonio'])){
 
 	$query = "UPDATE cfa_patrimonio SET 
-	
-					nome = '".$nome."',
-					codigo = '".$codigo."',
-					categoria = '".$categoria."',
-					local = '".$local."',
-					situacao = '".$situacao."',
-					conservacao = '".$conservacao."',
-					origem = '".$origem."',
-					valor = '".$valor."',
-					quantidade = '".$quantidade."',
-					data_compra = '".$datacompra."',
-					numero_documento = '".$numerodocumento."',
-					observacao = '".$observacao."'		
-				
-				WHERE (id = ".$_GET['idPatrimonio'].")";
+
+				nome = '".$nome."',
+				codigo = '".$codigo."',
+				categoria = '".$categoria."',
+				local = '".$local."',
+				situacao = '".$situacao."',
+				conservacao = '".$conservacao."',
+				origem = '".$origem."',
+				valor = '".$valor."',
+				quantidade = '".$quantidade."',
+				data_compra = '".$datacompra."',
+				numero_documento = '".$numerodocumento."',
+				observacao = '".$observacao."'		
+			
+			WHERE (id = ".$_GET['idPatrimonio'].")";
 
 }else{
 
@@ -107,7 +107,6 @@ if(!empty($_GET['idPatrimonio'])){
 					'".$observacao."')";
 	}
 
-	echo $query;
 
 if(!$result = $conn->query($query)){
 	printf("Error message[2]: %s\n", $conn->error);
