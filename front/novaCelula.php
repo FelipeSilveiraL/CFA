@@ -717,5 +717,3 @@ if (!empty($_GET['idCelula'])) {
 		}
 	}
 </script>
-
-</html>

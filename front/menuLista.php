@@ -137,5 +137,3 @@ include('menu.php');
 	<!--FOOTER-->
 	<?php include('footer.php'); ?>
 	<!--/. FOOTER-->
-
-	</html>

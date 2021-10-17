@@ -376,5 +376,3 @@ if (!empty($_GET['idMembro'])) {
 			}
 		}
 	</script>
-
-</html>

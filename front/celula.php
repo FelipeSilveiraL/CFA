@@ -420,5 +420,3 @@ include('menu.php');
 			}
 		}
 	</script>
-
-</html>

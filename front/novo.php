@@ -39,6 +39,3 @@
 	<!--FOOTER-->
 	<?php include('footer.php'); ?>
 	<!--/. FOOTER-->
-
-
-</html>

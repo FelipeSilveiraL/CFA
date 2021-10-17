@@ -80,6 +80,21 @@ $resultCivil = $conn->query($queryCivil);
 $querySexo = "SELECT * FROM menu_sexo";
 $resultSexo = $conn->query($querySexo);
 
+$queryCategoria = "SELECT * FROM menu_categoria";
+$resultCategoria = $conn->query($queryCategoria);
+
+$queryLocal= "SELECT * FROM menu_local";
+$resultLocal= $conn->query($queryLocal);
+
+$querySituacao = "SELECT * FROM menu_situacao";
+$resultSituacao = $conn->query($querySituacao);
+
+$queryConservacao = "SELECT * FROM menu_conservacao";
+$resultConservacao = $conn->query($queryConservacao);
+
+$queryOrigem = "SELECT * FROM menu_origem";
+$resultOrigem = $conn->query($queryOrigem);
+
 /* ============================================================================== */
 
 //COLETANDO DADOS DAS CELULAS
@@ -142,6 +157,6 @@ $queryUltimaReuniao = "SELECT distinct(CR.id_celula) AS id_celula, max(CR.data_r
 /* ============================================================================== */
 
 //PATRIMONIO
-$queryPermissao = "SELECT * FROM cfa_permissao";
+$queryPatrimonio = "SELECT * FROM cfa_patrimonio CFP";
                         
 /* ============================================================================== */

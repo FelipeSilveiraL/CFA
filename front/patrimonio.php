@@ -43,7 +43,7 @@ include('menu.php');
 	<div class="row" id="msnAlertaInfo" style="display: <?= $_GET['msn'] == 1 ? "block" : "none" ?>;">
 		<div class="col-lg-12">
 			<div class="alert bg-warning" role="alert">
-				<em class="fa fa-lg fa-warning">&nbsp;</em> Célula excluida com sucesso! :-(
+				<em class="fa fa-lg fa-warning">&nbsp;</em> Patrimônio excluida com sucesso!
 				<a href="javascript:" class="pull-right" onclick="fecharInfo()">
 					<em class="fa fa-lg fa-close"></em>
 				</a>
@@ -102,22 +102,22 @@ include('menu.php');
 									<tbody>
 										<?php
 
-										$resultPermissao = $conn->query($queryPermissao);
+										$resultPatrimonio = $conn->query($queryPatrimonio);
 
-										while ($permissao = $resultPermissao->fetch_assoc()) {
+										while ($patrimonio = $resultPatrimonio->fetch_assoc()) {
 
 											echo '<tr>
-												<td>' . $permissao['nome'] . '</td>
-												<td>' . $permissao['dia_semana'] . '</td>
-												<td>' . $permissao['horario'] . '</td>
-												<td>' . $permissao['estado'] . '</td>
-												<td>' . $permissao['horario'] . '</td>
+												<td>' . $patrimonio['nome'] . '</td>
+												<td>' . $patrimonio['dia_semana'] . '</td>
+												<td>' . $patrimonio['horario'] . '</td>
+												<td>' . $patrimonio['estado'] . '</td>
+												<td>' . $patrimonio['horario'] . '</td>
 												<td>
 													<div class="pull-right action-buttons tabela">
-														<a href="novapermissao.php?pagina=4&idpermissao=' . $permissao['id'] . '" class="edit" title="Ver mais sobre">
+														<a href="novapatrimonio.php?pagina=4&idPatrimonio=' . $patrimonio['id'] . '" class="edit" title="Ver mais sobre">
 															<em class="fa fa-eye"></em>
 														</a>
-														<a href="excluirpermissao.php?pagina=4&idpermissao=' . $permissao['id'] . '" class="trash" title="Excluir" style="display:';
+														<a href="excluirpatrimonio.php?pagina=4&idPatrimonio=' . $patrimonio['id'] . '" class="trash" title="Excluir" style="display:';
 
 											echo $_SESSION['patrimonio_excluir'] == 1 ? 'inline-block' : 'none';
 
@@ -157,5 +157,3 @@ include('menu.php');
 			}
 		}
 	</script>
-
-	</html>

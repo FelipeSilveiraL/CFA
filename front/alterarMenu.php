@@ -209,6 +209,3 @@ $result = $conn->query($queryListaDados);
 	<!--FOOTER-->
 	<?php include('footer.php'); ?>
 	<!--/. FOOTER-->
-
-
-</html>

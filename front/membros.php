@@ -460,5 +460,3 @@ if(!empty($_GET['mes'])){
 			}
 		}
 	</script>
-
-</html>
