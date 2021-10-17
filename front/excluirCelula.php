@@ -22,7 +22,7 @@ $celula = $resultMembro->fetch_assoc();
 	<!--NAVEGAÇÃO-->
 	<div class="row">
 		<ol class="breadcrumb">
-			<li><a href="dashboard.php?pagina=1"><i class="fas fa-home"> Home</i></a></li>
+			<li><a href="dashboard.php?pagina=1"><i class="fas fa-home"></i> Home</a></li>
 			<li><a href="celula.php?pagina=4&modo=1"><i class="fas fa-project-diagram"></i> Células</li></a>
 			<li class="active"><i class="fa fa-trash"></i> <?= $celula['nome'] ?></li>
 		</ol>

@@ -30,7 +30,7 @@ if (!empty($_GET['idMembro'])) {
 	<!--NAVEGAÇÃO-->
 	<div class="row">
 		<ol class="breadcrumb">
-			<li><a href="dashboard.php?pagina=1"><i class="fas fa-home"> Home</i></a></li>
+			<li><a href="dashboard.php?pagina=1"><i class="fas fa-home"></i> Home</a></li>
 			<li><a href="membros.php?pagina=3&modo=1"><i class="fas fa-users"></i> Membros</li></a>
 			<li><a href="novoMembro.php?pagina=3&idMembro=<?= $_GET['idMembro'] ?>"><?= $icon ?> <?= $titulo ?></li></a>
 			<li class="active"><i class="fas fa-users-cog"></i> Configuração</li>

@@ -25,12 +25,12 @@
         <ol class="breadcrumb">
             <li>
                 <a href="dashboard.php?pagina=1">
-                    <i class="fas fa-home"> home</i>
+                    <i class="fas fa-home"></i> Home
                 </a>
             </li>
             <li>
                 <a href="configuracao.php?pagina=2">
-                    <i class="fas fa-tools"> Configuração</i>
+                    <i class="fas fa-tools"></i> Configuração
                 </a>
             </li>
             <li class="active"><i class="fas fa-info-circle"></i> Informações</li>

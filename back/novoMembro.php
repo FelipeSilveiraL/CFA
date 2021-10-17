@@ -6,8 +6,8 @@ include('../bd/conexao.php');
 //variaveis do formulario
 $email = $_POST['email'];
 $senha = $_POST['senha'];
-$str  = $_POST['nome'];
-$strS = $_POST['sobrenome'];
+$nome  = $_POST['nome'];
+$sobrenome = $_POST['sobrenome'];
 $civil = $_POST['civil'];
 $sexo = $_POST['genero'];
 $celula = $_POST['celula'];
@@ -33,8 +33,8 @@ $hash = crypt($senha, '$2a$' . $custo . '$' . $salt . '$');
 $dir = '../images/foto_perfil/'; //Diretório para uploads
 
 //tirando espaços do nome/sobrenome
-$nome = str_replace(" ", "_", $str);
-$sobrenome = str_replace(" ", "_", $strS);
+$str = str_replace(" ", "_", $nome);
+$strs = str_replace(" ", "_", $sobrenome);
 
 //cadastrando no banco de dados
 
@@ -44,7 +44,7 @@ if(!empty($_GET['idMembro'])){
 	if(isset($_FILES['foto'])){
 
 		$ext = strtolower(substr($_FILES['foto']['name'],-4)); //Pegando extensão do arquivo
-		$new_name = "foto-". $nome . $sobrenome . $ext; //Definindo um novo nome para o arquivo    
+		$new_name = "foto-". $str . $strs . $ext; //Definindo um novo nome para o arquivo    
 
 		if(move_uploaded_file($_FILES['foto']['tmp_name'], $dir.$new_name)){
 			echo 'Foto enviada com sucesso!';
@@ -88,7 +88,7 @@ if(!empty($_GET['idMembro'])){
 	if(isset($_FILES['foto'])){
 
 		$ext = strtolower(substr($_FILES['foto']['name'],-4)); //Pegando extensão do arquivo
-		$new_name = "foto-". $nome . $sobrenome . $ext; //Definindo um novo nome para o arquivo    
+		$new_name = "foto-". $str . $strs . $ext; //Definindo um novo nome para o arquivo    
 
 		if(move_uploaded_file($_FILES['foto']['tmp_name'], $dir.$new_name)){
 			echo 'Foto enviada com sucesso!';

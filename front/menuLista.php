@@ -17,7 +17,7 @@ include('menu.php');
 		<ol class="breadcrumb">
 			<li>
 				<a href="dashboard.php?pagina=1">
-					<i class="fas fa-home"> home</i>
+					<i class="fas fa-home"></i> Home
 				</a>
 			</li>
 			<li>
