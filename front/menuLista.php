@@ -38,37 +38,98 @@ include('menu.php');
 
 	<!--CONTEUDO-->
 	<div class="row">
+
+		<!-- INCARGOS -->
 		<div class="col-xs-6 col-md-3">
 			<div class="panel panel-default">
 				<a href="alterarmenu.php?pagina=2&idMenu=1">
 					<div class="panel-body easypiechart-panel">
 						<h4>Incargos</h4>
-						<div class="easypiechart"><i class="fas fa-people-carry fa-5x"></i></div>
 					</div>
 				</a>
 			</div>
 		</div>
+
+		<!-- GENERO -->
 		<div class="col-xs-6 col-md-3">
 			<div class="panel panel-default">
 				<a href="alterarmenu.php?pagina=2&idMenu=2">
 					<div class="panel-body easypiechart-panel">
 						<h4>Gênero</h4>
-						<div class="easypiechart"><i class="fas fa-venus-mars fa-5x"></i></div>
 					</div>
 				</a>
 			</div>
 		</div>
+
+		<!-- ESTADO CIVIL -->
 		<div class="col-xs-6 col-md-3">
 			<div class="panel panel-default">
 				<a href="alterarmenu.php?pagina=2&idMenu=3">
 					<div class="panel-body easypiechart-panel">
 						<h4>Estado Cívil</h4>
-						<div class="easypiechart"><i class="fas fa-church fa-5x"></i>
-						</div>
 					</div>
 				</a>
 			</div>
 		</div>
+
+		<!-- CONSERCAÇÃO -->
+		<div class="col-xs-6 col-md-3">
+			<div class="panel panel-default">
+				<a href="alterarmenu.php?pagina=2&idMenu=4">
+					<div class="panel-body easypiechart-panel">
+						<h4>Conservação</h4>
+					</div>
+				</a>
+			</div>
+		</div>
+
+		<!-- CATEGORIAS -->
+		<div class="col-xs-6 col-md-3">
+			<div class="panel panel-default">
+				<a href="alterarmenu.php?pagina=2&idMenu=5">
+					<div class="panel-body easypiechart-panel">
+						<h4>Categorias</h4>
+					</div>
+				</a>
+			</div>
+		</div>
+
+		<!-- LOCAL -->
+		<div class="col-xs-6 col-md-3">
+			<div class="panel panel-default">
+				<a href="alterarmenu.php?pagina=2&idMenu=6">
+					<div class="panel-body easypiechart-panel">
+						<h4>Local</h4>
+					</div>
+				</a>
+			</div>
+		</div>
+
+		<!-- ORIGEM -->
+		<div class="col-xs-6 col-md-3">
+			<div class="panel panel-default">
+				<a href="alterarmenu.php?pagina=2&idMenu=7">
+					<div class="panel-body easypiechart-panel">
+						<h4>Origem</h4>
+					</div>
+				</a>
+			</div>
+		</div>
+
+		<!-- SITUAÇÃO -->
+		<div class="col-xs-6 col-md-3">
+			<div class="panel panel-default">
+				<a href="alterarmenu.php?pagina=2&idMenu=8">
+					<div class="panel-body easypiechart-panel">
+						<h4>Situação</h4>
+					</div>
+				</a>
+			</div>
+		</div>
+
+
+
+
 	</div>
 
 	<!--/. CONTEUDO-->
@@ -77,4 +138,4 @@ include('menu.php');
 	<?php include('footer.php'); ?>
 	<!--/. FOOTER-->
 
-</html>
+	</html>

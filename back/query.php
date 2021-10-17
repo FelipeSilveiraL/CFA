@@ -138,4 +138,10 @@ $queryVisitantes = "SELECT * FROM cfa_visitantes";
 $queryUltimaReuniao = "SELECT distinct(CR.id_celula) AS id_celula, max(CR.data_reuniao) AS dataReuniao, CC.nome FROM cfa_reuniao CR
                         LEFT JOIN cfa_celulas CC ON (CC.id = CR.id_celula)
                         group by id_celula";
+
+/* ============================================================================== */
+
+//PATRIMONIO
+$queryPermissao = "SELECT * FROM cfa_permissao";
+                        
 /* ============================================================================== */

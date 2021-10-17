@@ -63,7 +63,7 @@ $result = $conn->query($queryListaDados);
 											<i class="fas fa-filter"></i> Filtro
 										</button>
 										<a href="javascript:" class="btn btn-sm btn-success" data-toggle="modal" data-target="#novoMenu">
-											<i class="fas fa-plus"></i> Novo <?= $nomeMenu ?>
+											<i class="fas fa-plus"></i> <?= $nomeMenu ?>
 										</a>
 									</div>
 								</div>
@@ -89,10 +89,10 @@ $result = $conn->query($queryListaDados);
 												<td>' . $listaMenus['nome'] . '</td>
 												<td>
 													<div class="pull-right action-buttons tabela">
-														<a href="#" class="edit" title="Editar" data-toggle="modal" data-target="#modal' . $listaMenus['id'] . '">
+														<a href="#" class="edit  btn-sm btn-default rigth" title="Editar" data-toggle="modal" data-target="#modal' . $listaMenus['id'] . '">
 															<em class="fa fa-pen"></em>
 														</a>
-														<a href="#" class="trash" title="Excluir" data-toggle="modal" data-target="#modalEx' . $listaMenus['id'] . '">
+														<a href="#" class="trash  btn-sm btn-warning" title="Excluir" data-toggle="modal" data-target="#modalEx' . $listaMenus['id'] . '">
 															<em class="fa fa-trash"></em>
 														</a>
 													</div>
