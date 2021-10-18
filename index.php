@@ -3,6 +3,9 @@
 <?php
 session_start();
 
+// Desligue todos os relatórios de erros
+error_reporting(0);
+
 if ($_SESSION['email'] != NULL) { //verifiando se o usuário já esta logado
 	header('Location: front/dashboard.php?pagina=1');
 }
