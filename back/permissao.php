@@ -18,6 +18,9 @@ switch ($_GET['pagina']) {
     case '5';
         $patrimonio = 'class="active"';
         break;
+    case '6';
+        $financeiro = 'class="active"';
+    break;
 }
 
 //permissões de telas
@@ -34,4 +37,5 @@ $_SESSION['tela_celula'] == 0 ? $celula .= " style='display: none;'" : $celula .
 /* ===== PATRIMONIO ===== */
 $_SESSION['tela_patrimonio'] == 0 ? $patrimonio .= " style='display: none;'" : $patrimonio .= " style='display: block;'";
 
-?>
+/* ===== FINANCEIRO ===== */
+$_SESSION['tela_financeiro'] == 0 ? $financeiro .= " style='display: none;'" : $financeiro .= " style='display: block;'";

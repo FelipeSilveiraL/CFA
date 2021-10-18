@@ -123,6 +123,21 @@ if (!empty($_GET['idMembro'])) {
 									</div>
 								</li>';
 
+								//Menu Financeiro
+
+								echo '<li class="todo-list-item">
+								<div class="checkbox">
+									<input name="tela_financeiro" value="1" type="checkbox" id="checkboxMenu-5"';
+
+								if ($permissao['tela_financeiro'] == 1) {
+									echo 'checked';
+								}
+
+								echo '>
+										<label for="checkboxMenu-5"><span style="color: #FC07F8">Financeiro</span></label>
+									</div>
+								</li>';
+
 
 								//Configura TITULO
 
@@ -384,7 +399,7 @@ if (!empty($_GET['idMembro'])) {
 								</div>
 							</li>';
 
-								//Celula Excluir
+								//Patrimonio Excluir
 
 								echo '<li class="todo-list-item">
 									<div class="checkbox">
@@ -396,6 +411,40 @@ if (!empty($_GET['idMembro'])) {
 
 								echo '>
 										<label for="checkbox-21">Excluir</label>
+									</div>
+								</li>';
+
+								//Financeiro TITULO
+
+								echo '<div class="panel-heading">
+								Permissões - <span style="color: #FC07F8">Tela Financeiro</span>
+									</div>';
+
+								echo '<li class="todo-list-item">
+								<div class="checkbox">
+									<input name="financeiro_adicionar" value="1" type="checkbox" id="checkbox-22"';
+
+								if ($permissao['financeiro_adicionar'] == 1) {
+									echo 'checked';
+								}
+
+								echo '>
+									<label for="checkbox-22">Adicionar</label>
+								</div>
+							</li>';
+
+								//Celula Excluir
+
+								echo '<li class="todo-list-item">
+									<div class="checkbox">
+										<input name="financeiro_excluir" value="1" type="checkbox" id="checkbox-23"';
+
+								if ($permissao['financeiro_excluir'] == 1) {
+									echo 'checked';
+								}
+
+								echo '>
+										<label for="checkbox-23">Excluir</label>
 									</div>
 								</li>';
 								

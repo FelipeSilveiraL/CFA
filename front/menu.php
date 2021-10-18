@@ -12,15 +12,19 @@
 	</div>
 	<div class="divider"></div>
 	<ul class="nav menu">
+
 		<li <?= $dashboard ?>>
 			<a href="dashboard.php?pagina=1"><i class="fas fa-home"></i>&nbsp; Dashboard</a>
 		</li>
+
 		<li <?= $configuracao ?>>
 			<a href="configuracao.php?pagina=2"><i class="fas fa-tools"></i>&nbsp; Configuração</a>
 		</li>
+
 		<li <?= $membro ?>>
 			<a href="membros.php?pagina=3&modo=1"><i class="fas fa-users"></i>&nbsp; Membros</a>
 		</li>
+
 		<li <?= $celula ?>>
 			<a href="celula.php?pagina=4&modo=1"><i class="fas fa-project-diagram"></i>&nbsp; Células</a>
 		</li>
@@ -28,6 +32,11 @@
 		<li <?= $patrimonio ?>>
 			<a href="patrimonio.php?pagina=5"><i class="fas fa-hotel"></i>&nbsp; Patrimônio</a>
 		</li>
+
+		<li <?= $financeiro ?>>
+			<a href="financeiro.php?pagina=6&modo=1"><i class="fas fa-file-invoice-dollar"></i>&nbsp; Financeiro</a>
+		</li>
+
 		<li>
 			<a href="../back/sair.php" style="color: red">
 				<em class="fa fa-power-off">&nbsp;</em> Sair

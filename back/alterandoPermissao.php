@@ -8,7 +8,8 @@ if (!empty($_GET['idMembro'])) {
     $telaconfiguracoes = empty($_POST['tela_configuracoes']) ? "0" : $_POST['tela_configuracoes'];
     $telamembros = empty($_POST['tela_membros']) ? "0" : $_POST['tela_membros'];
     $telacelula = empty($_POST['tela_celula']) ? "0" : $_POST['tela_celula'];
-    $telapatrimonio = empty($_POST['tela_patrimonio']) ? "0" : $_POST['tela_patrimonio'];
+    $telapatrimonio = empty($_POST['tela_patrimonio']) ? "0" : $_POST['tela_patrimonio'];    
+    $telafinanceiro = empty($_POST['tela_financeiro']) ? "0" : $_POST['tela_financeiro'];
 
     //CONFIGURAÇÃO
     $configinformacao = empty($_POST['config_informacao']) ? "0" : $_POST['config_informacao'];
@@ -35,12 +36,17 @@ if (!empty($_GET['idMembro'])) {
     $patrimonioexcluir = empty($_POST['patrimonio_excluir']) ? "0" : $_POST['patrimonio_excluir'];
     $patrimonioadicionar = empty($_POST['patrimonio_adicionar']) ? "0" : $_POST['patrimonio_adicionar']; 
 
+    //FINANCEIRO
+    $financeiroadicionar = empty($_POST['financeiro_adicionar']) ? "0" : $_POST['financeiro_adicionar'];
+    $financeiroexcluir = empty($_POST['financeiro_excluir']) ? "0" : $_POST['financeiro_excluir']; 
+
     //variaveis do sistema
     $update = "UPDATE cfa_permissao SET 
             tela_configuracoes = '" . $telaconfiguracoes . "', 
             tela_membros = '" . $telamembros . "',  
             tela_celula = '" . $telacelula . "',  
-            tela_patrimonio = '".$telapatrimonio."',
+            tela_patrimonio = '".$telapatrimonio."',  
+            tela_financeiro = '".$telafinanceiro."',
             config_informacao = '" . $configinformacao . "',  
             config_sistema = '" . $configsistema . "',  
             config_menus = '" . $configmenus . "',  
@@ -57,7 +63,9 @@ if (!empty($_GET['idMembro'])) {
             celula_excluir_membro = '" . $celulaexcluirmembro . "',
             celula_incluir_reuniao = '" . $celulaincluirreuniao . "',
             patrimonio_adicionar = '" . $patrimonioadicionar . "',  
-            patrimonio_excluir = '" . $patrimonioexcluir . "'           
+            patrimonio_excluir = '" . $patrimonioexcluir . "',
+            financeiro_adicionar = '" . $financeiroadicionar . "',  
+            financeiro_excluir = '" . $financeiroexcluir . "'              
 
         WHERE (id_usuario = '" . $_GET['idMembro'] . "')";
 
