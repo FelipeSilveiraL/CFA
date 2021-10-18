@@ -2,7 +2,7 @@
 
 $endereco = "localhost";
 $senhadb = "9N2V4!z4+S[/Z[pb";
-$userdb = "id17786578_manager";
+$userdb = "cfa";
 $portadb = "3306";
 $db = "id17786578_cfa";
 
