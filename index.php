@@ -10,6 +10,36 @@ if ($_SESSION['email'] != NULL) { //verifiando se o usuário já esta logado
 	header('Location: front/dashboard.php?pagina=1');
 }
 
+switch ($_GET['pag']) {
+	case '1':
+		$idLogar = 'block';
+		$idAlterarSenha = 'none';
+		$idInsiraEmail = 'none';
+		$nomeButton = 'Acessar';
+		$actionForm = 'back/validacao.php';
+		break;
+		
+	case '2':
+		$idLogar = 'none';
+		$idAlterarSenha = 'block';
+		$idInsiraEmail = 'none';
+		$nomeButton = 'Alterar';
+		$actionForm = 'back/alterarSenha.php';
+		break;
+
+	case '3':
+		$idLogar = 'none';
+		$idAlterarSenha = 'none';
+		$idInsiraEmail = 'block';
+		$nomeButton = 'Enviar por e-mail';
+		$actionForm = 'back/emailSenha.php';
+		break;
+
+	default:
+		header('Location: index.php?pag=1');
+		break;
+}
+
 require_once('bd/conexao.php');
 require_once('back/query.php');
 
@@ -46,37 +76,73 @@ require_once('back/query.php');
 					<img src="<?= $logo = substr($sistema['cfa_logo_login'], 3) ?>" alt="IMG" class="logo">
 				</div>
 
-				<form class="login100-form validate-form" method="post" action="back/validacao.php">
+				<form class="login100-form validate-form" method="post" action="<?= $actionForm ?>">
 					<span class="login100-form-title font-cinzel">
 						<h1><?= $sistema['cfa_titulo_login'] ?></h1>
 						<h4><?= $sistema['cfa_subtitulo_login'] ?></h4>
 					</span>
 
-					<div class="wrap-input100 validate-input" data-validate="Inserir um e-mail valido">
-						<input class="input100" type="text" name="email" placeholder="E-mail">
-						<span class="focus-input100"></span>
-						<span class="symbol-input100">
-							<i class="fa fa-envelope" aria-hidden="true"></i>
-						</span>
+					<div id="logar" style="display: <?= $idLogar ?>;">
+						<div class="wrap-input100">
+							<input class="input100" type="text" name="email" placeholder="E-mail">
+							<span class="focus-input100"></span>
+							<span class="symbol-input100">
+								<i class="fa fa-envelope" aria-hidden="true"></i>
+							</span>
+						</div>
+
+						<div class="wrap-input100">
+							<input class="input100" type="password" name="pass" placeholder="Senha">
+							<span class="focus-input100"></span>
+							<span class="symbol-input100">
+								<i class="fa fa-lock" aria-hidden="true"></i>
+							</span>
+						</div>
 					</div>
 
-					<div class="wrap-input100 validate-input" data-validate="Forneça uma senha">
-						<input class="input100" type="password" name="pass" placeholder="Senha">
-						<span class="focus-input100"></span>
-						<span class="symbol-input100">
-							<i class="fa fa-lock" aria-hidden="true"></i>
-						</span>
+					<div id="AlterarSenha" style="display: <?= $idAlterarSenha ?>;">
+						<div class="wrap-input100">
+							<input class="input100" type="password" name="novaSenha" placeholder="Nova senha">
+							<span class="focus-input100"></span>
+							<span class="symbol-input100">
+								<i class="fa fa-unlock-alt" aria-hidden="true"></i>
+							</span>
+						</div>
+
+						<div class="wrap-input100">
+							<input class="input100" type="password" name="pass" placeholder="Repita senha">
+							<span class="focus-input100"></span>
+							<span class="symbol-input100">
+								<i class="fa fa-lock" aria-hidden="true"></i>
+							</span>
+						</div>
 					</div>
 
-					<div class="wrap-input100 validate-input" data-validate="Forneça uma senha">
+					<div id="insiraEmail" style="display: <?= $idInsiraEmail ?>;">
+						<div class="wrap-input100">
+							<input class="input100" type="email" name="emailEsqueciSenha" placeholder="Email">
+							<span class="focus-input100"></span>
+							<span class="symbol-input100">
+								<i class="fa fa-envelope" aria-hidden="true"></i>
+							</span>
+						</div>
+					</div>
+
+					<div class="wrap-input100">
 						<span class="focus-input100 txt2 alertaRed" style="<?= $_GET['erro'] == 1 ? 'display: block' : 'display: none' ?>;">Usuário nao encontrador</span>
 					</div>
-
-
 					<div class="container-login100-form-btn">
-						<button class="login100-form-btn">
-							Acessar
+						<button class="login100-form-btn" type="submit">
+							<?= $nomeButton ?>
 						</button>
+					</div>
+					<div class="text-center p-t-12" >
+						<span class="txt1">
+							Esqueceu
+						</span>
+						<a class="txt2" href="index.php?pag=3">
+							Usuário / Senha?
+						</a>
 					</div>
 				</form>
 			</div>
