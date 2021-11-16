@@ -109,7 +109,7 @@ switch ($_GET['pag']) {
 						</div>
 
 						<div class="wrap-input100">
-							<input class="input100" type="password" name="pass" placeholder="Senha">
+							<input class="input100" type="password" name="passLogar" placeholder="Senha">
 							<span class="focus-input100"></span>
 							<span class="symbol-input100">
 								<i class="fa fa-lock" aria-hidden="true"></i>
@@ -127,7 +127,7 @@ switch ($_GET['pag']) {
 						</div>
 
 						<div class="wrap-input100">
-							<input class="input100" type="password" name="pass" id="confirm_password" placeholder="Repita senha" onkeyup='check();'>
+							<input class="input100" type="password" name="passAlterarSenha" id="confirm_password" placeholder="Repita senha" onkeyup='check();'>
 							<span class="focus-input100"></span>
 							<span class="symbol-input100">
 								<i class="fa fa-lock" aria-hidden="true"></i>

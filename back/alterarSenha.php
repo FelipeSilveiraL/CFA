@@ -3,7 +3,7 @@
 require_once('../bd/conexao.php');
 
 //Senha vindo do formulario
-$senha = $_POST['pass'];
+$senha = $_POST['passAlterarSenha'];
 
 // Gera um hash baseado em bcrypt
 $custo = '10';

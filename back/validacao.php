@@ -8,9 +8,7 @@
 	//bcrypt - SENHA
 	$custo = '10';
 	$salt = 'Cf1f11ePArKlBJomM0F6aJ';
-	 
-	// Gera um hash baseado em bcrypt
-	$hash = crypt($_POST['pass'], '$2a$' . $custo . '$' . $salt . '$');
+	$hash = crypt($_POST['passLogar'], '$2a$' . $custo . '$' . $salt . '$');
 
 	//SQL injection
 	$email = $conn->real_escape_string($_POST['email']);
