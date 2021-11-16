@@ -9,7 +9,8 @@ if (!empty($_GET['idMembro'])) {
     $telamembros = empty($_POST['tela_membros']) ? "0" : $_POST['tela_membros'];
     $telacelula = empty($_POST['tela_celula']) ? "0" : $_POST['tela_celula'];
     $telapatrimonio = empty($_POST['tela_patrimonio']) ? "0" : $_POST['tela_patrimonio'];    
-    $telafinanceiro = empty($_POST['tela_financeiro']) ? "0" : $_POST['tela_financeiro'];
+    $telafinanceiro = empty($_POST['tela_financeiro']) ? "0" : $_POST['tela_financeiro'];    
+    $telaestudos = empty($_POST['tela_estudos']) ? "0" : $_POST['tela_estudos'];
 
     //CONFIGURAÇÃO
     $configinformacao = empty($_POST['config_informacao']) ? "0" : $_POST['config_informacao'];
@@ -39,6 +40,10 @@ if (!empty($_GET['idMembro'])) {
     //FINANCEIRO
     $financeiroadicionar = empty($_POST['financeiro_adicionar']) ? "0" : $_POST['financeiro_adicionar'];
     $financeiroexcluir = empty($_POST['financeiro_excluir']) ? "0" : $_POST['financeiro_excluir']; 
+    
+    //ESTUDOS
+    $estudosadicionar = empty($_POST['estudos_adicionar']) ? "0" : $_POST['estudos_adicionar'];
+    $estudosexcluir = empty($_POST['estudos_excluir']) ? "0" : $_POST['estudos_excluir']; 
 
     //variaveis do sistema
     $update = "UPDATE cfa_permissao SET 
@@ -46,7 +51,8 @@ if (!empty($_GET['idMembro'])) {
             tela_membros = '" . $telamembros . "',  
             tela_celula = '" . $telacelula . "',  
             tela_patrimonio = '".$telapatrimonio."',  
-            tela_financeiro = '".$telafinanceiro."',
+            tela_financeiro = '".$telafinanceiro."',  
+            tela_estudos = '".$telaestudos."',
             config_informacao = '" . $configinformacao . "',  
             config_sistema = '" . $configsistema . "',  
             config_menus = '" . $configmenus . "',  
@@ -65,7 +71,9 @@ if (!empty($_GET['idMembro'])) {
             patrimonio_adicionar = '" . $patrimonioadicionar . "',  
             patrimonio_excluir = '" . $patrimonioexcluir . "',
             financeiro_adicionar = '" . $financeiroadicionar . "',  
-            financeiro_excluir = '" . $financeiroexcluir . "'              
+            financeiro_excluir = '" . $financeiroexcluir . "',
+            estudos_adicionar = '" . $estudosadicionar . "',  
+            estudos_excluir = '" . $estudosexcluir . "'             
 
         WHERE (id_usuario = '" . $_GET['idMembro'] . "')";
 

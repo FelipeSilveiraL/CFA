@@ -192,7 +192,7 @@ if (!empty($_GET['idMembro'])) {
 									</select>
 								</div>
 							</div>
-							<div class="col-xs-12">
+							<div class="col-xs-6">
 								<div class="form-group">
 									<label>Célula</label>
 									<select class="form-control" name="celula">

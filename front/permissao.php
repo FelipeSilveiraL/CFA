@@ -50,7 +50,7 @@ if (!empty($_GET['idMembro'])) {
 		<div class="col-md-6">
 			<div class="panel panel-default">
 				<div class="panel-heading">
-					Permissões - Menus
+					Permissões - TELAS
 				</div>
 				<div class="panel-body">
 					<form action="../back/alterandoPermissao.php?idMembro=<?= $_GET['idMembro'] ?>" method="post" class="form-horizontal">
@@ -62,7 +62,7 @@ if (!empty($_GET['idMembro'])) {
 
 							if ($permissao = $resultPermissao->fetch_assoc()) {
 
-								//menu configuração
+								//TELA configuração
 
 								echo '<li class="todo-list-item">
 											<div class="checkbox">
@@ -78,7 +78,7 @@ if (!empty($_GET['idMembro'])) {
 
 
 
-								//Menu Membros
+								//TELA Membros
 
 								echo '<li class="todo-list-item">
 										<div class="checkbox">
@@ -93,7 +93,7 @@ if (!empty($_GET['idMembro'])) {
 										</div>
 									</li>';
 
-								//Menu Célula
+								//TELA Célula
 
 								echo '<li class="todo-list-item">
 										<div class="checkbox">
@@ -108,7 +108,7 @@ if (!empty($_GET['idMembro'])) {
 											</div>
 										</li>';
 
-								//Menu Patrimonio
+								//TELA Patrimonio
 
 								echo '<li class="todo-list-item">
 								<div class="checkbox">
@@ -123,7 +123,7 @@ if (!empty($_GET['idMembro'])) {
 									</div>
 								</li>';
 
-								//Menu Financeiro
+								//TELA Financeiro
 
 								echo '<li class="todo-list-item">
 								<div class="checkbox">
@@ -135,6 +135,21 @@ if (!empty($_GET['idMembro'])) {
 
 								echo '>
 										<label for="checkboxMenu-5"><span style="color: #FC07F8">Financeiro</span></label>
+									</div>
+								</li>';
+
+								//TELA Estudos
+
+								echo '<li class="todo-list-item">
+								<div class="checkbox">
+									<input name="tela_estudos" value="1" type="checkbox" id="checkboxMenu-6"';
+
+								if ($permissao['tela_estudos'] == 1) {
+									echo 'checked';
+								}
+
+								echo '>
+										<label for="checkboxMenu-6"><span style="color: #07c3fc">Estudos</span></label>
 									</div>
 								</li>';
 
@@ -419,7 +434,8 @@ if (!empty($_GET['idMembro'])) {
 								echo '<div class="panel-heading">
 								Permissões - <span style="color: #FC07F8">Tela Financeiro</span>
 									</div>';
-
+								
+									//Financeiro ADICIONAR
 								echo '<li class="todo-list-item">
 								<div class="checkbox">
 									<input name="financeiro_adicionar" value="1" type="checkbox" id="checkbox-22"';
@@ -433,7 +449,7 @@ if (!empty($_GET['idMembro'])) {
 								</div>
 							</li>';
 
-								//Celula Excluir
+								//Financeiro EXCLUIR
 
 								echo '<li class="todo-list-item">
 									<div class="checkbox">
@@ -445,6 +461,41 @@ if (!empty($_GET['idMembro'])) {
 
 								echo '>
 										<label for="checkbox-23">Excluir</label>
+									</div>
+								</li>';
+
+								//Estudos TITULO
+
+								echo '<div class="panel-heading">
+								Permissões - <span style="color: #07c3fc">Tela Estudos</span>
+									</div>';
+								
+									//Estudos ADICIONAR
+								echo '<li class="todo-list-item">
+								<div class="checkbox">
+									<input name="estudos_adicionar" value="1" type="checkbox" id="checkbox-24"';
+
+								if ($permissao['estudos_adicionar'] == 1) {
+									echo 'checked';
+								}
+
+								echo '>
+									<label for="checkbox-24">Adicionar</label>
+								</div>
+							</li>';
+
+								//Estudos EXCLUIR
+
+								echo '<li class="todo-list-item">
+									<div class="checkbox">
+										<input name="estudos_excluir" value="1" type="checkbox" id="checkbox-25"';
+
+								if ($permissao['estudos_excluir'] == 1) {
+									echo 'checked';
+								}
+
+								echo '>
+										<label for="checkbox-25">Excluir</label>
 									</div>
 								</li>';
 								

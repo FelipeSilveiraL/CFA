@@ -32,6 +32,7 @@ P.tela_membros,
 P.tela_celula,
 P.tela_patrimonio,
 p.tela_financeiro,
+p.tela_estudos,
 P.config_informacao,
 P.config_sistema,
 P.config_menus,
@@ -51,6 +52,8 @@ P.patrimonio_adicionar,
 P.patrimonio_excluir,
 P.financeiro_adicionar,
 P.financeiro_excluir,
+P.estudos_adicionar,
+P.estudos_excluir,
 
 MEC.nome AS estado_civil,
 MG.nome AS genero,
@@ -139,7 +142,7 @@ FROM cfa_reuniao CR";
 
 /* ============================================================================== */
 
-//MEMBROS
+//MEMBROS Celula participantes
 $queryParticipantes = "SELECT 
 CP.id_usuario,
 CP.nome

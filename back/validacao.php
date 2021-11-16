@@ -42,7 +42,8 @@
 		$_SESSION['tela_membros'] = $usuario['tela_membros'];
 		$_SESSION['tela_celula'] = $usuario['tela_celula'];
 		$_SESSION['tela_patrimonio'] = $usuario['tela_patrimonio'];		
-		$_SESSION['tela_financeiro'] = $usuario['tela_financeiro'];
+		$_SESSION['tela_financeiro'] = $usuario['tela_financeiro'];		
+		$_SESSION['tela_estudos'] = $usuario['tela_estudos'];
 
 		//TELA CONFIGURAÇÔES
 		$_SESSION['config_informacao'] = $usuario['config_informacao'];
@@ -73,6 +74,9 @@
 		$_SESSION['financeiro_adicionar'] = $usuario['financeiro_adicionar'];
 		$_SESSION['financeiro_excluir'] = $usuario['financeiro_excluir'];
 
+		//TELA ESTUDOS
+		$_SESSION['estudos_adicionar'] = $usuario['estudos_adicionar'];
+		$_SESSION['estudos_excluir'] = $usuario['estudos_excluir'];
 
 		//levando o usuário para a pagina principal
 		header('Location: ../front/dashboard.php?pagina=1');

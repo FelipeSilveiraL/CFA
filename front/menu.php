@@ -28,6 +28,10 @@
 		<li <?= $celula ?>>
 			<a href="celula.php?pagina=4&modo=1"><i class="fas fa-project-diagram"></i>&nbsp; Células</a>
 		</li>
+
+		<li <?= $estudos ?>>
+			<a href="estudos.php?pagina=7"><i class="fas fa-graduation-cap"></i>&nbsp; Estudos</a>
+		</li>
 		
 		<li <?= $patrimonio ?>>
 			<a href="patrimonio.php?pagina=5"><i class="fas fa-hotel"></i>&nbsp; Patrimônio</a>
