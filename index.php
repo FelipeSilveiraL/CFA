@@ -2,9 +2,11 @@
 <html lang="pt-BR">
 <?php
 session_start();
-
 // Desligue todos os relatórios de erros
 error_reporting(0);
+
+require_once('bd/conexao.php');
+require_once('back/query.php');
 
 if ($_SESSION['email'] != NULL) { //verifiando se o usuário já esta logado
 	header('Location: front/dashboard.php?pagina=1');
@@ -18,13 +20,28 @@ switch ($_GET['pag']) {
 		$nomeButton = 'Acessar';
 		$actionForm = 'back/validacao.php';
 		break;
-		
+
 	case '2':
-		$idLogar = 'none';
-		$idAlterarSenha = 'block';
-		$idInsiraEmail = 'none';
-		$nomeButton = 'Alterar';
-		$actionForm = 'back/alterarSenha.php';
+		//verificar se ele pediu mesmo para alterar a senha
+
+		if (!empty($_GET['idUsuario'])) {
+			$queryUsuarios .= " WHERE U.id = " . $_GET['idUsuario'];
+			$resultUsuario = $conn->query($queryUsuarios);
+			$usuarios = $resultUsuario->fetch_assoc();
+
+			if ($usuarios['alterarSenha'] == 1) {
+				$idLogar = 'none';
+				$idAlterarSenha = 'block';
+				$idInsiraEmail = 'none';
+				$nomeButton = 'Alterar';
+				$actionForm = 'back/alterarSenha.php?idUsuario=' . $usuarios['id'];
+			} else {
+				header('Location: index.php?pag=1');
+			}
+		} else {
+			header('Location: index.php?pag=1');
+		}
+
 		break;
 
 	case '3':
@@ -40,8 +57,6 @@ switch ($_GET['pag']) {
 		break;
 }
 
-require_once('bd/conexao.php');
-require_once('back/query.php');
 
 ?>
 
@@ -68,9 +83,11 @@ require_once('back/query.php');
 </head>
 
 <body>
-
 	<div class="limiter">
 		<div class="container-login100">
+			<div class="col-lg-12" id="msnOne" style="display: <?= $_GET['msn'] == 1 ? 'block' : 'none' ?>">
+				<div class="alert bg-success" role="alert"><em class="fa fa-lg fa-warning">&nbsp;</em> Senha alterada com sucesso! <a href="javascript:" class="pull-right" onclick="msnONE()"><em class="fa fa-lg fa-close"></em></a></div>
+			</div>
 			<div class="wrap-login100">
 				<div class="login100-pic js-tilt" data-tilt>
 					<img src="<?= $logo = substr($sistema['cfa_logo_login'], 3) ?>" alt="IMG" class="logo">
@@ -102,7 +119,7 @@ require_once('back/query.php');
 
 					<div id="AlterarSenha" style="display: <?= $idAlterarSenha ?>;">
 						<div class="wrap-input100">
-							<input class="input100" type="password" name="novaSenha" placeholder="Nova senha">
+							<input class="input100" id="password" type="password" placeholder="Nova senha" onkeyup="check();">
 							<span class="focus-input100"></span>
 							<span class="symbol-input100">
 								<i class="fa fa-unlock-alt" aria-hidden="true"></i>
@@ -110,12 +127,13 @@ require_once('back/query.php');
 						</div>
 
 						<div class="wrap-input100">
-							<input class="input100" type="password" name="pass" placeholder="Repita senha">
+							<input class="input100" type="password" name="pass" id="confirm_password" placeholder="Repita senha" onkeyup='check();'>
 							<span class="focus-input100"></span>
 							<span class="symbol-input100">
 								<i class="fa fa-lock" aria-hidden="true"></i>
 							</span>
 						</div>
+						<span id='message' class="txt2"></span>
 					</div>
 
 					<div id="insiraEmail" style="display: <?= $idInsiraEmail ?>;">
@@ -132,11 +150,11 @@ require_once('back/query.php');
 						<span class="focus-input100 txt2 alertaRed" style="<?= $_GET['erro'] == 1 ? 'display: block' : 'display: none' ?>;">Usuário nao encontrador</span>
 					</div>
 					<div class="container-login100-form-btn">
-						<button class="login100-form-btn" type="submit">
+						<button class="login100-form-btn" type="submit" id="enviar">
 							<?= $nomeButton ?>
 						</button>
 					</div>
-					<div class="text-center p-t-12" >
+					<div class="text-center p-t-12">
 						<span class="txt1">
 							Esqueceu
 						</span>
@@ -148,6 +166,27 @@ require_once('back/query.php');
 			</div>
 		</div>
 	</div>
+
+	<script>
+		//escondendo msn
+
+		function msnONE(){
+			document.getElementById("msnOne").style.display = "none";
+		}
+
+		//Validando senha iguais
+		var check = function() {
+			if (document.getElementById('password').value == document.getElementById('confirm_password').value) {
+				document.getElementById('message').style.color = 'green';
+				document.getElementById('message').innerHTML = 'Senha OK';
+				document.getElementById("enviar").disabled = false;
+			} else {
+				document.getElementById('message').style.color = 'red';
+				document.getElementById('message').innerHTML = 'Senha diferentes';
+				document.getElementById("enviar").disabled = true;
+			}
+		}
+	</script>
 
 	<!--===============================================================================================-->
 	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>

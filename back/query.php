@@ -25,6 +25,7 @@ U.pais,
 U.estado,
 U.cidade,
 U.deletar,
+U.alterarSenha,
 
 P.tela_configuracoes,
 P.tela_membros,
