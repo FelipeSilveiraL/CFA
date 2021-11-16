@@ -141,8 +141,14 @@ if (!empty($_GET['idMembro'])) {
 										</a>
 									</span>
 								</div>
+							</div>							
+							<div class="col-xs-6">
+								<div class="form-group">
+									<label>Data nascimento</label>
+									<input type="text" placeholder="xx/xx/xxxx" class="form-control" name="nascimento" value="<?= !empty($membro['data_nascimento']) ? $membro['data_nascimento'] : ""  ?>">
+								</div>
 							</div>
-							<div class="col-xs-12">
+							<div class="col-xs-6">
 								<div class="form-group">
 									<label>Whatsapp</label>
 									<input type="text" class="form-control" placeholder="(xx) xxxx - xxx" name="celular" maxlength="15" value="<?= !empty($membro['celular']) ? $membro['celular'] : ""  ?>">
@@ -227,12 +233,6 @@ if (!empty($_GET['idMembro'])) {
 										}
 										?>
 									</select>
-								</div>
-							</div>
-							<div class="col-xs-6">
-								<div class="form-group">
-									<label>Data nascimento</label>
-									<input type="text" placeholder="xx/xx/xxxx" class="form-control" name="nascimento" value="<?= !empty($membro['data_nascimento']) ? $membro['data_nascimento'] : ""  ?>">
 								</div>
 							</div>
 					</div>

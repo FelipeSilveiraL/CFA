@@ -1,6 +1,9 @@
 <html lang="pt-br">
 	<?php
+	//sessões do portal
 	session_start();
+	// Desligue todos os relatórios de erros
+	error_reporting(0);
 
 	if ($_SESSION['email'] == NULL) {
 		header('Location: ../index.php?erro=1');
