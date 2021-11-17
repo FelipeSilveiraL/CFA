@@ -211,4 +211,21 @@ FROM cfa_patrimonio_registros CR
 LEFT JOIN cfa_usuarios CU ON (CR.id_usuario = CU.id)";
                         
 /* ============================================================================== */
+
+//ESTUDOS
+$queryEstudos = "SELECT 
+CFAE.id, 
+CFAE.nome, 
+CFAE.observacao,
+CFAE.data_criacao, 
+
+CFAU.nome AS lecionador,
+CFAU.id AS id_usuario
+
+FROM
+cfa_estudos CFAE
+    LEFT JOIN
+cfa_usuarios CFAU ON (CFAE.lecionador = CFAU.id)";
+                        
+/* ============================================================================== */
                         

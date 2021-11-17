@@ -4,6 +4,7 @@ date_default_timezone_set('America/Sao_Paulo');
 
 include('head.php');
 include('header.php');
+include('../bd/conexao.php');
 /* PERMISSÃO */
 $_SESSION['tela_estudos'] == 1 ?: header('location: dashboard.php?pagina=1');
 
@@ -13,6 +14,16 @@ include('../back/query.php');
 
 if (!empty($_GET['idEstudo'])) {
 	//Editar
+
+	$queryEstudos .= " WHERE CFAE.id = ".$_GET['idEstudo'];
+	$resul = $conn->query($queryEstudos);
+	$estudos = $resul->fetch_assoc();
+
+	$icon = '<i class="fas fa-book"></i>';
+	$nome = $estudos['nome'];
+	$titulo = 'Dados - '.$estudos['nome'];
+	$button = 'Editar';
+	$display = 'style= "display: block;"';
 	
 } else {
 	//Novo
@@ -54,7 +65,7 @@ if (!empty($_GET['idEstudo'])) {
 			<div class="row">
 				<div class="col-lg-12">
 					<div class="alert bg-success" role="alert" id="msnAlertaSuccess" style="display: <?= $_GET['msn'] == 1 ? "block" : "none" ?>;">
-						<em class="fa fa-lg fa-warning">&nbsp;</em> Cadastrado com sucesso!<a href="javascript:" class="pull-right" onclick="fecharSuccess()"><em class="fa fa-lg fa-close"></em></a>
+						<em class="fa fa-lg fa-warning">&nbsp;</em> Criado com sucesso!<a href="javascript:" class="pull-right" onclick="criado();"><em class="fa fa-lg fa-close"></em></a>
 					</div>
 				</div>
 			</div>
@@ -74,23 +85,25 @@ if (!empty($_GET['idEstudo'])) {
 				</div>
 				<div class="panel-body">
 					<div class="col-md-6">
-						<form role="form" method="POST" action="../back/novoPatrimonio.php?idPatrimonio=<?= $_GET['idPatrimonio'] ?>" enctype="multipart/form-data">
+						<form role="form" method="POST" action="../back/novoEstudo.php?idEstudo=<?= $_GET['idEstudo'] ?>">
 							<div class="col-xs-12">
 								<div class="form-group">
-									<label>Nome</label>
-									<input class="form-control" name="nome" maxlength="50" value="<?= !empty($patrimonio['nome']) ? $patrimonio['nome'] : ""  ?>" required>
+									<label>Nome Estudo</label>
+									<input class="form-control" name="nomeEstudo" maxlength="45" value="<?= !empty($estudos['nome']) ? $estudos['nome'] : ""  ?>" required>
 								</div>
 							</div>
 							<div class="col-xs-12">
 								<div class="form-group">
 									<label>Lecionador</label>
-									<select class="form-control" name="situacao">
+									<select class="form-control" name="lecionador">
 										<?php
-										if (!empty($patrimonio['id_situacao'])) {
-											echo '<option value="' . $patrimonio['id_situacao'] . '">' . $patrimonio['situacao'] . '</option>';
+										if (!empty($estudos['id_usuario'])) {
+											echo '<option value="' . $estudos['id_usuario'] . '">' . $estudos['lecionador'] . '</option>';
 											echo '<option>------------</option>';
-											while ($situacao = $resultSituacao->fetch_assoc()) {
-												echo '<option value="' . $situacao['id'] . '">' . $situacao['nome'] . '</option>';
+
+											$resultUsuarios = $conn->query($queryUsuarios);
+											while ($usuarios = $resultUsuarios->fetch_assoc()) {
+												echo '<option value="' . $usuarios['id'] . '">' . $usuarios['nome'] . '</option>';
 											}
 										} else {
 											echo '<option>Selecione...</option>';
@@ -109,11 +122,11 @@ if (!empty($_GET['idEstudo'])) {
 						<div class="col-md-12">
 							<div class="form-group">
 								<label>Observações</label>
-								<textarea class="form-control" id="message" name="observacao" placeholder="..." rows="10"><?= !empty($patrimonio['observacao']) ? $patrimonio['observacao'] : ""  ?></textarea>
+								<textarea class="form-control" id="message" name="observacao" placeholder="..." rows="10"><?= !empty($estudos['observacao']) ? $estudos['observacao'] : ""  ?></textarea>
 							</div>
 						</div>
 
-						<div style="display: <?= $_SESSION['patrimonio_adicionar'] == 1 ? "block" : "none" ?>;">
+						<div style="display: <?= $_SESSION['estudos_adicionar'] == 1 ? "block" : "none" ?>;">
 							<button type="submit" class="btn btn-success" id="enviar">
 								<i class="fas fa-share fa-sm text-white-50"></i>&nbsp;<?= $button ?>
 							</button>
@@ -180,24 +193,15 @@ if (!empty($_GET['idEstudo'])) {
 		</div>
 	</div>
 </div><!-- /.panel-->
-</div><!-- /.col-->
 
 <!--/. CONTEUDO-->
 
 <!-- FECHAR MSN DE CADASTRADO COM SUCESSO -->
 <script>
-	function fecharSuccess() {
-		let msn = document.getElementById("msnAlertaSuccess").style.display;
-
-		if (msn == "block") {
-			document.getElementById("msnAlertaSuccess").style.display = "none";
-		}
+	function criado() {
+		document.getElementById("msnAlertaSuccess").style.display = "none";
 	}
-</script>
-
-
-
-<script>
+	
 	function fecharInfo() {
 		let msn = document.getElementById("msnAlertaInfo").style.display;
 
@@ -205,9 +209,7 @@ if (!empty($_GET['idEstudo'])) {
 			document.getElementById("msnAlertaInfo").style.display = "none";
 		}
 	}
-</script>
-
-<script>
+	
 	function fecharDoc() {
 		let msn = document.getElementById("msnAlertaDocumento").style.display;
 
@@ -216,6 +218,8 @@ if (!empty($_GET['idEstudo'])) {
 		}
 	}
 </script>
+</div><!-- /.col-->
+
 
 <!--FOOTER-->
 <?php include('footer.php'); ?>

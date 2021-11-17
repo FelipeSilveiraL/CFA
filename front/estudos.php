@@ -1,5 +1,5 @@
-<!--HEAD-->
-<?php include('head.php');
+<?php
+include('head.php');
 /* <!--FIM HEAD--> */
 
 /* <!--HEADER--> */
@@ -43,7 +43,7 @@ include('menu.php');
 	<div class="row" id="msnAlertaInfo" style="display: <?= $_GET['msn'] == 1 ? "block" : "none" ?>;">
 		<div class="col-lg-12">
 			<div class="alert bg-warning" role="alert">
-				<em class="fa fa-lg fa-warning">&nbsp;</em> Patrimônio excluida com sucesso!
+				<em class="fa fa-lg fa-warning">&nbsp;</em> Estudo excluido com sucesso!
 				<a href="javascript:" class="pull-right" onclick="fecharInfo()">
 					<em class="fa fa-lg fa-close"></em>
 				</a>
@@ -68,10 +68,7 @@ include('menu.php');
 										<a href="../back/pdf.php?modo=3" class="btn btn-sm btn-danger">
 											<i class="fas fa-print"></i> PDF
 										</a>
-										<a href="../back/excel.php?modo=3" class="btn btn-sm btn-primary">
-											<i class="fab fa-windows"></i> Excel
-										</a>
-										<a href="novoEstudo.php?pagina=7" class="btn btn-sm btn-success" style="display: <?= $_SESSION['patrimonio_adicionar'] == 1 ? "inline-block" : "none" ?>;">
+										<a href="novoEstudo.php?pagina=7" class="btn btn-sm btn-success" style="display: <?= $_SESSION['estudos_adicionar'] == 1 ? "inline-block" : "none" ?>;">
 											<i class="fas fa-plus"></i> Estudo
 										</a>
 									</div>
@@ -99,24 +96,32 @@ include('menu.php');
 									<tbody>
 										<?php
 
-										$resultPatrimonio = $conn->query($queryPatrimonio);
+										include('../back/query.php');
+										include('../bd/conexao.php');
 
-										while ($patrimonio = $resultPatrimonio->fetch_assoc()) {
+										$result = $conn->query($queryEstudos);
+
+										while ($estudos = $result->fetch_assoc()) {
+
+											include('../back/counts.php');
+
+											$countEstudantes .= " WHERE id_estudo = ".$estudos['id'];
+											$resultCountEst = $conn->query($countEstudantes);
+											$countEst = $resultCountEst->fetch_assoc();
 
 											echo '<tr>
-												<td>' . $patrimonio['id'] . '</td>
-												<td>' . $patrimonio['nome'] . '</td>
-												<td>' . $patrimonio['codigo'] . '</td>
-												<td>' . $patrimonio['local'] . '</td>
-												<td>' . $patrimonio['conservacao'] . '</td>
+												<td>' . $estudos['id'] . '</td>
+												<td style="text-transform: capitalize" >' . $estudos['nome'] . '</td>
+												<td>' . $estudos['lecionador'] . '</td>
+												<td>' . $countEst['quantidade'] . '</td>
 												<td>
 													<div class="pull-right action-buttons tabela">
-														<a href="novoPatrimonio.php?pagina=5&idPatrimonio=' . $patrimonio['id'] . '" class="edit" title="Ver mais sobre">
+														<a href="novoEstudo.php?pagina=7&idEstudo=' . $estudos['id'] . '" class="edit" title="Ver mais sobre">
 															<em class="fa fa-eye"></em>
 														</a>
-														<a href="excluirPatrimonio.php?pagina=5&idPatrimonio=' . $patrimonio['id'] . '" class="trash" title="Excluir" style="display:';
+														<a href="excluirEstudo.php?pagina=7&idEstudo=' . $estudos['id'] . '" class="trash" title="Excluir" style="display:';
 
-											echo $_SESSION['patrimonio_excluir'] == 1 ? 'inline-block' : 'none';
+											echo $_SESSION['estudos_excluir'] == 1 ? 'inline-block' : 'none';
 
 											echo ';
 														margin-right: 5px;

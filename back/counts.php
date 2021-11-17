@@ -371,4 +371,8 @@ if (!empty($_GET['idCelula'])) {
     $dezembroP = $resultDezP->fetch_assoc();
 }
 
+//ESTUDANTES
+/* ============================================================================== */
+$countEstudantes = "SELECT COUNT(id) AS quantidade FROM cfa_estudantes";
+
 ?>
