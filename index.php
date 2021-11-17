@@ -8,6 +8,9 @@ error_reporting(0);
 require_once('bd/conexao.php');
 require_once('back/query.php');
 
+//ações automaticas do sistemas
+require_once('back/processAutomaticos.php');
+
 if ($_SESSION['email'] != NULL) { //verifiando se o usuário já esta logado
 	header('Location: front/dashboard.php?pagina=1');
 }
@@ -148,6 +151,9 @@ switch ($_GET['pag']) {
 
 					<div class="wrap-input100">
 						<span class="focus-input100 txt2 alertaRed" style="<?= $_GET['erro'] == 1 ? 'display: block' : 'display: none' ?>;">Usuário nao encontrador</span>
+					</div>
+					<div class="wrap-input100">
+						<span class="focus-input100 txt2 alertaRed" style="<?= $_GET['erro'] == 2 ? 'display: block' : 'display: none' ?>;">Conta desativada</span>
 					</div>
 					<div class="container-login100-form-btn">
 						<button class="login100-form-btn" type="submit" id="enviar">

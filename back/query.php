@@ -228,4 +228,18 @@ cfa_estudos CFAE
 cfa_usuarios CFAU ON (CFAE.lecionador = CFAU.id)";
                         
 /* ============================================================================== */
-                        
+
+//ESTUDOS
+$queryEstudantes = "SELECT 
+CES.id,
+CES.data_inicio,
+CES.data_fim,
+CES.status,
+CE.nome AS nomeEstudo, 
+
+CU.nome AS estudante,
+CU.email
+
+FROM cfa.cfa_estudantes CES
+LEFT JOIN cfa_estudos CE ON (CES.id_estudo = CE.id)
+LEFT JOIN cfa_usuarios CU ON (CES.id_usuario = CU.id)";                        

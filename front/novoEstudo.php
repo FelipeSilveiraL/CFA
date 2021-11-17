@@ -2,7 +2,9 @@
 setlocale(LC_TIME, 'pt_BR', 'pt_BR.utf-8', 'pt_BR.utf-8', 'portuguese');
 date_default_timezone_set('America/Sao_Paulo');
 
+
 include('head.php');
+
 include('header.php');
 include('../bd/conexao.php');
 /* PERMISSÃO */
@@ -15,16 +17,15 @@ include('../back/query.php');
 if (!empty($_GET['idEstudo'])) {
 	//Editar
 
-	$queryEstudos .= " WHERE CFAE.id = ".$_GET['idEstudo'];
+	$queryEstudos .= " WHERE CFAE.id = " . $_GET['idEstudo'];
 	$resul = $conn->query($queryEstudos);
 	$estudos = $resul->fetch_assoc();
 
-	$icon = '<i class="fas fa-book"></i>';
+	$icon = '<i class="fas fa-book-open"></i>';
 	$nome = $estudos['nome'];
-	$titulo = 'Dados - '.$estudos['nome'];
+	$titulo = 'Dados - ' . $estudos['nome'];
 	$button = 'Editar';
 	$display = 'style= "display: block;"';
-	
 } else {
 	//Novo
 	$icon = '<i class="fas fa-plus"></i>';
@@ -44,7 +45,7 @@ if (!empty($_GET['idEstudo'])) {
 			<li>
 				<a href="dashboard.php?pagina=1"><i class="fas fa-home"></i> Home</a>
 			</li>
-			<li><a href="estudos.php?pagina=7"><i class="fas fa-graduation-cap"></i> Estudos</li></a>
+			<li><a href="estudos.php?pagina=7"><i class="fas fa-book"></i> Estudos</li></a>
 			<li class="active"><?= $icon . " " . $nome ?></li>
 		</ol>
 	</div>
@@ -80,21 +81,20 @@ if (!empty($_GET['idEstudo'])) {
 			<!--/.row-->
 			<div class="panel panel-default">
 				<div class="panel-heading textNome">
-					<i class="fas fa-graduation-cap"></i> <?= $titulo ?>
-					<span class="pull-right clickable panel-toggle panel-button-tab-left"><em class="fa fa-toggle-up"></em></span>
+					<i class="fas fa-book-open"></i> <?= $titulo ?>
 				</div>
 				<div class="panel-body">
 					<div class="col-md-6">
 						<form role="form" method="POST" action="../back/novoEstudo.php?idEstudo=<?= $_GET['idEstudo'] ?>">
 							<div class="col-xs-12">
 								<div class="form-group">
-									<label>Nome Estudo</label>
+									<label>Nome Estudo:</label>
 									<input class="form-control" name="nomeEstudo" maxlength="45" value="<?= !empty($estudos['nome']) ? $estudos['nome'] : ""  ?>" required>
 								</div>
 							</div>
 							<div class="col-xs-12">
 								<div class="form-group">
-									<label>Lecionador</label>
+									<label>Lecionador:</label>
 									<select class="form-control" name="lecionador">
 										<?php
 										if (!empty($estudos['id_usuario'])) {
@@ -117,11 +117,11 @@ if (!empty($_GET['idEstudo'])) {
 									</select>
 								</div>
 							</div>
-					</div>
+					</div>					
 					<div class="col-md-6">
 						<div class="col-md-12">
 							<div class="form-group">
-								<label>Observações</label>
+								<label>Observações:</label>
 								<textarea class="form-control" id="message" name="observacao" placeholder="..." rows="10"><?= !empty($estudos['observacao']) ? $estudos['observacao'] : ""  ?></textarea>
 							</div>
 						</div>
@@ -141,12 +141,11 @@ if (!empty($_GET['idEstudo'])) {
 		</div>
 	</div>
 
-	<div class="row" <?= $display ?>>
-		<div class="col-lg-6">
+	<div class="row" <?= $display ?> id="alunos">
+		<div class="col-lg-12">
 			<div class="panel panel-default">
 				<div class="panel-heading textNome">
-					Documentos
-					<span class="pull-right clickable panel-toggle panel-button-tab-left"><em class="fa fa-toggle-up"></em></span>
+					<i class="fas fa-graduation-cap"></i> Estudantes
 				</div>
 				<div class="panel-body">
 					<div class="col-md-12">
@@ -155,8 +154,8 @@ if (!empty($_GET['idEstudo'])) {
 								<div class="panel-heading">
 									<div class="pull-right">
 										<!-- Button trigger modal -->
-										<button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#doc" style="display: <?= $_SESSION['patrimonio_adicionar'] == 1 ? "inline-block" : "none" ?>;">
-											<i class="fas fa-plus"></i> Novo Documento
+										<button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#aluno" style="display: <?= $_SESSION['estudos_adicionar'] == 1 ? "inline-block" : "none" ?>;">
+											<i class="fas fa-plus"></i> Novo aluno
 										</button>
 									</div>
 								</div>
@@ -167,21 +166,37 @@ if (!empty($_GET['idEstudo'])) {
 												<input type="text" class="form-control" placeholder="Nome" disabled>
 											</th>
 											<th>
-												<input type="text" class="form-control" placeholder="Caminho" disabled>
+												<input type="text" class="form-control" placeholder="E-mail" disabled>
+											</th>
+											<th>
+												<input type="text" class="form-control" placeholder="Data Inicio" disabled>
+											</th>
+											<th>
+												<input type="text" class="form-control" placeholder="Data Fim" disabled>
+											</th>
+											<th>
+												<input type="text" class="form-control" placeholder="Status" disabled>
 											</th>
 										</tr>
 									</thead>
 									<tbody>
 										<?php
-										$queryDocumentosPatrimonios .= " WHERE id_patrimonio = ".$_GET['idPatrimonio'];
-										$resultadoDocumentos = $conn->query($queryDocumentosPatrimonios);
+										$queryEstudantes .= " WHERE CES.id_estudo = ".$_GET['idEstudo'];
+										$resultEstudantes = $conn->query($queryEstudantes);
 
-										while ($documentos = $resultadoDocumentos->fetch_assoc()) {
-											echo '<tr>
-														<td>' . $documentos['nome'] . '</td>
-														<td><a href="' . $documentos['documento'] . '" target="_blank"><i class="fas fa-download fa-2x"></i></a></td>
-													</tr>';
+										while($estudantes = $resultEstudantes->fetch_assoc()){
+											echo '
+												<tr>
+													<td>'.$estudantes['estudante'].'</td>
+													<td>'.$estudantes['email'].'</td>
+													<td>'.date('d/m/Y', strtotime($estudantes['data_inicio'])).'</td>
+													<td>'.date('d/m/Y', strtotime($estudantes['data_fim'])).'</td>
+													<td style="background:';													
+											echo $estudantes['status'] == 'Concluido' ? '#80f580' : '#f9dfaf';
+											echo '">'.$estudantes['status'].'</td>
+												</tr>';
 										}
+
 										?>
 									</tbody>
 								</table>
@@ -192,16 +207,69 @@ if (!empty($_GET['idEstudo'])) {
 			</div>
 		</div>
 	</div>
-</div><!-- /.panel-->
+</div>
+<!-- MODAL DOCUMENTOS-->
+<div class="modal fade" id="aluno" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content" style="width: 150%; margin-left: -170px">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel"><i class="fas fa-plus"></i> Novo Aluno</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<form class="form-horizontal" action="../back/novoAluno.php?idEstudo=<?= $_GET['idEstudo'] ?>" method="post" enctype="multipart/form-data">
+					<table class="table table-bordered table-hover table-striped">
+						<thead>
+							<tr>
+								<th>Seleção</th>
+								<th>Nome</th>
+								<th>E-mail</th>
+								<th>Data Inicio</th>								
+								<th>Data Fim</th>								
+								<th>Status</th>
+							</tr>
+						</thead>
+						<tbody>
+						<?php
+							$queryUsuarios .= " WHERE U.deletar = 0";
+							$resultUsuario = $conn->query($queryUsuarios);
 
-<!--/. CONTEUDO-->
-
+							while($user = $resultUsuario->fetch_assoc()){
+								echo '<tr>
+										<td><input type="checkbox" name="aluno[]" value="'.$user['id'].'"></td>
+										<td><label>'.$user['nome'].' '.$user['sobre_nome'].'</label></td>
+										<td>'.$user['email'].'</td>
+										<td><input type="date" name="data_inicio'.$user['id'].'" ></td>
+										<td><input type="date" name="data_fim'.$user['id'].'" ></td>
+										<td>
+										<select name="status'.$user['id'].'">
+											<option value="">Selecione...</option>
+											<option value="Cursando">Cursando</option>
+											<option value="Concluido">Concluido</option>
+										</select>										
+										</td>
+									</tr>';
+							}
+						?>
+						</tbody>
+					</table>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+						<button type="submit" class="btn btn-primary">Salvar</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div><!-- FIM MODAL DOCUMENTOS -->
 <!-- FECHAR MSN DE CADASTRADO COM SUCESSO -->
 <script>
 	function criado() {
 		document.getElementById("msnAlertaSuccess").style.display = "none";
 	}
-	
+
 	function fecharInfo() {
 		let msn = document.getElementById("msnAlertaInfo").style.display;
 
@@ -209,7 +277,7 @@ if (!empty($_GET['idEstudo'])) {
 			document.getElementById("msnAlertaInfo").style.display = "none";
 		}
 	}
-	
+
 	function fecharDoc() {
 		let msn = document.getElementById("msnAlertaDocumento").style.display;
 
@@ -220,7 +288,8 @@ if (!empty($_GET['idEstudo'])) {
 </script>
 </div><!-- /.col-->
 
-
 <!--FOOTER-->
-<?php include('footer.php'); ?>
+<?php
+require_once('footer.php');
+?>
 <!--/. FOOTER-->

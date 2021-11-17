@@ -27,7 +27,7 @@ include('menu.php');
 				</a>
 			</li>
 			<li class="active">
-				<i class="fas fa-graduation-cap"></i> Estudos
+				<i class="fas fa-book"></i> Estudos
 			</li>
 		</ol>
 	</div>
@@ -144,10 +144,6 @@ include('menu.php');
 	</div> <!-- FIM MODO 1 -->
 
 
-	<!--/. CONTEUDO-->
-
-	<!--FOOTER-->
-	<?php include('footer.php'); ?>
 	<!--/. FOOTER-->
 
 	<script>
@@ -159,3 +155,7 @@ include('menu.php');
 			}
 		}
 	</script>
+	<!--/. CONTEUDO-->
+
+	<!--FOOTER-->
+	<?php include('footer.php'); ?>

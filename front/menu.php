@@ -30,7 +30,7 @@
 		</li>
 
 		<li <?= $estudos ?>>
-			<a href="estudos.php?pagina=7"><i class="fas fa-graduation-cap"></i>&nbsp; Estudos</a>
+			<a href="estudos.php?pagina=7"><i class="fas fa-book"></i>&nbsp; Estudos</a>
 		</li>
 		
 		<li <?= $patrimonio ?>>
