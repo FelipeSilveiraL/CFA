@@ -117,7 +117,7 @@ if (!empty($_GET['idEstudo'])) {
 									</select>
 								</div>
 							</div>
-					</div>					
+					</div>
 					<div class="col-md-6">
 						<div class="col-md-12">
 							<div class="form-group">
@@ -153,7 +153,12 @@ if (!empty($_GET['idEstudo'])) {
 							<div class="panel panel-primary filterable col-md-13">
 								<div class="panel-heading">
 									<div class="pull-right">
-										<!-- Button trigger modal -->
+										<button type="button" class="btn btn-danger btn-sm">
+											<i class="fas fa-print"></i> PDF
+										</button>
+										<button type="button" class="btn btn-info btn-sm">
+											<i class="fab fa-windows"></i> EXCEL
+										</button>
 										<button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#aluno" style="display: <?= $_SESSION['estudos_adicionar'] == 1 ? "inline-block" : "none" ?>;">
 											<i class="fas fa-plus"></i> Novo aluno
 										</button>
@@ -181,19 +186,19 @@ if (!empty($_GET['idEstudo'])) {
 									</thead>
 									<tbody>
 										<?php
-										$queryEstudantes .= " WHERE CES.id_estudo = ".$_GET['idEstudo'];
+										$queryEstudantes .= " WHERE CES.id_estudo = " . $_GET['idEstudo'];
 										$resultEstudantes = $conn->query($queryEstudantes);
 
-										while($estudantes = $resultEstudantes->fetch_assoc()){
+										while ($estudantes = $resultEstudantes->fetch_assoc()) {
 											echo '
 												<tr>
-													<td>'.$estudantes['estudante'].'</td>
-													<td>'.$estudantes['email'].'</td>
-													<td>'.date('d/m/Y', strtotime($estudantes['data_inicio'])).'</td>
-													<td>'.date('d/m/Y', strtotime($estudantes['data_fim'])).'</td>
-													<td style="background:';													
+													<td>' . $estudantes['estudante'] . '</td>
+													<td>' . $estudantes['email'] . '</td>
+													<td>' . date('d/m/Y', strtotime($estudantes['data_inicio'])) . '</td>
+													<td>' . date('d/m/Y', strtotime($estudantes['data_fim'])) . '</td>
+													<td style="background:';
 											echo $estudantes['status'] == 'Concluido' ? '#80f580' : '#f9dfaf';
-											echo '">'.$estudantes['status'].'</td>
+											echo '">' . $estudantes['status'] . '</td>
 												</tr>';
 										}
 
@@ -208,7 +213,7 @@ if (!empty($_GET['idEstudo'])) {
 		</div>
 	</div>
 </div>
-<!-- MODAL DOCUMENTOS-->
+<!-- ESTUDANTES-->
 <div class="modal fade" id="aluno" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content" style="width: 150%; margin-left: -170px">
@@ -226,25 +231,25 @@ if (!empty($_GET['idEstudo'])) {
 								<th>Seleção</th>
 								<th>Nome</th>
 								<th>E-mail</th>
-								<th>Data Inicio</th>								
-								<th>Data Fim</th>								
+								<th>Data Inicio</th>
+								<th>Data Fim</th>
 								<th>Status</th>
 							</tr>
 						</thead>
 						<tbody>
-						<?php
+							<?php
 							$queryUsuarios .= " WHERE U.deletar = 0";
 							$resultUsuario = $conn->query($queryUsuarios);
 
-							while($user = $resultUsuario->fetch_assoc()){
+							while ($user = $resultUsuario->fetch_assoc()) {
 								echo '<tr>
-										<td><input type="checkbox" name="aluno[]" value="'.$user['id'].'"></td>
-										<td><label>'.$user['nome'].' '.$user['sobre_nome'].'</label></td>
-										<td>'.$user['email'].'</td>
-										<td><input type="date" name="data_inicio'.$user['id'].'" ></td>
-										<td><input type="date" name="data_fim'.$user['id'].'" ></td>
+										<td><input type="checkbox" name="aluno[]" value="' . $user['id'] . '"></td>
+										<td><label>' . $user['nome'] . ' ' . $user['sobre_nome'] . '</label></td>
+										<td>' . $user['email'] . '</td>
+										<td><input type="date" name="data_inicio' . $user['id'] . '" ></td>
+										<td><input type="date" name="data_fim' . $user['id'] . '" ></td>
 										<td>
-										<select name="status'.$user['id'].'">
+										<select name="status' . $user['id'] . '">
 											<option value="">Selecione...</option>
 											<option value="Cursando">Cursando</option>
 											<option value="Concluido">Concluido</option>
@@ -252,7 +257,7 @@ if (!empty($_GET['idEstudo'])) {
 										</td>
 									</tr>';
 							}
-						?>
+							?>
 						</tbody>
 					</table>
 					<div class="modal-footer">
