@@ -43,7 +43,7 @@ $membro = $resultMembro->fetch_assoc();
 				<div class="panel-heading textNome">Desativando Membro! (<?= $membro['nome'] . " " . $membro['sobre_nome'] ?>)</div>
 				<div class="panel-body">
 					<p><i class="fas fa-angle-double-right"></i> Esta opção faz com que você desative o membro da igreja, fazendo assim com que ele deixa de ser membro da <span style="color: red; font-weight: bold;"><?= $sistema['cfa_titulo'] ?></span></p>
-					<p> <i class="fas fa-angle-double-right"></i>Deseja realmente fazer essa operação ?</p>
+					<p> <i class="fas fa-angle-double-right"></i> Deseja realmente fazer essa operação ?</p>
 					<br />
 					<br />
 					<a href="membros.php?pagina=3&modo=1" class="btn btn-lg btn-primary">

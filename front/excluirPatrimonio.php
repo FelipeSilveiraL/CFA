@@ -49,7 +49,7 @@ $patrimonio = $resultMembro->fetch_assoc();
 				<div class="panel-heading textNome">Excluindo o patrimônio: (<?= $patrimonio['nome'] ?>)</div>
 				<div class="panel-body">
 					<p><i class="fas fa-angle-double-right"></i> Esta opção faz com que você desative o fazendo assim com que ele deixa de ser da <span style="color: red; font-weight: bold;"><?= $sistema['cfa_titulo'] ?></span></p>
-					<p> <i class="fas fa-angle-double-right"></i>Deseja realmente fazer essa operação ?</p>
+					<p> <i class="fas fa-angle-double-right"></i> Deseja realmente fazer essa operação ?</p>
 					<br />
 					<br />
 					<a href="patrimonio.php?pagina=5" class="btn btn-sm btn-primary">
