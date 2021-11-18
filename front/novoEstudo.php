@@ -192,7 +192,7 @@ if (!empty($_GET['idEstudo'])) {
 										while ($estudantes = $resultEstudantes->fetch_assoc()) {
 											echo '
 												<tr>
-													<td>' . $estudantes['estudante'] . '</td>
+													<td><a href="novoMembro.php?pagina=3&idMembro='.$estudantes['id_usuario'].'">' . $estudantes['estudante'] . '</a></td>
 													<td>' . $estudantes['email'] . '</td>
 													<td>' . date('d/m/Y', strtotime($estudantes['data_inicio'])) . '</td>
 													<td>' . date('d/m/Y', strtotime($estudantes['data_fim'])) . '</td>

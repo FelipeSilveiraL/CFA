@@ -238,7 +238,8 @@ CES.status,
 CE.nome AS nomeEstudo, 
 
 CU.nome AS estudante,
-CU.email
+CU.email,
+CU.id AS id_usuario
 
 FROM cfa.cfa_estudantes CES
 LEFT JOIN cfa_estudos CE ON (CES.id_estudo = CE.id)

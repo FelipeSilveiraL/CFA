@@ -15,11 +15,9 @@ foreach ($_POST['aluno'] as $key => $idUsuario) {
                 '".$_POST['data_fim'.$idUsuario]."',
                 '".$_POST['status'.$idUsuario]."'
                 )";
-
-                echo $insert;
-    /* $result = $conn->query($insert); */
+    $result = $conn->query($insert);
 }
 
-/* header('Location: ../front/novoEstudo.php?pagina=7&idEstudo='.$_GET['idEstudo'].'#alunos'); */
+header('Location: ../front/novoEstudo.php?pagina=7&idEstudo='.$_GET['idEstudo'].'#alunos');
 
 $conn->close();
