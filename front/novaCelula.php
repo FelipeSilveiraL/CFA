@@ -337,307 +337,122 @@ if (!empty($_GET['idCelula'])) {
 		</div>
 	</div>
 
-	<div class="row" <?= $display ?>>
+	<?php
+	if (!empty($_GET['idCelula'])) {
+		include('novaReuniao.php');
+	}
+	?>
+	
+</div> <!-- FIM CHART REUNIÔES -->
 
-		<!-- REUNIÔES -->
-		<div class="col-lg-5" id="reuniao">
-			<div class="panel panel-default">
-				<div class="panel-heading textNome">
-					Reuniões - <?= strftime('%B', strtotime('today')); ?>
-					<span class="pull-right clickable panel-toggle panel-button-tab-left"><em class="fa fa-toggle-up"></em></span>
-				</div>
-				<div class="panel-body">
-					<div class="col-md-12">
-						<div class="row">
-							<div class="panel panel-primary filterable col-md-13">
-								<div class="panel-heading">
-									<div class="pull-right">
-										<button type="button" class="btn btn-sm btn-info btn-filter">
-											<i class="fas fa-filter"></i> Filtro
-										</button>
-										<!-- Button trigger modal -->
-										<button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#exampleModal" style="display: <?= $_SESSION['celula_incluir_reuniao'] == 1 ? "inline-block" : "none" ?>;">
-											<i class="fas fa-plus"></i> Nova Reunião
-										</button>
-									</div>
-								</div>
-								<table class="table table-bordered table-hover table-responsive">
-									<thead>
-										<tr class="filters">
-											<th>
-												<input type="text" class="form-control" placeholder="Data" disabled>
-											</th>
-											<th>
-												<input type="text" class="form-control" placeholder="Membros" disabled>
-											</th>
-											<th>
-												<input type="text" class="form-control" placeholder="Visitantes" disabled>
-											</th>
-										</tr>
-									</thead>
-									<tbody>
-										<?php
-										$mes = date('m');
-										$ano = date('Y');
-
-										$queryListaReunioes .= " WHERE CR.id_celula =" . $_GET['idCelula'] . " AND CR.data_reuniao between '" . $ano . "-" . $mes . "-01' and '" . $ano . "-12-31'";
-										$resutListaReunioes = $conn->query($queryListaReunioes);
-
-										while ($listareuniao = $resutListaReunioes->fetch_assoc()) {
-											//formato da data
-											$dataReuniao = date('d/m/Y', strtotime($listareuniao['data_reuniao']));
-
-											echo 	'
-													<tr>
-														<td>
-														<a href="javascript:" data-toggle="modal" data-target="#visualizarReuniao' . $listareuniao['id'] . '" title="Assunto: ' . $listareuniao['assunto'] . '">
-														
-														' . $dataReuniao . '
-														</a>
-														</td>
-														<td>' . $listareuniao['participantes'] . '</td>
-														<td>' . $listareuniao['visitantes'] . '</td>
-													</tr>
-
-													<!-- Modal -->
-													<div class="modal fade" id="visualizarReuniao' . $listareuniao['id'] . '" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-														<div class="modal-dialog">
-															<div class="modal-content">
-																<div class="modal-header">
-																	<h5 class="modal-title" id="exampleModalLabel"> Reunião - ' . $titulo . '
-																	</h5>
-																	<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-																		<span aria-hidden="true">&times;</span>
-																	</button>
-																</div>
-																<div class="modal-body">
-																	<form>
-																		<div class="form-row">
-																			<div class="form-group col-md-6">
-																				<label for="inputEmail4">Data</label>: 
-																				' . $dataReuniao . '
-																			</div>
-																			<div class="form-group col-md-6">
-																				<label for="inputPassword4">Oferta</label>:
-																				' . $listareuniao['ofertas'] . '
-																			</div>
-																		</div>
-																		
-																		<div class="form-row">
-																			<div class="form-group col-md-6">			
-																				<label for="inputPassword4">Membros:</label>
-																				<ul class="list-group list-group-flush">
-																					';
-											$queryParticipantes = "SELECT 
-																					CP.id_usuario,
-																					CP.nome
-																					FROM cfa_participantes CP
-																					LEFT JOIN cfa_reuniao CR ON (CP.id_reuniao = CR.id) 
-																					WHERE CR.id_celula = " . $_GET['idCelula'] . " 
-																					AND CR.id = " . $listareuniao['id'] . "";
-
-											$resultParticipantes = $conn->query($queryParticipantes);
-
-											while ($participantes = $resultParticipantes->fetch_assoc()) {
-												echo '<li class="list-group-item textNome">' . $participantes['nome'] . '</li>';
-											}
-
-											echo '
-																					
-																				</ul>
-																			</div>
-
-																			<div class="form-group col-md-6">
-																				<label for="inputPassword4">Visitantes:</label>
-																				<ul class="list-group list-group-flush">
-																					';
-											$queryVisitante = "SELECT 
-																					CV.nome
-																					FROM cfa_visitantes CV
-																					LEFT JOIN cfa_reuniao CR ON (CV.id_reuniao = CR.id) 
-																					WHERE CR.id_celula = " . $_GET['idCelula'] . " 
-																					AND CR.id = " . $listareuniao['id'] . "";
-
-											$resultVisitante = $conn->query($queryVisitante);
-
-											while ($visitante = $resultVisitante->fetch_assoc()) {
-												echo '<li class="list-group-item textNome">' . $visitante['nome'] . '</li>';
-											}
-
-											echo '
-																					
-																				</ul>
-																			</div>
-																		</div>
-
-																		<div class="form-row">
-																			<div class="form-group col-md-12">
-																				<label for="inputCity">Assunto:</label>
-																				<textarea class="form-control" id="message" name="assunto" placeholder="..." rows="5" maxlength="255">' . $listareuniao['assunto'] . '</textarea>
-																			</div>
-																		</div>
-																		<a href="../back/excluirReuniao.php?idCelula=' . $_GET['idCelula'] . '&idReuniao=' . $listareuniao['id'] . '" class="btn btn-danger editar   ';
-											if ($_SESSION['celula_incluir_reuniao'] == 0) {
-												echo 'disabled';
-											}
-											echo '">Excluir</a>
-																	</form>
-																</div>
-															</div>
-														</div>
-													</div>';
-										}
-										?>
-
-									</tbody>
-								</table>
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel"><i class="fas fa-plus"></i> Nova reunião - <?= $titulo ?></h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<form class="form-horizontal" action="../back/reuniao.php?idCelula=<?= $_GET['idCelula'] ?>" method="post">
+					<fieldset>
+						<!-- Data-->
+						<div class="form-group">
+							<label class="col-md-3 control-label" for="name">Data:</label>
+							<div class="col-md-5">
+								<input id="name" name="date" type="date" placeholder="xx/xx/xxxx" class="form-control">
 							</div>
 						</div>
-					</div>
-				</div>
-			</div>
-		</div>
 
-		<!-- CHART REUNIÔES -->
-		<div class="col-lg-7">
-			<div class="panel panel-default">
-				<div class="panel-heading textNome">
-					Relatório presença - <?= date('Y') ?>
-					<span class="pull-right clickable panel-toggle panel-button-tab-left"><em class="fa fa-toggle-up"></em></span>
-				</div>
-				<div class="panel-body">
-					<div class="canvas-wrapper">
-						<canvas class="main-chart" id="line-chart" height="200" width="600"></canvas>
-					</div>
-
-					<div style="margin-left: 10px">
-						<span>
-							<h5>Legenda:
-								<button class="btn btn-default" title="Visitantes"></button>
-								<button class="btn btn-primary" title="Participantes (Membros)"></button>
-							</h5>
-						</span>
+						<!-- Ofertas-->
+						<div class="form-group">
+							<label class="col-md-3 control-label" for="email">Ofertas:</label>
+							<div class="col-md-3">
+								<input id="email" name="oferta" type="text" class="form-control" placeholder="R$" maxlength="10">
+							</div>
+						</div>
 						<br />
-					</div>
-				</div>
-			</div>
 
-		</div>
-	</div> <!-- FIM CHART REUNIÔES -->
+						<!-- Participantes-->
+						<div class="form-group">
+							<label class="col-md-3 control-label" for="email">Membros:</label>
+							<div class="col-md-9">
+								<ul class="todo-list">
 
-	<!-- Modal -->
-	<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel"><i class="fas fa-plus"></i> Nova reunião - <?= $titulo ?></h5>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-				<div class="modal-body">
-					<form class="form-horizontal" action="../back/reuniao.php?idCelula=<?= $_GET['idCelula'] ?>" method="post">
-						<fieldset>
-							<!-- Data-->
-							<div class="form-group">
-								<label class="col-md-3 control-label" for="name">Data:</label>
-								<div class="col-md-5">
-									<input id="name" name="date" type="date" placeholder="xx/xx/xxxx" class="form-control">
-								</div>
-							</div>
+									<?php
 
-							<!-- Ofertas-->
-							<div class="form-group">
-								<label class="col-md-3 control-label" for="email">Ofertas:</label>
-								<div class="col-md-3">
-									<input id="email" name="oferta" type="text" class="form-control" placeholder="R$" maxlength="10">
-								</div>
-							</div>
-							<br />
+									$resultadodosMembros = $conn->query($queryUsuarios);
 
-							<!-- Participantes-->
-							<div class="form-group">
-								<label class="col-md-3 control-label" for="email">Membros:</label>
-								<div class="col-md-9">
-									<ul class="todo-list">
-
-										<?php
-
-										$resultadodosMembros = $conn->query($queryUsuarios);
-
-										while ($participantes = $resultadodosMembros->fetch_assoc()) {
-											echo '<li class="todo-list-item noPadding">
+									while ($participantes = $resultadodosMembros->fetch_assoc()) {
+										echo '<li class="todo-list-item noPadding">
 													<div class="checkbox">
 														<input name="participante[]" type="checkbox" value="' . $participantes['id'] . '" id="checkbox-' . $participantes['id'] . '">
 														<label for="checkbox-' . $participantes['id'] . '">' . $participantes['nome'] . '</label>
 													</div>
 												</li>';
-										}
+									}
 
-										?>
-									</ul>
-								</div>
+									?>
+								</ul>
 							</div>
-							<br />
+						</div>
+						<br />
 
-							<!-- Visitantes-->
-							<div class="form-group">
-								<label class="col-md-3 control-label" for="email">Visitantes:</label>
-								<div class="col-md-9">
-									<table id="myTable" class="table table-borderless" style="margin-left: -11px;">
-										<tbody>
-											<tr>
-												<td class="col-sm-9" style="border-top: none;">
-													<input type="text" name="nomeVisitante0" class="form-control" placeholder="Nome visitante" />
-												</td>
-												<td class="col-sm-2" style="border-top: none;">
-													<a class="deleteRow"></a>
+						<!-- Visitantes-->
+						<div class="form-group">
+							<label class="col-md-3 control-label" for="email">Visitantes:</label>
+							<div class="col-md-9">
+								<table id="myTable" class="table table-borderless" style="margin-left: -11px;">
+									<tbody>
+										<tr>
+											<td class="col-sm-9" style="border-top: none;">
+												<input type="text" name="nomeVisitante0" class="form-control" placeholder="Nome visitante" />
+											</td>
+											<td class="col-sm-2" style="border-top: none;">
+												<a class="deleteRow"></a>
 
-												</td>
-											</tr>
-										</tbody>
-										<tfoot>
-											<tr>
-												<td colspan="1" style="border-top: none;">
-													<input style=" width: 50%; margin-left: 24%" type="button" class="btn btn-sm btn-block btn-success" id="addrow" value="Novo Visitante" />
-												</td>
-											</tr>
-											<tr>
-											</tr>
-										</tfoot>
-									</table>
-								</div>
+											</td>
+										</tr>
+									</tbody>
+									<tfoot>
+										<tr>
+											<td colspan="1" style="border-top: none;">
+												<input style=" width: 50%; margin-left: 24%" type="button" class="btn btn-sm btn-block btn-success" id="addrow" value="Novo Visitante" />
+											</td>
+										</tr>
+										<tr>
+										</tr>
+									</tfoot>
+								</table>
 							</div>
-							<br />
+						</div>
+						<br />
 
-							<!-- Assunto -->
-							<div class="form-group">
-								<label class="col-md-3 control-label" for="message">Assunto:</label>
-								<div class="col-md-9">
-									<textarea class="form-control" id="message" name="assunto" placeholder="..." rows="5" maxlength="255"></textarea>
-								</div>
+						<!-- Assunto -->
+						<div class="form-group">
+							<label class="col-md-3 control-label" for="message">Assunto:</label>
+							<div class="col-md-9">
+								<textarea class="form-control" id="message" name="assunto" placeholder="..." rows="5" maxlength="255"></textarea>
 							</div>
+						</div>
 
-						</fieldset>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-					<button type="submit" class="btn btn-primary">Salvar</button>
-				</div>
-				</form>
+					</fieldset>
 			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+				<button type="submit" class="btn btn-primary">Salvar</button>
+			</div>
+			</form>
 		</div>
 	</div>
+</div>
 
 </div><!-- /.panel-->
 </div><!-- /.col-->
 
 <!--/. CONTEUDO-->
-
-<!--FOOTER-->
-<?php include('footer.php'); ?>
-<!--/. FOOTER-->
-
 <!-- DADOS DO CHART -->
 <?php include('../back/chartData.php'); ?>
 <!--/. DADOS DO CHART-->
@@ -717,3 +532,7 @@ if (!empty($_GET['idCelula'])) {
 		}
 	}
 </script>
+
+<!--FOOTER-->
+<?php include('footer.php'); ?>
+<!--/. FOOTER-->

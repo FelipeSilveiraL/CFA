@@ -67,11 +67,11 @@ include('menu.php');
 						<form role="form" method="POST" action="../back/sistema.php" enctype="multipart/form-data">
 							<div class="form-group">
 								<label>Título</label>
-								<input class="form-control" name="titulo" value="<?= $sistema['cfa_titulo'] ?>" required>
+								<input class="form-control" name="titulo" value="<?= $sistema['cfa_titulo'] ?>">
 							</div>
 							<div class="form-group">
 								<label>Rodapé</label>
-								<input type="text" class="form-control" name="redape" value="<?= $sistema['cfa_footer'] ?>" required>
+								<input type="text" class="form-control" name="redape" value="<?= $sistema['cfa_footer'] ?>">
 							</div>
 							<div class="form-group">
 								<label>Logo - Tela Login</label>
@@ -84,11 +84,11 @@ include('menu.php');
 							</div>
 							<div class="form-group">
 								<label>Título - Tela Login</label>
-								<input class="form-control" name="tituloLogin" value="<?= $sistema['cfa_titulo_login'] ?>" required>
+								<input class="form-control" name="tituloLogin" value="<?= $sistema['cfa_titulo_login'] ?>">
 							</div>
 							<div class="form-group">
 								<label>Subtítulo - Tela Login</label>
-								<input class="form-control" name="subtituloLogin" value="<?= $sistema['cfa_subtitulo_login'] ?>" required>
+								<input class="form-control" name="subtituloLogin" value="<?= $sistema['cfa_subtitulo_login'] ?>" >
 							</div>
 							<button type="submit" class="btn btn-primary"><i class="fas fa-share fa-sm text-white-50"></i>&nbsp;Salvar</button>
 							<button type="reset" class="btn btn-default pull-right"><i class="fas fa-broom fa-sm text-white-50"></i>&nbsp;Desfazer</button>
@@ -98,10 +98,6 @@ include('menu.php');
 			</div>
 		</div><!-- /.panel-->
 	</div>
-
-
-	<!--/. CONTEUDO-->
-
 	<!--FOOTER-->
 	<?php include('footer.php'); ?>
 	<!--/. FOOTER-->
