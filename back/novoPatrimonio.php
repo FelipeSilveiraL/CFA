@@ -29,7 +29,7 @@ switch ($_GET['modo']) {
 	case '2': //adicionando um novo documento
 
 		//subindo arq foto
-		if (isset($_FILES['anexo'])) {
+		if ($_FILES['anexo']['type'] != NULL) {
 
 			//verificando se o arqivo é permitido
 			$tipoDoc = $_FILES['anexo']['type'];
@@ -112,7 +112,7 @@ if (!empty($_GET['idPatrimonio'])) {
 } else {
 
 	//subindo arq foto
-	if (isset($_FILES['anexo'])) {
+	if ($_FILES['anexo']['type'] != NULL) {
 
 		//verificando se o arqivo é permitido
 		$tipoDoc = $_FILES['anexo']['type'];

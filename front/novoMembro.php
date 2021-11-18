@@ -1,9 +1,10 @@
 <?php
 include('head.php');
 include('header.php');
-/* PERMISSÃO */
+include('../bd/conexao.php');
 
-if($_GET['idMembro'] != $_SESSION['id_usuario']){
+/* PERMISSÃO */
+if ($_GET['idMembro'] != $_SESSION['id_usuario']) {
 	$_SESSION['tela_membros'] == 1 ?: header('location: dashboard.php?pagina=1');
 }
 
@@ -72,13 +73,13 @@ if (!empty($_GET['idMembro'])) {
 				<div class="panel-heading" style="display:
 
 				<?php
-				
-				if(!empty($_GET['idMembro']) AND $_SESSION['membro_permissao'] == 1){
+
+				if (!empty($_GET['idMembro']) and $_SESSION['membro_permissao'] == 1) {
 					echo 'block';
-				}else{
+				} else {
 					echo 'none';
-				} 
-				
+				}
+
 				?>
 				
 				;">
@@ -141,7 +142,7 @@ if (!empty($_GET['idMembro'])) {
 										</a>
 									</span>
 								</div>
-							</div>							
+							</div>
 							<div class="col-xs-6">
 								<div class="form-group">
 									<label>Data nascimento</label>
@@ -199,13 +200,12 @@ if (!empty($_GET['idMembro'])) {
 										<?php
 										if (!empty($membro['celula'])) {
 
-											if($membro['id_celula'] != 0){
+											if ($membro['id_celula'] != 0) {
 												echo '<option value="' . $membro['id_celula'] . '">' . $membro['celula'] . '</option>';
 												echo '<option value="0">------------</option>';
-											}else{
+											} else {
 												echo '<option value="0">Selecione...</option>';
 											}
-
 										} else {
 											echo '<option value="0">Selecione...</option>';
 										}
@@ -293,7 +293,7 @@ if (!empty($_GET['idMembro'])) {
 									</div>
 								</div>
 							</div>
-							<button type="submit" class="btn btn-success" id="enviar" disabled >
+							<button type="submit" class="btn btn-success" id="enviar" disabled>
 								<i class="fas fa-share fa-sm text-white-50"></i>&nbsp;<?= $button ?>
 							</button>
 							<button type="reset" class="btn btn-info pull-right">
@@ -304,75 +304,127 @@ if (!empty($_GET['idMembro'])) {
 					</form>
 				</div>
 			</div>
-		</div><!-- /.panel-->
-	</div><!-- /.col-->
 
-	<!--/. CONTEUDO-->
+			<div class="row" style="display: <?= empty($_GET['idMembro']) ? 'none' : 'block' ?>" id="alunos">
+				<div class="col-lg-12">
+					<div class="panel panel-default">
+						<div class="panel-heading textNome">
+							<i class="fas fa-book"></i> Meus Cursos
+						</div>
+						<div class="panel-body">
+							<div class="col-md-12">
+								<div class="row">
+									<div class="panel panel-primary filterable col-md-13">
+										<table class="table table-bordered table-hover table-responsive">
+											<thead>
+												<tr class="filters">
+													<th>
+														<input type="text" class="form-control" placeholder="Nome" disabled>
+													</th>
+													<th>
+														<input type="text" class="form-control" placeholder="Data Inicio" disabled>
+													</th>
+													<th>
+														<input type="text" class="form-control" placeholder="Data Fim" disabled>
+													</th>
+													<th>
+														<input type="text" class="form-control" placeholder="Status" disabled>
+													</th>
+												</tr>
+											</thead>
+											<tbody>
+												<?php
 
-	<!--FOOTER-->
-	<?php include('footer.php'); ?>
-	<!--/. FOOTER-->
+												$queryEstudantes .= " WHERE CES.id_usuario = " . $_GET['idMembro'];
+												$resultEstudantes = $conn->query($queryEstudantes);
 
-	<!-- VISUALIZAR IMAGEM ANTES DE SALVAR NO BANCO -->
-	<script>
-		function mostraImagem(img) {
-			if (img.files && img.files[0]) {
-				var reader = new FileReader();
-				var imagem = document.getElementById("imgImage");
-				reader.onload = function(e) {
-					imagem.style.height = '140px';
-					imagem.style.width = '140px';
-					imagem.src = e.target.result;
-				};
+												while ($estudantes = $resultEstudantes->fetch_assoc()) {
+													echo '<tr>';
+													echo '<td><a href="novoEstudo.php?pagina=7&idEstudo='.$estudantes['id_estudo'].'">' . $estudantes['nomeEstudo'] . '</a></td>';
+													echo '<td>' . date('d/m/Y', strtotime($estudantes['data_inicio'])) . '</td>';
+													echo '<td>' . date('d/m/Y', strtotime($estudantes['data_fim'])) . '</td>';
+													echo '<td style="background:';
+													echo $estudantes['status'] == 'Concluido' ? '#80f580' : '#f9dfaf';
+													echo '">' . $estudantes['status'] . '</td>';
+													echo '</tr>';
+												}
+												?>
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div><!-- /.panel-->
+		</div><!-- /.col-->
+		<!--/. CONTEUDO-->
 
-				reader.readAsDataURL(img.files[0]);
+		<!--FOOTER-->
+		<?php include('footer.php'); ?>
+		<!--/. FOOTER-->
+
+		<!-- VISUALIZAR IMAGEM ANTES DE SALVAR NO BANCO -->
+		<script>
+			function mostraImagem(img) {
+				if (img.files && img.files[0]) {
+					var reader = new FileReader();
+					var imagem = document.getElementById("imgImage");
+					reader.onload = function(e) {
+						imagem.style.height = '140px';
+						imagem.style.width = '140px';
+						imagem.src = e.target.result;
+					};
+
+					reader.readAsDataURL(img.files[0]);
+				}
 			}
-		}
-	</script>
+		</script>
 
-	<!-- VER SENHA -->
-	<script>
-		function ver() {
-			let input = document.querySelector('#btn-input');
+		<!-- VER SENHA -->
+		<script>
+			function ver() {
+				let input = document.querySelector('#btn-input');
 
-			if (input.getAttribute('type') == 'password') {
-				input.setAttribute('type', 'text');
-			} else {
-				input.setAttribute('type', 'password');
+				if (input.getAttribute('type') == 'password') {
+					input.setAttribute('type', 'text');
+				} else {
+					input.setAttribute('type', 'password');
+				}
 			}
-		}
-	</script>
+		</script>
 
-	<!-- VALIDACAO TERMO -->
-	<script>
-		function termo() {
-			let lgpd = document.getElementById('lgpd');
+		<!-- VALIDACAO TERMO -->
+		<script>
+			function termo() {
+				let lgpd = document.getElementById('lgpd');
 
-			if (lgpd.checked) {
-				document.getElementById("enviar").disabled = false;
-			} else {
-				document.getElementById("enviar").disabled = true;
+				if (lgpd.checked) {
+					document.getElementById("enviar").disabled = false;
+				} else {
+					document.getElementById("enviar").disabled = true;
+				}
 			}
-		}
-	</script>
+		</script>
 
-	<!-- FECHAR MSN DE CADASTRADO COM SUCESSO -->
-	<script>
-		function fecharSuccess() {
-			let msn = document.getElementById("msnAlertaSuccess").style.display;
+		<!-- FECHAR MSN DE CADASTRADO COM SUCESSO -->
+		<script>
+			function fecharSuccess() {
+				let msn = document.getElementById("msnAlertaSuccess").style.display;
 
-			if (msn == "block") {
-				document.getElementById("msnAlertaSuccess").style.display = "none";
+				if (msn == "block") {
+					document.getElementById("msnAlertaSuccess").style.display = "none";
+				}
 			}
-		}
-	</script>
+		</script>
 
-	<script>
-		function fecharInfo() {
-			let msn = document.getElementById("msnAlertaInfo").style.display;
+		<script>
+			function fecharInfo() {
+				let msn = document.getElementById("msnAlertaInfo").style.display;
 
-			if (msn == "block") {
-				document.getElementById("msnAlertaInfo").style.display = "none";
+				if (msn == "block") {
+					document.getElementById("msnAlertaInfo").style.display = "none";
+				}
 			}
-		}
-	</script>
+		</script>

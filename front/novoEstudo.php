@@ -243,19 +243,34 @@ if (!empty($_GET['idEstudo'])) {
 
 							while ($user = $resultUsuario->fetch_assoc()) {
 								echo '<tr>
-										<td><input type="checkbox" name="aluno[]" value="' . $user['id'] . '"></td>
+										<td><input type="checkbox" onclick="requerir'.$user['nome'].'()" name="aluno[]" value="' . $user['id'] . '"></td>
 										<td><label>' . $user['nome'] . ' ' . $user['sobre_nome'] . '</label></td>
 										<td>' . $user['email'] . '</td>
-										<td><input type="date" name="data_inicio' . $user['id'] . '" ></td>
-										<td><input type="date" name="data_fim' . $user['id'] . '" ></td>
+										<td><input type="date" name="data_inicio' . $user['id'] . '" id="dataInicio'.$user['nome'].'"></td>
+										<td><input type="date" name="data_fim' . $user['id'] . '" id="dataFim'.$user['nome'].'"></td>
 										<td>
-										<select name="status' . $user['id'] . '">
+										<select name="status' . $user['id'] . '" id="status'.$user['nome'].'">
 											<option value="">Selecione...</option>
 											<option value="Cursando">Cursando</option>
 											<option value="Concluido">Concluido</option>
 										</select>										
 										</td>
 									</tr>';
+
+									echo '
+									<script>
+										function requerir'.$user['nome'].'() {
+											var x = document.getElementById("dataInicio'.$user['nome'].'").required;
+											var y = document.getElementById("dataFim'.$user['nome'].'").required;
+											var k = document.getElementById("status'.$user['nome'].'").required;
+
+											if(x == false){document.getElementById("dataInicio'.$user['nome'].'").required = true;}
+											if(y == false){document.getElementById("dataFim'.$user['nome'].'").required = true;}
+											if(k == false){document.getElementById("status'.$user['nome'].'").required = true;}
+										}
+									</script>
+									
+									';
 							}
 							?>
 						</tbody>

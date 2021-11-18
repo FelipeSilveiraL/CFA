@@ -235,11 +235,12 @@ CES.id,
 CES.data_inicio,
 CES.data_fim,
 CES.status,
-CE.nome AS nomeEstudo, 
+CES.id_usuario,
+CE.nome AS nomeEstudo,
+CE.id AS id_estudo, 
 
 CU.nome AS estudante,
-CU.email,
-CU.id AS id_usuario
+CU.email
 
 FROM cfa.cfa_estudantes CES
 LEFT JOIN cfa_estudos CE ON (CES.id_estudo = CE.id)
