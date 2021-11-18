@@ -65,7 +65,7 @@ include('menu.php');
 										<button type="button" class="btn btn-sm btn-info btn-filter">
 											<i class="fas fa-filter"></i> Filtro
 										</button>
-										<a href="../back/pdf.php?modo=3" class="btn btn-sm btn-danger">
+										<a href="../back/pdf.php?modo=4" class="btn btn-sm btn-danger">
 											<i class="fas fa-print"></i> PDF
 										</a>
 										<a href="novoEstudo.php?pagina=7" class="btn btn-sm btn-success" style="display: <?= $_SESSION['estudos_adicionar'] == 1 ? "inline-block" : "none" ?>;">

@@ -1,9 +1,13 @@
 <?php
-session_start();
+// reference the Dompdf namespace
+use Dompdf\Dompdf;
+
+//chamando ele pelo autoload do vendor
+require '../vendor/autoload.php';
+
 //chamar o banco
 require_once('../bd/conexao.php');
 require_once('query.php');
-
 
 switch ($_GET['modo']) {
 
@@ -83,8 +87,7 @@ switch ($_GET['modo']) {
 			$html .=  empty($membro['estado']) ? '<td>----------</td>' : '<td>' . $membro['estado'] . '</td>';
 			$html .=  empty($membro['pais']) ? '<td>----------</td>' : '<td>' . $membro['pais'] . '</td>';
 
-			$html .= "
-					</tr>";
+			$html .= "</tr>";
 		}
 		$html .= "</tbody>
 				</table>
@@ -164,8 +167,7 @@ switch ($_GET['modo']) {
 			$html .=  empty($celula['estado']) ? '<td>----------</td>' : '<td>' . $celula['estado'] . '</td>';
 			$html .=  empty($celula['pais']) ? '<td>----------</td>' : '<td>' . $celula['pais'] . '</td>';
 
-			$html .= "
-					</tr>";
+			$html .= "</tr>";
 		}
 		$html .= "</tbody>
 				</table>
@@ -226,36 +228,77 @@ switch ($_GET['modo']) {
 			$html .=  empty($patrimonio['numero_documento']) ? '<td>----------</td>' : '<td>' . $patrimonio['numero_documento'] . '</td>';
 			$html .=  empty($patrimonio['observacao']) ? '<td>----------</td>' : '<td>' . $patrimonio['observacao'] . '</td>';
 
-			$html .= "
-									  </tr>";
+			$html .= "</tr>";
 		}
 		$html .= "</tbody>
 					</table>
 				</body>
 			</html>";
 		break;
+
+		case '4':
+			$titulo = "<div><h1>Estudos - C.F.A</h1></div>";
+			$nomeArq = "cfa_estudos.pdf";
+	
+			//corpo da msn
+			$html = "
+				<html>
+					<style>
+						td{
+							border: solid 1px;
+						}
+					</style>	
+					<body>
+						";
+			$html .= $titulo;
+			$html .= "
+						<table class='table table-sm' style='font-size:12px;'>
+						<thead>
+							<tr>				
+								<th scope='col'>CURSO</th>
+								<th scope='col'>LECIONADOR</th>
+								<th scope='col'>ESTUDANTES</th>
+								<th scope='col'>DATA CRIACAO</th>
+								<th scope='col'>OBRSERVACAO</th>
+							</tr>
+						  </thead>
+						  <tbody>";
+			$resultEstudos = $conn->query($queryEstudos);
+	
+			while ($estudos = $resultEstudos->fetch_assoc()) {
+
+				include('counts.php');
+
+				$countEstudantes .= " WHERE id_estudo = ".$estudos['id'];
+				$resutlCount = $conn->query($countEstudantes);
+				$count = $resutlCount->fetch_assoc();
+	
+				$html .= "<tr>";
+
+				$html .=  empty($estudos['nome']) ? '<td>----------</td>' : '<td>' . $estudos['nome'] . '</td>';
+				$html .=  empty($estudos['lecionador']) ? '<td>----------</td>' : '<td>' . $estudos['lecionador']  . '</td>';
+				$html .=  empty($count['quantidade']) ? '<td>0</td>' : '<td>' . $count['quantidade']  . '</td>';
+				$html .=  empty($estudos['data_criacao']) ? '<td>----------</td>' : '<td>' . date('d/m/Y', strtotime($estudos['data_criacao'])). '</td>';
+				$html .=  empty($estudos['observacao']) ? '<td>----------</td>' : '<td>' . $estudos['observacao'] . '</td>';
+	
+				$html .= "</tr>";
+			}
+			$html .= "</tbody>
+						</table>
+					</body>
+				</html>";
+			break;
 }
-
-require_once '../dompdf/autoload.inc.php';
-require_once '../dompdf/lib/html5lib/Parser.php';
-require_once '../dompdf/lib/php-font-lib/src/FontLib/Autoloader.php';
-require_once '../dompdf/lib/php-svg-lib/src/autoload.php';
-require_once '../dompdf/src/Autoloader.php';
-Dompdf\Autoloader::register();
-
-// reference the Dompdf namespace
-use Dompdf\Dompdf;
 
 // instantiate and use the dompdf class
 $dompdf = new Dompdf();
-
 $dompdf->loadHtml($html);
 
-// (Optional) Setup the paper size and orientation, landscape = paisagem; portrait = retrato
+// (Optional) Setup the paper size and orientation
 $dompdf->setPaper('A4', 'landscape');
 
 // Render the HTML as PDF
 $dompdf->render();
 
 // Output the generated PDF to Browser
-$dompdf->stream($nomeArq, array("Attachment" => 1));//1 - Downlaod,  0 - Prévia
+$dompdf->stream();
