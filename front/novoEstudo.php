@@ -153,12 +153,12 @@ if (!empty($_GET['idEstudo'])) {
 							<div class="panel panel-primary filterable col-md-13">
 								<div class="panel-heading">
 									<div class="pull-right">
-										<button type="button" class="btn btn-danger btn-sm">
+										<a href="../back/pdf.php?modo=5" class="btn btn-sm btn-danger">
 											<i class="fas fa-print"></i> PDF
-										</button>
-										<button type="button" class="btn btn-info btn-sm">
-											<i class="fab fa-windows"></i> EXCEL
-										</button>
+										</a>
+										<a href="../back/excel.php?modo=4" class="btn btn-sm btn-primary">
+											<i class="fab fa-windows"></i> Excel
+										</a>
 										<button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#aluno" style="display: <?= $_SESSION['estudos_adicionar'] == 1 ? "inline-block" : "none" ?>;">
 											<i class="fas fa-plus"></i> Novo aluno
 										</button>

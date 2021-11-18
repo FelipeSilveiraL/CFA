@@ -19,10 +19,12 @@ switch ($_GET['modo']) {
 			$queryUsuarios .= " WHERE U.deletar = 0 AND U.data_nascimento like '%/" . $_GET['mes'] . "/%'";
 			$titulo = "<div><h1>Anivesariantes do Mês " . $_GET['mes'] . "</h1></div>";
 			$nomeArq = "cfa_aniversariantes.pdf";
+			$saida = "landscape";
 		} else {
 
 			$titulo = "<div><h1>Lista Membros</h1></div>";
 			$nomeArq = "cfa_membros.pdf";
+			$saida = "landscape";
 		}
 
 		$resultado = $conn->query($queryUsuarios);
@@ -33,6 +35,7 @@ switch ($_GET['modo']) {
 			<style>
 				td{
 					border: solid 1px;
+					padding: 2px;
 				}
 			</style>	
 			<body>
@@ -100,6 +103,7 @@ switch ($_GET['modo']) {
 
 		$titulo = "<div><h1>Células - C.F.A</h1></div>";
 		$nomeArq = "cfa_celulas.pdf";
+		$saida = "landscape";
 		$colspan = 3;
 
 		//corpo da msn
@@ -108,6 +112,7 @@ switch ($_GET['modo']) {
 			<style>
 				td{
 					border: solid 1px;
+					padding: 2px;
 				}
 			</style>	
 			<body>
@@ -179,6 +184,7 @@ switch ($_GET['modo']) {
 	case '3':
 		$titulo = "<div><h1>Patrimonios - C.F.A</h1></div>";
 		$nomeArq = "cfa_patrimonio.pdf";
+		$saida = "landscape";
 
 		//corpo da msn
 		$html = "
@@ -186,6 +192,7 @@ switch ($_GET['modo']) {
 				<style>
 					td{
 						border: solid 1px;
+						padding: 5px;
 					}
 				</style>	
 				<body>
@@ -236,22 +243,24 @@ switch ($_GET['modo']) {
 			</html>";
 		break;
 
-		case '4':
-			$titulo = "<div><h1>Estudos - C.F.A</h1></div>";
-			$nomeArq = "cfa_estudos.pdf";
-	
-			//corpo da msn
-			$html = "
+	case '4':
+		$titulo = "<div><h1>Estudos - C.F.A</h1></div>";
+		$nomeArq = "cfa_estudos.pdf";
+		$saida = "portrait";
+
+		//corpo da msn
+		$html = "
 				<html>
 					<style>
 						td{
 							border: solid 1px;
+							padding: 5px;
 						}
 					</style>	
 					<body>
 						";
-			$html .= $titulo;
-			$html .= "
+		$html .= $titulo;
+		$html .= "
 						<table class='table table-sm' style='font-size:12px;'>
 						<thead>
 							<tr>				
@@ -263,42 +272,104 @@ switch ($_GET['modo']) {
 							</tr>
 						  </thead>
 						  <tbody>";
-			$resultEstudos = $conn->query($queryEstudos);
-	
-			while ($estudos = $resultEstudos->fetch_assoc()) {
+		$resultEstudos = $conn->query($queryEstudos);
 
-				include('counts.php');
+		while ($estudos = $resultEstudos->fetch_assoc()) {
 
-				$countEstudantes .= " WHERE id_estudo = ".$estudos['id'];
-				$resutlCount = $conn->query($countEstudantes);
-				$count = $resutlCount->fetch_assoc();
-	
-				$html .= "<tr>";
+			include('counts.php');
 
-				$html .=  empty($estudos['nome']) ? '<td>----------</td>' : '<td>' . $estudos['nome'] . '</td>';
-				$html .=  empty($estudos['lecionador']) ? '<td>----------</td>' : '<td>' . $estudos['lecionador']  . '</td>';
-				$html .=  empty($count['quantidade']) ? '<td>0</td>' : '<td>' . $count['quantidade']  . '</td>';
-				$html .=  empty($estudos['data_criacao']) ? '<td>----------</td>' : '<td>' . date('d/m/Y', strtotime($estudos['data_criacao'])). '</td>';
-				$html .=  empty($estudos['observacao']) ? '<td>----------</td>' : '<td>' . $estudos['observacao'] . '</td>';
-	
-				$html .= "</tr>";
-			}
-			$html .= "</tbody>
+			$countEstudantes .= " WHERE id_estudo = " . $estudos['id'];
+			$resutlCount = $conn->query($countEstudantes);
+			$count = $resutlCount->fetch_assoc();
+
+			$html .= "<tr>";
+
+			$html .=  empty($estudos['nome']) ? '<td>----------</td>' : '<td>' . $estudos['nome'] . '</td>';
+			$html .=  empty($estudos['lecionador']) ? '<td>----------</td>' : '<td>' . $estudos['lecionador']  . '</td>';
+			$html .=  empty($count['quantidade']) ? '<td>0</td>' : '<td>' . $count['quantidade']  . '</td>';
+			$html .=  empty($estudos['data_criacao']) ? '<td>----------</td>' : '<td>' . date('d/m/Y', strtotime($estudos['data_criacao'])) . '</td>';
+			$html .=  empty($estudos['observacao']) ? '<td>----------</td>' : '<td>' . $estudos['observacao'] . '</td>';
+
+			$html .= "</tr>";
+		}
+		$html .= "</tbody>
 						</table>
 					</body>
 				</html>";
-			break;
+		break;
+
+	case '5':
+		$titulo = "<div><h1>Estudos - C.F.A</h1></div>";
+		$nomeArq = "cfa_estudantes.pdf";
+		$saida = "portrait";
+
+		//corpo da msn
+		$html = "
+					<html>
+						<style>
+							td{
+								border: solid 1px;
+								padding: 5px;
+							}
+						</style>	
+						<body>
+							";
+		$html .= $titulo;
+		$html .= "
+							<table class='table table-sm' style='font-size:12px;'>
+							<thead>
+								<tr>
+									<th scope='col'>CURSO</th>				
+									<th scope='col'>NOME</th>
+									<th scope='col'>EMAIL</th>
+									<th scope='col'>DATA INICIO</th>
+									<th scope='col'>DATA FIM</th>
+									<th scope='col'>STATUS</th>
+								</tr>
+							  </thead>
+							  <tbody>";
+		$resultEstudos = $conn->query($queryEstudantes);
+
+		while ($estudos = $resultEstudos->fetch_assoc()) {
+
+			include('counts.php');
+
+			$countEstudantes .= " WHERE id_estudo = " . $estudos['id'];
+			$resutlCount = $conn->query($countEstudantes);
+			$count = $resutlCount->fetch_assoc();
+
+			$html .= "<tr>";
+
+			$html .=  empty($estudos['nomeEstudo']) ? '<td>----------</td>' : '<td>' . $estudos['nomeEstudo'] . '</td>';
+			$html .=  empty($estudos['estudante']) ? '<td>----------</td>' : '<td>' . $estudos['estudante']  . '</td>';
+			$html .=  empty($estudos['email']) ? '<td>0</td>' : '<td>' . $estudos['email']  . '</td>';
+			$html .=  empty($estudos['data_inicio']) ? '<td>----------</td>' : '<td>' . date('d/m/Y', strtotime($estudos['data_inicio'])) . '</td>';
+			$html .=  empty($estudos['data_fim']) ? '<td>----------</td>' : '<td>' . date('d/m/Y', strtotime($estudos['data_fim'])) . '</td>';
+			$html .=  empty($estudos['status']) ? '<td>0</td>' : '<td>' . $estudos['status']  . '</td>';
+
+			$html .= "</tr>";
+		}
+		$html .= "</tbody>
+							</table>
+						</body>
+					</html>";
+		break;
 }
 
 // instantiate and use the dompdf class
 $dompdf = new Dompdf();
+
+//load body PDF
 $dompdf->loadHtml($html);
 
 // (Optional) Setup the paper size and orientation
-$dompdf->setPaper('A4', 'landscape');
+$dompdf->setPaper('A4', $saida); // portrait = retrato, landscape = paisagem
 
 // Render the HTML as PDF
 $dompdf->render();
 
-// Output the generated PDF to Browser
-$dompdf->stream();
+//Output file
+$dompdf->stream($nomeArq, array("Attachment" => true)); //true - Download, false - Abre no navegador
+
+//close data base
+$conn->close();

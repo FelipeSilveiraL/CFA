@@ -5,10 +5,7 @@ require_once('../bd/conexao.php');
 require_once('query.php');
 
 switch ($_GET['modo']) {
-
 	case '2':
-
-
 		if (!empty($_GET['mes'])) {
 
 			$queryUsuarios .= " WHERE U.deletar = 0 AND U.data_nascimento like '%/" . $_GET['mes'] . "/%'";
@@ -216,7 +213,7 @@ switch ($_GET['modo']) {
 			$html .= "<tr>";
 			$html .=  empty($patrimonio['nome']) ? '<td>----------</td>' : '<td>' . $patrimonio['nome'] . '</td>';
 			$html .=  empty($patrimonio['codigo']) ? '<td>----------</td>' : '<td>' . $patrimonio['codigo']  . '</td>';
-			$html .=  empty($patrimonio['categoria']) ? '<td>----------</td>' : '<td>' . $patrimonio['categoria']  . '</td>';			
+			$html .=  empty($patrimonio['categoria']) ? '<td>----------</td>' : '<td>' . $patrimonio['categoria']  . '</td>';
 			$html .=  empty($patrimonio['local']) ? '<td>----------</td>' : '<td>' . $patrimonio['local'] . '</td>';
 			$html .=  empty($patrimonio['situacao']) ? '<td>----------</td>' : '<td>' . $patrimonio['situacao'] . '</td>';
 			$html .=  empty($patrimonio['conservacao']) ? '<td>----------</td>' : '<td>' . $patrimonio['conservacao']  . '</td>';
@@ -236,6 +233,64 @@ switch ($_GET['modo']) {
 					</table>
 				</body>
 			</html>";
+
+		break;
+
+	case '4':
+
+		$titulo = "<div><h1>Estudos - C.F.A</h1></div>";
+		$nomeArq = "cfa_estudantes.xls";
+
+		//corpo da msn
+		$html = "
+					<html>
+						<style>
+							td{
+								border: solid 1px;
+								padding: 5px;
+							}
+						</style>	
+						<body>
+							";
+		$html .= $titulo;
+		$html .= "
+							<table class='table table-sm' style='font-size:12px;'>
+							<thead>
+								<tr>
+									<th scope='col'>CURSO</th>				
+									<th scope='col'>NOME</th>
+									<th scope='col'>EMAIL</th>
+									<th scope='col'>DATA INICIO</th>
+									<th scope='col'>DATA FIM</th>
+									<th scope='col'>STATUS</th>
+								</tr>
+							  </thead>
+							  <tbody>";
+		$resultEstudos = $conn->query($queryEstudantes);
+
+		while ($estudos = $resultEstudos->fetch_assoc()) {
+
+			include('counts.php');
+
+			$countEstudantes .= " WHERE id_estudo = " . $estudos['id'];
+			$resutlCount = $conn->query($countEstudantes);
+			$count = $resutlCount->fetch_assoc();
+
+			$html .= "<tr>";
+
+			$html .=  empty($estudos['nomeEstudo']) ? '<td>----------</td>' : '<td>' . $estudos['nomeEstudo'] . '</td>';
+			$html .=  empty($estudos['estudante']) ? '<td>----------</td>' : '<td>' . $estudos['estudante']  . '</td>';
+			$html .=  empty($estudos['email']) ? '<td>0</td>' : '<td>' . $estudos['email']  . '</td>';
+			$html .=  empty($estudos['data_inicio']) ? '<td>----------</td>' : '<td>' . date('d/m/Y', strtotime($estudos['data_inicio'])) . '</td>';
+			$html .=  empty($estudos['data_fim']) ? '<td>----------</td>' : '<td>' . date('d/m/Y', strtotime($estudos['data_fim'])) . '</td>';
+			$html .=  empty($estudos['status']) ? '<td>0</td>' : '<td>' . $estudos['status']  . '</td>';
+
+			$html .= "</tr>";
+		}
+		$html .= "</tbody>
+							</table>
+						</body>
+					</html>";
 
 		break;
 }
