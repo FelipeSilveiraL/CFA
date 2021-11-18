@@ -1,5 +1,5 @@
 <?php
-// reference the Dompdf namespace
+//reference the Dompdf namespace
 use Dompdf\Dompdf;
 
 //chamando ele pelo autoload do vendor
