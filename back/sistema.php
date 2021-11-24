@@ -8,9 +8,11 @@ $update = "UPDATE cfa_sistema SET
             cfa_titulo = '".$_POST['titulo']."',
             cfa_titulo_login = '".$_POST['tituloLogin']."', 
             cfa_subtitulo_login = '".$_POST['subtituloLogin']."',
-            cfa_footer = '".$_POST['redape']."'";
-
-
+            cfa_footer = '".$_POST['redape']."',
+            cfa_endereco = '".$_POST['endereco']."',
+            cfa_cnpj = '".$_POST['cnpj']."',
+            cfa_telefone = '".$_POST['telefone']."'";
+            
 if(isset($_FILES['file'])){
     date_default_timezone_set("Brazil/East"); //Definindo timezone padrão
 

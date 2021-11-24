@@ -17,6 +17,13 @@ if (!empty($_GET['idPatrimonio'])) {
 	$resultPatrimonio = $conn->query($queryPatrimonio);
 	$patrimonio = $resultPatrimonio->fetch_assoc();
 
+	if ($patrimonio['recibo_emitido'] == 1) {
+		$recibo = "block";
+		$buttonRecibo = "Emitir Recibo";
+	} else {
+		$recibo = "none";
+	}
+
 	$nome = $patrimonio['nome'];
 	$titulo = "ID: " . $patrimonio['id'];
 	$icon = '<i class="fas fa-hotel"></i>';
@@ -29,6 +36,7 @@ if (!empty($_GET['idPatrimonio'])) {
 	$icon = '<i class="fas fa-plus"></i>';
 	$button = 'Salvar';
 	$display = "style='display: none'";
+	$recibo = 'none';
 }
 
 ?>
@@ -87,6 +95,17 @@ if (!empty($_GET['idPatrimonio'])) {
 					</div>
 				</div>
 			</div>
+
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="alert bg-danger" role="alert" id="msnAlertaDocumento" style="display: <?= $recibo ?>;">
+						<em class="fa fa-lg fa-warning">&nbsp;</em> Ainda não foi emitido um RECIBO sobre esse item, clique
+						&nbsp;&nbsp;<a href="javascript:" style="color: black;" data-toggle="modal" data-target="#recibo" style="display: <?= $_SESSION['patrimonio_adicionar'] == 1 ? "inline-block" : "none" ?>;">
+							<i class="fas fa-file-contract fa-2x"></i>
+						</a> &nbsp;&nbsp;para gerar o documento<a href="javascript:" class="pull-right" onclick="fecharDoc()"><em class="fa fa-lg fa-close"></em></a>
+					</div>
+				</div>
+			</div>
 			<!--/.row-->
 			<div class="panel panel-default">
 				<div class="panel-heading textNome">
@@ -121,7 +140,7 @@ if (!empty($_GET['idPatrimonio'])) {
 								</div>
 							</div>
 
-							<div id="doador" style="display: <?=  empty($patrimonio['cpf_doador']) ? 'none' : 'block'; ?>;">
+							<div id="doador" style="display: <?= empty($patrimonio['cpf_doador']) ? 'none' : 'block'; ?>;">
 								<div class="col-xs-12">
 									<div class="form-group">
 										<label>Nome doador: </label>
@@ -268,7 +287,7 @@ if (!empty($_GET['idPatrimonio'])) {
 							<div class="col-xs-12">
 								<div class="form-group">
 									<label>Data aquisição</label>
-									<input class="form-control" type="date" name="data_compra" maxlength="10" value="<?= !empty($patrimonio['data_aquisicao']) ? $patrimonio['data_aquisicao'] : "" ?>" >
+									<input class="form-control" type="date" name="data_compra" maxlength="10" value="<?= !empty($patrimonio['data_aquisicao']) ? $patrimonio['data_aquisicao'] : "" ?>">
 								</div>
 							</div>
 					</div>
@@ -296,9 +315,14 @@ if (!empty($_GET['idPatrimonio'])) {
 						</div>
 
 						<div style="display: <?= $_SESSION['patrimonio_adicionar'] == 1 ? "block" : "none" ?>;">
-							<button type="submit" class="btn btn-success" style="margin-left: 80%;" id="enviar">
+							<button type="submit" class="btn btn-success pull-right" id="enviar">
 								<i class="fas fa-share fa-sm text-white-50"></i>&nbsp;<?= $button ?>
 							</button>
+						</div>
+						<div style="display: <?= $recibo ?>;">
+							<a href="javascript:" class="btn btn-warning" data-toggle="modal" data-target="#recibo">
+								<i class="fas fa-file-contract fa-sm text-white-50"></i>&nbsp;<?= $buttonRecibo ?>
+							</a>
 						</div>
 					</div>
 					</form>
@@ -422,7 +446,7 @@ if (!empty($_GET['idPatrimonio'])) {
 	</div>
 
 	<!-- Modal REGSITROS-->
-	<div class="modal fade" id="registro" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal fade in" id="registro" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="false">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -436,7 +460,7 @@ if (!empty($_GET['idPatrimonio'])) {
 						<fieldset>
 							<!-- Assunto -->
 							<div class="form-group">
-								<label class="col-md-3 control-label" for="message">Oservação:</label>
+								<label class="col-md-3 control-label" for="message">Observação:</label>
 								<div class="col-md-9">
 									<textarea class="form-control" id="message" name="observacao" placeholder="..." rows="10"></textarea>
 								</div>
@@ -483,6 +507,60 @@ if (!empty($_GET['idPatrimonio'])) {
 			</div>
 		</div>
 	</div><!-- FIM MODAL DOCUMENTOS -->
+
+	<!-- MODAL RECIBO-->
+	<div class="modal fade" id="recibo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel"><i class="fas fa-file"></i> Recido Doação</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class="panel panel-default">
+						<div class="panel-body">
+							<p>Segue uma lista de todos os itens do doador - <?= $patrimonio['nome_doador'] ?>, portador do CPF nº <?= $patrimonio['cpf_doador'] ?>.</p>
+							<p> Peço que escolha quais itens deseja emitir o recibo.</p>
+						</div>
+					</div>
+					<form class="form-horizontal" action="../back/recibo.php?idPatrimonio=<?= $_GET['idPatrimonio'] ?>" method="post" enctype="multipart/form-data">
+						<label class="col-md-3">Equipamentos:</label>
+						<table class="table table-hover table-bordered">
+							<thead>
+								<tr>
+									<td>Ação</td>
+									<td>Nome / Modelo</td>
+									<td>Código</td>
+								</tr>
+							</thead>
+							<tbody>
+								<?php
+								$queryRecibo = "SELECT * FROM cfa_patrimonio WHERE cpf_doador = '" . $patrimonio['cpf_doador'] . "'";
+								$resultRecibo = $conn->query($queryRecibo);
+
+								while ($recibo = $resultRecibo->fetch_assoc()) {
+									echo '
+										<tr>
+											<td><input type="checkbox" name="aquipamento[]" value="'.$recibo['id'].'" class="equip" checked></td>
+											<td>' . $recibo['nome'] . '</td>
+											<td>' . $recibo['codigo'] . '</td>
+										</tr>';
+								}
+
+								?>
+							</tbody>
+						</table>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">voltar</button>
+					<button type="submit" class="btn btn-primary">Emitir recibo</button>
+				</div>
+				</form>
+			</div>
+		</div>
+	</div><!-- FIM MODAL RECIBO -->
 
 </div><!-- /.panel-->
 </div><!-- /.col-->

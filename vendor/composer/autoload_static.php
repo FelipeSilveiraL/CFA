@@ -13,7 +13,12 @@ class ComposerStaticInitbc53e0d47a081002b25f846d717d7d8a
         ),
         'P' => 
         array (
+            'PhpOffice\\PhpWord\\' => 18,
             'PHPMailer\\PHPMailer\\' => 20,
+        ),
+        'L' => 
+        array (
+            'Laminas\\Escaper\\' => 16,
         ),
         'F' => 
         array (
@@ -30,9 +35,17 @@ class ComposerStaticInitbc53e0d47a081002b25f846d717d7d8a
         array (
             0 => __DIR__ . '/..' . '/phenx/php-svg-lib/src/Svg',
         ),
+        'PhpOffice\\PhpWord\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/phpoffice/phpword/src/PhpWord',
+        ),
         'PHPMailer\\PHPMailer\\' => 
         array (
             0 => __DIR__ . '/..' . '/phpmailer/phpmailer/src',
+        ),
+        'Laminas\\Escaper\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/laminas/laminas-escaper/src',
         ),
         'FontLib\\' => 
         array (

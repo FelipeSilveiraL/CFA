@@ -14,7 +14,7 @@ $dataHoje = date('Y-m-d H:i:s');
 
 switch ($_GET['modo']) {
 	case '1': //adicionando registro
-		$queryRegistro = "INSERT INTO cfa_patrimonio_registros (id_patrimonio, id_usuario, observacao, data_registro) VALUES ('" . $_GET['idPatrimonio'] . "', '" . $_SESSION['id_usuario'] . "', '" . $_POST['observacao'] . "', '".$dataHoje."')";
+		$queryRegistro = "INSERT INTO cfa_patrimonio_registros (id_patrimonio, id_usuario, observacao, data_registro) VALUES ('" . $_GET['idPatrimonio'] . "', '" . $_SESSION['id_usuario'] . "', '" . $_POST['observacao'] . "', '" . $dataHoje . "')";
 
 		if (!$resultRegistro = $conn->query($queryRegistro)) {
 
@@ -24,7 +24,7 @@ switch ($_GET['modo']) {
 			header('Location: ../front/novoPatrimonio.php?pagina=5&msn=1&idPatrimonio=' . $_GET['idPatrimonio'] . '#registros');
 			exit;
 		}
-	break;
+		break;
 
 	case '2': //adicionando um novo documento
 
@@ -90,6 +90,12 @@ $observacao = $_POST['observacao'];
 $nomedoador = $_POST['nomeDoador'];
 $cpfdoador = $_POST['cpfDoador'];
 
+if($origem == '7'){
+	$reciboemitido = '1';
+}else{
+	$reciboemitido = '0';
+}
+
 
 //cadastrando no banco de dados
 if (!empty($_GET['idPatrimonio'])) {
@@ -109,7 +115,8 @@ if (!empty($_GET['idPatrimonio'])) {
 				numero_documento = '$numerodocumento',
 				observacao = '$observacao',
 				nome_doador = '$nomedoador',
-				cpf_doador = '$cpfdoador'	
+				cpf_doador = '$cpfdoador',
+				recibo_emitido = '$reciboemitido'	
 			
 			WHERE (id = " . $_GET['idPatrimonio'] . ")";
 } else {
@@ -160,7 +167,8 @@ if (!empty($_GET['idPatrimonio'])) {
 					numero_documento,
 					observacao,
 					nome_doador,
-					cpf_doador)
+					cpf_doador,
+					recibo_emitido)
 				VALUES
 					('$nome',
 					'$codigo',
@@ -175,7 +183,8 @@ if (!empty($_GET['idPatrimonio'])) {
 					'$numerodocumento',
 					'$observacao',
 					'$nomedoador',
-					'$cpfdoador')";
+					'$cpfdoador',
+					'$reciboemitido')";
 }
 
 if (!$result = $conn->query($query)) {
