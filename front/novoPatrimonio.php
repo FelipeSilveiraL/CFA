@@ -32,6 +32,11 @@ if (!empty($_GET['idPatrimonio'])) {
 }
 
 ?>
+<!-- FECHAR MSN DE CADASTRADO COM SUCESSO -->
+<script>
+
+
+</script>
 <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
 	<!--DIV é finalizada no footer.php-->
 
@@ -91,12 +96,62 @@ if (!empty($_GET['idPatrimonio'])) {
 				<div class="panel-body">
 					<div class="col-md-6">
 						<form role="form" method="POST" action="../back/novoPatrimonio.php?idPatrimonio=<?= $_GET['idPatrimonio'] ?>" enctype="multipart/form-data">
+
+
+							<div class="col-xs-6">
+								<div class="form-group">
+									<label>Origem</label>
+									<select class="form-control" name="origem" onchange="myFunctionOrigem()" id="listOrigem" required>
+										<?php
+										if (!empty($patrimonio['id_origem'])) {
+											echo '<option value="' . $patrimonio['id_origem'] . '">' . $patrimonio['origem'] . '</option>';
+											echo '<option>------------</option>';
+											while ($origem = $resultOrigem->fetch_assoc()) {
+												echo '<option value="' . $origem['id'] . '">' . $origem['nome'] . '</option>';
+											}
+										} else {
+											echo '<option value="">Selecione...</option>';
+
+											while ($origem = $resultOrigem->fetch_assoc()) {
+												echo '<option value="' . $origem['id'] . '">' . $origem['nome'] . '</option>';
+											}
+										}
+										?>
+									</select>
+								</div>
+							</div>
+
+							<div id="doador" style="display: <?=  empty($patrimonio['cpf_doador']) ? 'none' : 'block'; ?>;">
+								<div class="col-xs-12">
+									<div class="form-group">
+										<label>Nome doador: </label>
+										<input class="form-control" name="nomeDoador" maxlength="50" value="<?= !empty($patrimonio['nome_doador']) ? $patrimonio['nome_doador'] : ""  ?>" id="nomeDoador">
+									</div>
+								</div>
+								<div class="col-xs-5">
+									<div class="form-group">
+										<label>CPF doador: </label>
+										<input class="form-control" name="cpfDoador" value="<?= !empty($patrimonio['cpf_doador']) ? $patrimonio['cpf_doador'] : ""  ?>" id="cpfDoador" onkeydown="javascript: fMasc(this, mCPF );" maxlength="14" onblur="ValidarCPF(this)" disabled>
+									</div>
+								</div>
+								<div class="col-xs-12">
+									<div class="form-group">
+										<label>Termo LGPD e GDPR:</label>
+										<div class="checkbox">
+											<label style="color: red">
+												<input type="checkbox" id="lgpd" onclick="myFuncionTermo()">Sou consciente das minhas responsabilidades com os dados cadastrados, em conformidade com a LGPD e GDPR.<p> <a href="../images/termo-LGPD.pdf" target="_blank"> Termo LGPD </a></p>
+											</label>
+										</div>
+									</div>
+								</div>
+							</div>
 							<div class="col-xs-12">
 								<div class="form-group">
 									<label>Nome / Modelo</label>
 									<input class="form-control" name="nome" maxlength="50" value="<?= !empty($patrimonio['nome']) ? $patrimonio['nome'] : ""  ?>" required>
 								</div>
 							</div>
+
 							<div class="col-xs-12">
 								<div class="form-group">
 									<label>Código</label>
@@ -198,54 +253,22 @@ if (!empty($_GET['idPatrimonio'])) {
 
 							<div class="col-xs-6">
 								<div class="form-group">
-									<label>Origem</label>
-									<select class="form-control" name="origem">
-										<?php
-										if (!empty($patrimonio['id_origem'])) {
-											echo '<option value="' . $patrimonio['id_origem'] . '">' . $patrimonio['origem'] . '</option>';
-											echo '<option>------------</option>';
-											while ($origem = $resultOrigem->fetch_assoc()) {
-												echo '<option value="' . $origem['id'] . '">' . $origem['nome'] . '</option>';
-											}
-										} else {
-											echo '<option>Selecione...</option>';
-
-											while ($origem = $resultOrigem->fetch_assoc()) {
-												echo '<option value="' . $origem['id'] . '">' . $origem['nome'] . '</option>';
-											}
-										}
-										?>
-									</select>
-								</div>
-							</div>
-
-							<div class="col-xs-6">
-								<div class="form-group">
 									<label>Valor</label>
 									<input class="form-control" placeholder="R$ 0.000,00" name="valor" maxlength="10" value="<?= !empty($patrimonio['valor']) ? $patrimonio['valor'] : ""  ?>">
 								</div>
 							</div>
 
-							<div class="col-xs-4">
+							<div class="col-xs-6">
 								<div class="form-group">
 									<label>Quantidade</label>
 									<input type="number" class="form-control" name="quantidade" value="<?= !empty($patrimonio['quantidade']) ? $patrimonio['quantidade'] : ""  ?>">
 								</div>
 							</div>
 
-							<div class="col-xs-8">
+							<div class="col-xs-12">
 								<div class="form-group">
-									<label>Data de compra</label>
-									<input class="form-control" name="data_compra" maxlength="10" <?php
-																									if (!empty($patrimonio['data_compra'])) {
-
-																										$data = date('d/m/Y', strtotime($patrimonio['data_compra']));
-																										echo 'value="' . $data . '"';
-																										echo 'type="text"';
-																									} else {
-																										echo 'type="date"';
-																									}
-																									?>>
+									<label>Data aquisição</label>
+									<input class="form-control" type="date" name="data_compra" maxlength="10" value="<?= !empty($patrimonio['data_aquisicao']) ? $patrimonio['data_aquisicao'] : "" ?>" >
 								</div>
 							</div>
 					</div>
@@ -273,11 +296,8 @@ if (!empty($_GET['idPatrimonio'])) {
 						</div>
 
 						<div style="display: <?= $_SESSION['patrimonio_adicionar'] == 1 ? "block" : "none" ?>;">
-							<button type="submit" class="btn btn-success" id="enviar">
+							<button type="submit" class="btn btn-success" style="margin-left: 80%;" id="enviar">
 								<i class="fas fa-share fa-sm text-white-50"></i>&nbsp;<?= $button ?>
-							</button>
-							<button type="reset" class="btn btn-info pull-right">
-								<i class="fas fa-broom fa-sm text-white-50"></i>&nbsp;Desfazer
 							</button>
 						</div>
 					</div>
@@ -314,18 +334,22 @@ if (!empty($_GET['idPatrimonio'])) {
 												<input type="text" class="form-control" placeholder="Nome" disabled>
 											</th>
 											<th>
-												<input type="text" class="form-control" placeholder="Caminho" disabled>
+												<input type="text" class="form-control" placeholder="Arquivo" disabled>
+											</th>
+											<th>
+												<input type="text" class="form-control" placeholder="Data" disabled>
 											</th>
 										</tr>
 									</thead>
 									<tbody>
 										<?php
-										$queryDocumentosPatrimonios .= " WHERE id_patrimonio = ".$_GET['idPatrimonio'];
+										$queryDocumentosPatrimonios .= " WHERE id_patrimonio = " . $_GET['idPatrimonio'];
 										$resultadoDocumentos = $conn->query($queryDocumentosPatrimonios);
 
 										while ($documentos = $resultadoDocumentos->fetch_assoc()) {
 											echo '<tr>
 														<td>' . $documentos['nome'] . '</td>
+														<td>' . date('d/m/Y H:i:s', strtotime($documentos['data_criacao'])) . '</td>
 														<td><a href="' . $documentos['documento'] . '" target="_blank"><i class="fas fa-download fa-2x"></i></a></td>
 													</tr>';
 										}
@@ -381,7 +405,7 @@ if (!empty($_GET['idPatrimonio'])) {
 										while ($registros = $resultadoRegistros->fetch_assoc()) {
 											echo '<tr>
 														<td>' . $registros['nome'] . '</td>
-														<td>' . $registros['data_registro'] . '</td>
+														<td>' . date('d/m/Y H:m:s', strtotime($registros['data_registro'])) . '</td>
 														<td>' . $registros['observacao'] . '</td>
 													</tr>';
 										}
@@ -468,36 +492,3 @@ if (!empty($_GET['idPatrimonio'])) {
 <!--FOOTER-->
 <?php include('footer.php'); ?>
 <!--/. FOOTER-->
-
-<!-- FECHAR MSN DE CADASTRADO COM SUCESSO -->
-<script>
-	function fecharSuccess() {
-		let msn = document.getElementById("msnAlertaSuccess").style.display;
-
-		if (msn == "block") {
-			document.getElementById("msnAlertaSuccess").style.display = "none";
-		}
-	}
-</script>
-
-
-
-<script>
-	function fecharInfo() {
-		let msn = document.getElementById("msnAlertaInfo").style.display;
-
-		if (msn == "block") {
-			document.getElementById("msnAlertaInfo").style.display = "none";
-		}
-	}
-</script>
-
-<script>
-	function fecharDoc() {
-		let msn = document.getElementById("msnAlertaDocumento").style.display;
-
-		if (msn == "block") {
-			document.getElementById("msnAlertaDocumento").style.display = "none";
-		}
-	}
-</script>

@@ -8,7 +8,7 @@ date_default_timezone_set('America/Sao_Paulo');
 include('../bd/conexao.php');
 include('query.php');
 
-$dataHoje = date('d/m/Y H:i:s');
+$dataHoje = date('Y-m-d H:i:s');
 
 //MODOS
 
@@ -28,7 +28,6 @@ switch ($_GET['modo']) {
 
 	case '2': //adicionando um novo documento
 
-		//subindo arq foto
 		if ($_FILES['anexo']['type'] != NULL) {
 
 			//verificando se o arqivo é permitido
@@ -55,7 +54,7 @@ switch ($_GET['modo']) {
 					$resultQuery = $conn->query($query);
 					$idPatrimonio = $resultQuery->fetch_assoc();
 
-					$insertDocumento = "INSERT INTO cfa_patrimonio_documentos (id_patrimonio, documento, nome) VALUES ('" . $idPatrimonio['id'] . "', '" . $dir . $new_name . "', '" . $new_name . "')";
+					$insertDocumento = "INSERT INTO cfa_patrimonio_documentos (id_patrimonio, documento, nome, data_criacao) VALUES ('" . $idPatrimonio['id'] . "', '" . $dir . $new_name . "', '" . $_FILES['anexo']['name'] . "', '$dataHoje')";
 
 					if (!$resultQueryS = $conn->query($insertDocumento)) {
 						echo 'Erro[2] <br />';
@@ -63,6 +62,7 @@ switch ($_GET['modo']) {
 					}
 
 					header('Location: ../front/novoPatrimonio.php?pagina=5&msn=1&idPatrimonio=' . $idPatrimonio['id'] . '#registros');
+					exit;
 				} else {
 					echo 'Erro[3] - Documento nao pode ser enviado com sucesso!';
 					exit;
@@ -71,7 +71,6 @@ switch ($_GET['modo']) {
 		}
 		break;
 }
-
 
 //variaveis do formulario
 $nome  = $_POST['nome'];
@@ -84,10 +83,12 @@ $origem = $_POST['origem'];
 $str =  str_replace("R$ ", "", $_POST['valor']);
 $valor = "R$ " . $str;
 $quantidade = $_POST['quantidade'];
-$datacompra = date('Y-m-d', strtotime($_POST['data_compra']));
+$dataaquisicao = date('Y-m-d', strtotime($_POST['data_compra']));
 $numerodocumento = $_POST['numero_documento'];
 $responsavel = $_SESSION['id_usuario'];
 $observacao = $_POST['observacao'];
+$nomedoador = $_POST['nomeDoador'];
+$cpfdoador = $_POST['cpfDoador'];
 
 
 //cadastrando no banco de dados
@@ -95,18 +96,20 @@ if (!empty($_GET['idPatrimonio'])) {
 
 	$query = "UPDATE cfa_patrimonio SET 
 
-				nome = '" . $nome . "',
-				codigo = '" . $codigo . "',
-				categoria = '" . $categoria . "',
-				local = '" . $local . "',
-				situacao = '" . $situacao . "',
-				conservacao = '" . $conservacao . "',
-				origem = '" . $origem . "',
-				valor = '" . $valor . "',
-				quantidade = '" . $quantidade . "',
-				data_compra = '" . $datacompra . "',
-				numero_documento = '" . $numerodocumento . "',
-				observacao = '" . $observacao . "'		
+				nome = '$nome',
+				codigo = '$codigo',
+				categoria = '$categoria',
+				local = '$local',
+				situacao = '$situacao',
+				conservacao = '$conservacao',
+				origem = '$origem',
+				valor = '$valor',
+				quantidade = '$quantidade',
+				data_aquisicao = '$dataaquisicao',
+				numero_documento = '$numerodocumento',
+				observacao = '$observacao',
+				nome_doador = '$nomedoador',
+				cpf_doador = '$cpfdoador'	
 			
 			WHERE (id = " . $_GET['idPatrimonio'] . ")";
 } else {
@@ -117,7 +120,7 @@ if (!empty($_GET['idPatrimonio'])) {
 		//verificando se o arqivo é permitido
 		$tipoDoc = $_FILES['anexo']['type'];
 
-		$queryDocumentosPermitidos .= " WHERE documento = '" . $tipoDoc . "'";
+		$queryDocumentosPermitidos .= " WHERE documento = '$tipoDoc'";
 		$resultDocumentosPermitidos = $conn->query($queryDocumentosPermitidos);
 		$docuPermitido = $resultDocumentosPermitidos->fetch_assoc();
 
@@ -153,24 +156,27 @@ if (!empty($_GET['idPatrimonio'])) {
 					origem,
 					valor,
 					quantidade,
-					data_compra,
+					data_aquisicao,
 					numero_documento,
-					observacao)
+					observacao,
+					nome_doador,
+					cpf_doador)
 				VALUES
-					('" . $nome . "',
-					'" . $codigo . "',
-					'" . $categoria . "',
-					'" . $local . "',
-					'" . $situacao . "',
-					'" . $conservacao . "',
-					'" . $origem . "',
-					'" . $valor . "',
-					'" . $quantidade . "',
-					'" . $datacompra . "',
-					'" . $numerodocumento . "',
-					'" . $observacao . "')";
+					('$nome',
+					'$codigo',
+					'$categoria',
+					'$local',
+					'$situacao',
+					'$conservacao',
+					'$origem',
+					'$valor',
+					'$quantidade',
+					'$dataaquisicao',
+					'$numerodocumento',
+					'$observacao',
+					'$nomedoador',
+					'$cpfdoador')";
 }
-
 
 if (!$result = $conn->query($query)) {
 	printf("Erro[5]: %s\n", $conn->error);
@@ -186,7 +192,7 @@ if (!$result = $conn->query($query)) {
 
 		if ($documentoOK == 1) {
 
-			$insertDocumento = "INSERT INTO cfa_patrimonio_documentos (id_patrimonio, documento, nome) VALUES ('" . $idPatrimonio['id'] . "', '" . $dir . $new_name . "', '" . $new_name . "')";
+			$insertDocumento = "INSERT INTO cfa_patrimonio_documentos (id_patrimonio, documento, nome, data_criacao) VALUES ('" . $idPatrimonio['id'] . "', '" . $dir . $new_name . "', '" . $_FILES['anexo']['name'] . "', '$dataHoje')";
 
 			if (!$resultQueryS = $conn->query($insertDocumento)) {
 				echo 'Erro[6] <br />';

@@ -24,4 +24,8 @@
 
 	<!-- icones -->
 	<script src="https://kit.fontawesome.com/7005bd725e.js" crossorigin="anonymous"></script>
+	<!--CPF-->
+	<script src="../js/validador.js" crossorigin="anonymous"></script>
+	<script src="../js/msn.js" crossorigin="anonymous"></script>
+	<script src="../js/doador.js" crossorigin="anonymous"></script>
 </head>
