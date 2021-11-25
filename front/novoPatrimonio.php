@@ -45,6 +45,7 @@ if (!empty($_GET['idPatrimonio'])) {
 	$button = 'Salvar';
 	$display = "style='display: none'";
 	$recibo = 'none';
+	$reciboBotao = "none";
 }
 
 ?>
