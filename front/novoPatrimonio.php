@@ -17,10 +17,18 @@ if (!empty($_GET['idPatrimonio'])) {
 	$resultPatrimonio = $conn->query($queryPatrimonio);
 	$patrimonio = $resultPatrimonio->fetch_assoc();
 
-	if ($patrimonio['recibo_emitido'] == 1) {
-		$recibo = "block";
+	if ($patrimonio['id_origem'] == 7) {
+		
 		$buttonRecibo = "Emitir Recibo";
-	} else {
+		$reciboBotao = "block";
+
+		if($patrimonio['recibo_emitido'] == 1){
+			$recibo = "block";
+		}else {
+			$recibo = "none";
+		}
+	}else{
+		$reciboBotao = "none";
 		$recibo = "none";
 	}
 
@@ -319,7 +327,7 @@ if (!empty($_GET['idPatrimonio'])) {
 								<i class="fas fa-share fa-sm text-white-50"></i>&nbsp;<?= $button ?>
 							</button>
 						</div>
-						<div style="display: <?= $recibo ?>;">
+						<div style="display: <?= $reciboBotao ?>;">
 							<a href="javascript:" class="btn btn-warning" data-toggle="modal" data-target="#recibo">
 								<i class="fas fa-file-contract fa-sm text-white-50"></i>&nbsp;<?= $buttonRecibo ?>
 							</a>

@@ -50,7 +50,7 @@ switch ($_GET['modo']) {
 
 				if (move_uploaded_file($_FILES['anexo']['tmp_name'], $dir . $new_name)) {
 
-					$query = "SELECT id FROM cfa_patrimonio;";
+					$query = "SELECT id FROM cfa_patrimonio WHERE id =".$_GET['idPatrimonio'];
 					$resultQuery = $conn->query($query);
 					$idPatrimonio = $resultQuery->fetch_assoc();
 
