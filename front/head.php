@@ -23,7 +23,7 @@
     <script src="../membros/js.js"></script>
 
 	<!-- icones -->
-	<script src="https://kit.fontawesome.com/7005bd725e.js" crossorigin="anonymous"></script>
+	<script src="https://kit.fontawesome.com/550b39a8de.js" crossorigin="anonymous"></script><!--felipesilveiralara@gmail.com-->
 	<!--CPF-->
 	<script src="../js/validador.js" crossorigin="anonymous"></script>
 	<script src="../js/msn.js" crossorigin="anonymous"></script>
