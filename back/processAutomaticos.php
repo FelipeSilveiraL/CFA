@@ -1,6 +1,6 @@
 <?php
-include('../bd/conexao.php');
-include('query.php');
+require_once('/home2/cfasit28/public_html/bd/conexao.php');
+require_once('/home2/cfasit28/public_html/back/query.php');
 
 /* ========== CURSOS ========== */
 

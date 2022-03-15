@@ -1,10 +1,8 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
 <?php
 session_start();
 // Desligue todos os relatórios de erros
-ini_set('display_errors', 1);
-error_reporting(E_ALL);
+/* ini_set('display_errors', 1);
+error_reporting(E_ALL); */
 
 require_once('bd/conexao.php');
 require_once('back/query.php');
@@ -13,7 +11,13 @@ require_once('back/query.php');
 require_once('back/processAutomaticos.php');
 
 if ($_SESSION['email'] != NULL) { //verifiando se o usuário já esta logado
-	header('Location: front/dashboard.php?pagina=1');
+	header('Location: dashboard.php?pagina=1');
+}
+
+//forçando
+if($_GET['pag'] == null) {
+	header('Location: index.php?pag=1');
+	exit;
 }
 
 switch ($_GET['pag']) {
@@ -38,12 +42,12 @@ switch ($_GET['pag']) {
 				$idAlterarSenha = 'block';
 				$idInsiraEmail = 'none';
 				$nomeButton = 'Alterar';
-				$actionForm = 'back/alterarSenha.php?idUsuario=' . $usuarios['id'];
+				$actionForm = '/home2/cfasit28/public_html/back/alterarSenha.php?idUsuario=' . $usuarios['id'];
 			} else {
-				header('Location: index.php?pag=1');
+				header('Location: /home2/cfasit28/public_html/index.php?pag=1');
 			}
 		} else {
-			header('Location: index.php?pag=1');
+			header('Location: /home2/cfasit28/public_html/index.php?pag=1');
 		}
 
 		break;
@@ -53,16 +57,16 @@ switch ($_GET['pag']) {
 		$idAlterarSenha = 'none';
 		$idInsiraEmail = 'block';
 		$nomeButton = 'Enviar por e-mail';
-		$actionForm = 'back/emailSenha.php';
+		$actionForm = '/home2/cfasit28/public_html/back/emailSenha.php';
 		break;
 
 	default:
-		header('Location: index.php?pag=1');
+		header('Location: /home2/cfasit28/public_html/index.php?pag=1');
 		break;
 }
-
-
 ?>
+<!DOCTYPE html>
+<html lang="pt-BR">
 
 <head>
 	<title>CFA - Centro Familiar de Adoração</title>
@@ -196,21 +200,21 @@ switch ($_GET['pag']) {
 	</script>
 
 	<!--===============================================================================================-->
-	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+	<script src="/home2/cfasit28/public_html/vendor/jquery/jquery-3.2.1.min.js"></script>
 	<!--===============================================================================================-->
-	<script src="vendor/bootstrap/js/popper.js"></script>
-	<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+	<script src="/home2/cfasit28/public_html/vendor/bootstrap/js/popper.js"></script>
+	<script src="/home2/cfasit28/public_html/vendor/bootstrap/js/bootstrap.min.js"></script>
 	<!--===============================================================================================-->
-	<script src="vendor/select2/select2.min.js"></script>
+	<script src="/home2/cfasit28/public_html/vendor/select2/select2.min.js"></script>
 	<!--===============================================================================================-->
-	<script src="vendor/tilt/tilt.jquery.min.js"></script>
+	<script src="/home2/cfasit28/public_html/vendor/tilt/tilt.jquery.min.js"></script>
 	<script>
 		$('.js-tilt').tilt({
 			scale: 1.1
 		})
 	</script>
 	<!--===============================================================================================-->
-	<script src="js/main.js"></script>
+	<script src="/home2/cfasit28/public_html/js/main.js"></script>
 
 </body>
 

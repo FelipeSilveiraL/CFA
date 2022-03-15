@@ -245,6 +245,6 @@ CE.id AS id_estudo,
 CU.nome AS estudante,
 CU.email
 
-FROM cfa.cfa_estudantes CES
+FROM cfa_estudantes CES
 LEFT JOIN cfa_estudos CE ON (CES.id_estudo = CE.id)
 LEFT JOIN cfa_usuarios CU ON (CES.id_usuario = CU.id)";                        
