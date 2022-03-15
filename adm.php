@@ -14,12 +14,6 @@ if ($_SESSION['email'] != NULL) { //verifiando se o usuário já esta logado
 	header('Location: dashboard.php?pagina=1');
 }
 
-//forçando
-if($_GET['pag'] == null) {
-	header('Location: adm.php?pag=1');
-	exit;
-}
-
 switch ($_GET['pag']) {
 	case '1':
 		$idLogar = 'block';

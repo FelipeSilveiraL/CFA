@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!--HEAD-->
 <?php include('head.php'); ?>
 <!--FIM HEAD-->

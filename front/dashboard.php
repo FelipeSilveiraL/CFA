@@ -1,9 +1,13 @@
+<?php
+session_start();
+?>
 <!--HEAD-->
 <?php include('head.php'); ?>
 <!--FIM HEAD-->
 
 <!--HEADER-->
 <?php include('header.php'); ?>
+<!--aqui faz a chamada da seção-->
 <!--FIM HEADER-->
 
 

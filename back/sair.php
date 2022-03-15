@@ -3,5 +3,5 @@ session_start();
 
 session_unset();
 
-header("Location: ../index.php");
+header("Location: ../adm.php?pag=1");
 ?>

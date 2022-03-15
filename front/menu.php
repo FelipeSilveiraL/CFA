@@ -5,7 +5,7 @@
 		</div>
 		<div class="profile-usertitle">
 			<a href="novoMembro.php?pagina=3&idMembro=<?= $_SESSION['id_usuario'] ?>" title="Meu Perfil" style="color: black">
-				<div class="profile-usertitle-name textNome"><?= $_SESSION['nome'] . " ". $_SESSION['sobre_nome'] ?></div>
+				<div class="profile-usertitle-name textNome"><?= $_SESSION['nome'] . " " . $_SESSION['sobre_nome'] ?></div>
 			</a>
 		</div>
 		<div class="clear"></div>
@@ -32,7 +32,7 @@
 		<li <?= $estudos ?>>
 			<a href="estudos.php?pagina=7"><i class="fas fa-book"></i>&nbsp; Estudos</a>
 		</li>
-		
+
 		<li <?= $patrimonio ?>>
 			<a href="patrimonio.php?pagina=5"><i class="fas fa-hotel"></i>&nbsp; Patrimônio</a>
 		</li>

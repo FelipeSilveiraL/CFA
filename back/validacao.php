@@ -2,8 +2,8 @@
 	session_start();
 
 	//banco de dados
-	include('../bd/conexao.php');
-	include('query.php');
+	require_once '../bd/conexao.php';
+	require_once 'query.php';
 	
 	//bcrypt - SENHA
 	$custo = '10';
@@ -23,21 +23,21 @@
 
 		if($usuario['deletar'] == 1){
 			//volta
-			header('Location: ../index.php?pag=1&erro=2');
+			header('Location: ../adm.php?erro=2');
 		}else{
 			
 
-			//dados do usuario
+			############ DADOS DO USUÁRIO ############
+
 			$_SESSION['nome'] = $usuario['nome'];
 			$_SESSION['sobre_nome'] = $usuario['sobre_nome'];
 			$_SESSION['email'] = $usuario['email'];
 			$_SESSION['id_usuario'] = $usuario['id'];
 			$_SESSION['foto_perfil'] = $usuario['foto_perfil'];
 			$_SESSION['deletar_usuario'] = $usuario['deletar'];
-
-
-			//permissões
-
+			
+			
+			############ PERMISSÕES ############
 			/* 
 				query.php - Chamar a tela cadastrada no banco
 				permissao.php - colocar o active e se o usuário pode ver ela ou não
@@ -85,12 +85,13 @@
 			$_SESSION['estudos_excluir'] = $usuario['estudos_excluir'];
 
 			//levando o usuário para a pagina principal
-			header('Location: ../front/dashboard.php?pagina=1');		
+			header('Location: ../front/dashboard.php?pagina=1');
 		}
 	}else{
 		//volta
-		header('Location: ../index.php?erro=1');
+		header('Location: http://cfasitiocercado.com.br/adm.php?erro=1&pag=1');
 	}
+	
 	
 	$conn->close();
 ?>

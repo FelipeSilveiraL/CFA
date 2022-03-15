@@ -1,4 +1,5 @@
 <?php
+session_start();
 setlocale(LC_TIME, 'pt_BR', 'pt_BR.utf-8', 'pt_BR.utf-8', 'portuguese');
 date_default_timezone_set('America/Sao_Paulo');
 
@@ -192,7 +193,7 @@ if (!empty($_GET['idEstudo'])) {
 										while ($estudantes = $resultEstudantes->fetch_assoc()) {
 											echo '
 												<tr>
-													<td><a href="novoMembro.php?pagina=3&idMembro='.$estudantes['id_usuario'].'">' . $estudantes['estudante'] . '</a></td>
+													<td><a href="novoMembro.php?pagina=3&idMembro=' . $estudantes['id_usuario'] . '">' . $estudantes['estudante'] . '</a></td>
 													<td>' . $estudantes['email'] . '</td>
 													<td>' . date('d/m/Y', strtotime($estudantes['data_inicio'])) . '</td>
 													<td>' . date('d/m/Y', strtotime($estudantes['data_fim'])) . '</td>
@@ -243,13 +244,13 @@ if (!empty($_GET['idEstudo'])) {
 
 							while ($user = $resultUsuario->fetch_assoc()) {
 								echo '<tr>
-										<td><input type="checkbox" onclick="requerir'.$user['nome'].'()" name="aluno[]" value="' . $user['id'] . '"></td>
+										<td><input type="checkbox" onclick="requerir' . $user['nome'] . '()" name="aluno[]" value="' . $user['id'] . '"></td>
 										<td><label>' . $user['nome'] . ' ' . $user['sobre_nome'] . '</label></td>
 										<td>' . $user['email'] . '</td>
-										<td><input type="date" name="data_inicio' . $user['id'] . '" id="dataInicio'.$user['nome'].'"></td>
-										<td><input type="date" name="data_fim' . $user['id'] . '" id="dataFim'.$user['nome'].'"></td>
+										<td><input type="date" name="data_inicio' . $user['id'] . '" id="dataInicio' . $user['nome'] . '"></td>
+										<td><input type="date" name="data_fim' . $user['id'] . '" id="dataFim' . $user['nome'] . '"></td>
 										<td>
-										<select name="status' . $user['id'] . '" id="status'.$user['nome'].'">
+										<select name="status' . $user['id'] . '" id="status' . $user['nome'] . '">
 											<option value="">Selecione...</option>
 											<option value="Cursando">Cursando</option>
 											<option value="Concluido">Concluido</option>
@@ -257,16 +258,16 @@ if (!empty($_GET['idEstudo'])) {
 										</td>
 									</tr>';
 
-									echo '
+								echo '
 									<script>
-										function requerir'.$user['nome'].'() {
-											var x = document.getElementById("dataInicio'.$user['nome'].'").required;
-											var y = document.getElementById("dataFim'.$user['nome'].'").required;
-											var k = document.getElementById("status'.$user['nome'].'").required;
+										function requerir' . $user['nome'] . '() {
+											var x = document.getElementById("dataInicio' . $user['nome'] . '").required;
+											var y = document.getElementById("dataFim' . $user['nome'] . '").required;
+											var k = document.getElementById("status' . $user['nome'] . '").required;
 
-											if(x == false){document.getElementById("dataInicio'.$user['nome'].'").required = true;}
-											if(y == false){document.getElementById("dataFim'.$user['nome'].'").required = true;}
-											if(k == false){document.getElementById("status'.$user['nome'].'").required = true;}
+											if(x == false){document.getElementById("dataInicio' . $user['nome'] . '").required = true;}
+											if(y == false){document.getElementById("dataFim' . $user['nome'] . '").required = true;}
+											if(k == false){document.getElementById("status' . $user['nome'] . '").required = true;}
 										}
 									</script>
 									

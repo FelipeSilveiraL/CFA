@@ -1,4 +1,5 @@
 <?php
+session_start();
 include('head.php');
 include('header.php');
 include('../bd/conexao.php');
@@ -340,7 +341,7 @@ if (!empty($_GET['idMembro'])) {
 
 												while ($estudantes = $resultEstudantes->fetch_assoc()) {
 													echo '<tr>';
-													echo '<td><a href="novoEstudo.php?pagina=7&idEstudo='.$estudantes['id_estudo'].'">' . $estudantes['nomeEstudo'] . '</a></td>';
+													echo '<td><a href="novoEstudo.php?pagina=7&idEstudo=' . $estudantes['id_estudo'] . '">' . $estudantes['nomeEstudo'] . '</a></td>';
 													echo '<td>' . date('d/m/Y', strtotime($estudantes['data_inicio'])) . '</td>';
 													echo '<td>' . date('d/m/Y', strtotime($estudantes['data_fim'])) . '</td>';
 													echo '<td style="background:';

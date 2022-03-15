@@ -1,4 +1,5 @@
 <?php
+session_start();
 setlocale(LC_TIME, 'pt_BR', 'pt_BR.utf-8', 'pt_BR.utf-8', 'portuguese');
 date_default_timezone_set('America/Sao_Paulo');
 
@@ -18,16 +19,16 @@ if (!empty($_GET['idPatrimonio'])) {
 	$patrimonio = $resultPatrimonio->fetch_assoc();
 
 	if ($patrimonio['id_origem'] == 7) {
-		
+
 		$buttonRecibo = "Emitir Recibo";
 		$reciboBotao = "block";
 
-		if($patrimonio['recibo_emitido'] == 1){
+		if ($patrimonio['recibo_emitido'] == 1) {
 			$recibo = "block";
-		}else {
+		} else {
 			$recibo = "none";
 		}
-	}else{
+	} else {
 		$reciboBotao = "none";
 		$recibo = "none";
 	}
@@ -552,7 +553,7 @@ if (!empty($_GET['idPatrimonio'])) {
 								while ($recibo = $resultRecibo->fetch_assoc()) {
 									echo '
 										<tr>
-											<td><input type="checkbox" name="aquipamento[]" value="'.$recibo['id'].'" class="equip" checked></td>
+											<td><input type="checkbox" name="aquipamento[]" value="' . $recibo['id'] . '" class="equip" checked></td>
 											<td>' . $recibo['nome'] . '</td>
 											<td>' . $recibo['codigo'] . '</td>
 										</tr>';
