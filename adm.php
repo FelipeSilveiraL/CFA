@@ -16,7 +16,7 @@ if ($_SESSION['email'] != NULL) { //verifiando se o usuário já esta logado
 
 //forçando
 if($_GET['pag'] == null) {
-	header('Location: index.php?pag=1');
+	header('Location: adm.php?pag=1');
 	exit;
 }
 
@@ -44,10 +44,10 @@ switch ($_GET['pag']) {
 				$nomeButton = 'Alterar';
 				$actionForm = '/home2/cfasit28/public_html/back/alterarSenha.php?idUsuario=' . $usuarios['id'];
 			} else {
-				header('Location: /home2/cfasit28/public_html/index.php?pag=1');
+				header('Location: /home2/cfasit28/public_html/adm.php?pag=1');
 			}
 		} else {
-			header('Location: /home2/cfasit28/public_html/index.php?pag=1');
+			header('Location: /home2/cfasit28/public_html/adm.php?pag=1');
 		}
 
 		break;
@@ -61,7 +61,7 @@ switch ($_GET['pag']) {
 		break;
 
 	default:
-		header('Location: /home2/cfasit28/public_html/index.php?pag=1');
+		header('Location: /home2/cfasit28/public_html/adm.php?pag=1');
 		break;
 }
 ?>
@@ -169,7 +169,7 @@ switch ($_GET['pag']) {
 						<span class="txt1">
 							Esqueceu
 						</span>
-						<a class="txt2" href="index.php?pag=3">
+						<a class="txt2" href="adm.php?pag=3">
 							Usuário / Senha?
 						</a>
 					</div>
