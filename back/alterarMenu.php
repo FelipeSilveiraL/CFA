@@ -19,7 +19,7 @@ switch ($_GET['opcao']) {
 if(!$result = $conn->query($query)){
 	printf("Error message[1]: %s\n", $conn->error);
 }else{
-	header('Location: ../front/alterarMenu.php?pagina=2&idMenu='.$_GET['idMenu'].'');
+	header('Location: ../front/alterarmenu.php?pagina=2&idMenu='.$_GET['idMenu'].'');
 }
 
 $conn->close();
