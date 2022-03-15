@@ -1,10 +1,10 @@
 <?php
 
 $endereco = "localhost";
-$senhadb = "oOSpB8GzY3kKOCAL";
-$userdb = "root";
+$senhadb = "cfasitiocercado";
+$userdb = "cfasit28_admin";
 $portadb = "3306";
-$db = "cfa";
+$db = "cfasit28_cfa";
 
 $conn = new mysqli($endereco, $userdb, $senhadb, $db);
 
