@@ -54,6 +54,7 @@ session_start();
         <div class="panel panel-primary">
             <div class="panel-heading">Informações básicas</div>
             <div class="panel-body">
+                <p class="text-start fw-bold">SERVIDOR</p>
                 <p>
                     <span class="colorBlue">
                         <i class="fas fa-caret-right"></i> IP Servidor Local:
@@ -64,6 +65,7 @@ session_start();
                         <i class="fas fa-caret-right"></i> IP Servidor Remoto:
                     </span> <?= $_SERVER['REMOTE_ADDR'] ?>
                 </p>
+                <p class="text-start fw-bold">BANCO DE DADOS</p>
                 <p>
                     <?= printf("<span class='colorBlue'><i class='fas fa-caret-right'></i>  DB:</span> %s\n", $conn->client_info) ?>;
                 </p>
@@ -95,6 +97,20 @@ session_start();
                         </button>
                     </span>
 
+                </p>
+                <p class="text-start fw-bold">SERVIÇOS WEB</p>
+                <p>
+                    <span class="colorBlue">
+                        <i class="fas fa-caret-right"></i> Versão PHP:
+                    </span> <?= phpversion() ?>
+                </p>
+                <p>
+                    <span class="colorBlue">
+                        <i class="fas fa-caret-right"></i> Versão Apache:
+                    </span> <?php
+                            $version = apache_get_version();
+                            var_dump($version);
+                            ?>
                 </p>
             </div>
         </div>
