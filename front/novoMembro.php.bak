@@ -123,7 +123,7 @@ if (!empty($_GET['idMembro'])) {
 							<div class="col-xs-6">
 								<div class="form-group">
 									<label>Sobre Nome</label>
-									<input type="text" class="form-control" name="sobrenome" maxlength="30" value="<?= !empty($membro['sobre_nome']) ? $membro['sobre_nome'] : ""  ?>">
+									<input type="text" class="form-control" name="sobrenome" maxlength="20" value="<?= !empty($membro['sobre_nome']) ? $membro['sobre_nome'] : ""  ?>">
 								</div>
 							</div>
 							<div class="col-xs-12">

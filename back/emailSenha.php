@@ -29,18 +29,19 @@ if ($email['email'] != NULL) {
 
     try {
         //Server settings
-        /* $mail->SMTPDebug = SMTP::DEBUG_SERVER; */                      //Enable verbose debug output
+        /* $mail->SMTPDebug = SMTP::DEBUG_SERVER; //Enable verbose debug output */
         $mail->CharSet = "utf-8";
-        $mail->isSMTP();                                            //Send using SMTP
-        $mail->Host       = 'smtp.gmail.com';                     //Set the SMTP server to send through
+        $mail->isSMTP();//Send using SMTP
+        $mail->SMTPDebug = 1; // debugging: 1 = errors and messages, 2 = messages only
         $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
-        $mail->Username   = 'desenvolvimento@servopa.com.br';                     //SMTP username
-        $mail->Password   = '********';                               //SMTP password
-        $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
+        $mail->Username   = 'contato@cfasitiocercado.com.br';                     //SMTP username
+        $mail->Password   = 'cfasitiocercado';                               //SMTP password
+        $mail->SMTPSecure = 'ssl'; // secure transfer enabled REQUIRED for Gmail
+        $mail->Host = "smtp.titan.email";
         $mail->Port       = 465;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
 
         //Recipients
-        /* $mail->setFrom('euquemandei@gmail.com.br', 'Mailer'); */          
+        $mail->setFrom('contato@cfasitiocercado.com.br', 'Contato CFA');          
         $mail->addAddress($email['email'], $email['nome'].' '.$email['sobre_nome']);     //Add a recipient
         /*
         $mail->addAddress('ellen@example.com');               //Name is optional
@@ -90,7 +91,7 @@ if ($email['email'] != NULL) {
                                 <div class="corpo">
                                     <p>Foi solicitado uma alteração de senha do seu acesso ao portal <b>Mebro CFA</b></p>
                                     <p>Caso tenha sido realmente você, basta clicar em <a
-                                            href="http://localhost/projetos/index.php?pag=2&idUsuario='.$email['id'].'">ALTERAR SENHA</a>, que você será
+                                            href="http://cfasitiocercado.com.br/adm.php?pag=2&idUsuario='.$email['id'].'">ALTERAR SENHA</a>, que você será
                                         redirecionado para alterar sua senha</p>
                                     <p>Agora se não foi você pode desconsiderar essa msn!</p>
                                     <p>Que a paz de Cristo esteja na sua vida!</p>
@@ -104,7 +105,7 @@ if ($email['email'] != NULL) {
         $mail->send();
 
         echo 'Enviado solicitação para o email: ' . $partInicial . '*****' . $partFinal;
-        echo '<meta http-equiv="refresh" content="5;url=../index.php?pag=1" />';
+        echo '<meta http-equiv="refresh" content="5;url=../adm.php?pag=1" />';
 
     } catch (Exception $e) {
 

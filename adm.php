@@ -36,12 +36,12 @@ switch ($_GET['pag']) {
 				$idAlterarSenha = 'block';
 				$idInsiraEmail = 'none';
 				$nomeButton = 'Alterar';
-				$actionForm = '/home2/cfasit28/public_html/back/alterarSenha.php?idUsuario=' . $usuarios['id'];
+				$actionForm = 'back/alterarSenha.php?idUsuario=' . $usuarios['id'];
 			} else {
-				header('Location: /home2/cfasit28/public_html/adm.php?pag=1');
+				header('Location: adm.php?pag=1');
 			}
 		} else {
-			header('Location: /home2/cfasit28/public_html/adm.php?pag=1');
+			header('Location: adm.php?pag=1');
 		}
 
 		break;
@@ -51,11 +51,11 @@ switch ($_GET['pag']) {
 		$idAlterarSenha = 'none';
 		$idInsiraEmail = 'block';
 		$nomeButton = 'Enviar por e-mail';
-		$actionForm = '/home2/cfasit28/public_html/back/emailSenha.php';
+		$actionForm = '/back/emailSenha.php';
 		break;
 
 	default:
-		header('Location: /home2/cfasit28/public_html/adm.php?pag=1');
+		header('Location: adm.php?pag=1');
 		break;
 }
 ?>
@@ -194,21 +194,21 @@ switch ($_GET['pag']) {
 	</script>
 
 	<!--===============================================================================================-->
-	<script src="/home2/cfasit28/public_html/vendor/jquery/jquery-3.2.1.min.js"></script>
+	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
 	<!--===============================================================================================-->
-	<script src="/home2/cfasit28/public_html/vendor/bootstrap/js/popper.js"></script>
-	<script src="/home2/cfasit28/public_html/vendor/bootstrap/js/bootstrap.min.js"></script>
+	<script src="vendor/bootstrap/js/popper.js"></script>
+	<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
 	<!--===============================================================================================-->
-	<script src="/home2/cfasit28/public_html/vendor/select2/select2.min.js"></script>
+	<script src="vendor/select2/select2.min.js"></script>
 	<!--===============================================================================================-->
-	<script src="/home2/cfasit28/public_html/vendor/tilt/tilt.jquery.min.js"></script>
+	<script src="vendor/tilt/tilt.jquery.min.js"></script>
 	<script>
 		$('.js-tilt').tilt({
 			scale: 1.1
 		})
 	</script>
 	<!--===============================================================================================-->
-	<script src="/home2/cfasit28/public_html/js/main.js"></script>
+	<script src="js/main.js"></script>
 
 </body>
 

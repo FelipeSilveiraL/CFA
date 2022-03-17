@@ -51,7 +51,7 @@ if(!empty($_GET['idMembro'])){
 			$foto = "foto_perfil = '".$dir.$new_name."',";
 
 		}else{
-			echo 'não foi enviado';
+			//echo 'não foi enviado, erro[1]';
 		}
 		
 	}
@@ -95,7 +95,7 @@ if(!empty($_GET['idMembro'])){
 			$foto = $dir.$new_name;
 
 		}else{
-			echo 'não foi enviado';
+			echo 'não foi enviado, erro[2]';
 			$foto = $dir."avatar.png";
 		}
 		

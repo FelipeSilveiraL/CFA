@@ -94,7 +94,7 @@ if (!empty($_GET['idEstudo'])) {
 							</div>
 							<div class="col-xs-12">
 								<div class="form-group">
-									<label>Professor:</label>
+									<label>Lecionador:</label>
 									<select class="form-control" name="lecionador">
 										<?php
 										if (!empty($estudos['id_usuario'])) {

@@ -14,7 +14,7 @@ $hash = crypt($senha, '$2a$' . $custo . '$' . $salt . '$');
 $update = "UPDATE cfa_usuarios SET senha = '".$hash."', alterarSenha = 0  WHERE (id = ".$_GET['idUsuario'].")";
 
 if($resultUpdate = $conn->query($update)){
-    header('Location: ../index.php?pag=1&msn=1');
+    header('Location: ../adm.php?pag=1&msn=1');
 }else{    
     printf("Error message[1]: %s\n", $conn->error);
 }
