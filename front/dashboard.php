@@ -1,6 +1,12 @@
 <?php
 session_start();
-include('head.php'); ?>
+
+if ($_SESSION['email'] == NULL) {
+	header('Location: ../adm.php?erro=1');
+}
+
+include('head.php'); 
+?>
 <!--FIM HEAD-->
 
 <!--HEADER-->

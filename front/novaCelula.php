@@ -1,5 +1,10 @@
 <?php
 session_start();
+
+if ($_SESSION['email'] == NULL) {
+	header('Location: ../adm.php?erro=1');
+}
+
 setlocale(LC_TIME, 'pt_BR', 'pt_BR.utf-8', 'pt_BR.utf-8', 'portuguese');
 date_default_timezone_set('America/Sao_Paulo');
 

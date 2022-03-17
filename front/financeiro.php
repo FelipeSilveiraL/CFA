@@ -1,5 +1,10 @@
 <?php
 session_start();
+
+if ($_SESSION['email'] == NULL) {
+	header('Location: ../adm.php?erro=1');
+}
+
 include('head.php');
 include('header.php');
 

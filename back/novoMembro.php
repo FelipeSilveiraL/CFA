@@ -47,7 +47,7 @@ if(!empty($_GET['idMembro'])){
 		$new_name = "foto-". $str . $strs . $ext; //Definindo um novo nome para o arquivo    
 
 		if(move_uploaded_file($_FILES['foto']['tmp_name'], $dir.$new_name)){
-			echo 'Foto enviada com sucesso!';
+			//echo 'Foto enviada com sucesso![1]';
 			$foto = "foto_perfil = '".$dir.$new_name."',";
 
 		}else{
@@ -91,11 +91,11 @@ if(!empty($_GET['idMembro'])){
 		$new_name = "foto-". $str . $strs . $ext; //Definindo um novo nome para o arquivo    
 
 		if(move_uploaded_file($_FILES['foto']['tmp_name'], $dir.$new_name)){
-			echo 'Foto enviada com sucesso!';
+			//echo 'Foto enviada com sucesso![2]';
 			$foto = $dir.$new_name;
 
 		}else{
-			echo 'não foi enviado, erro[2]';
+			//echo 'não foi enviado, erro[2]';
 			$foto = $dir."avatar.png";
 		}
 		
@@ -144,14 +144,17 @@ if(!empty($_GET['idMembro'])){
 					'".$cidade."',
 					'".$celular."')";
 	}
-	
 if(!$result = $conn->query($query)){
-	printf("Error message[1]: %s\n", $conn->error);
-}else{
 
+	printf("Error message[1]: %s\n", $conn->error);
+
+}else{
 	if(!empty($_GET['idMembro'])){
+
 		header('Location: ../front/novoMembro.php?pagina=3&msn=2&idMembro='.$_GET['idMembro'].'');
+
 	}else{
+
 		$query = "SELECT MAX(id) as id FROM cfa_usuarios";
 		$resultQuery = $conn->query($query);
 		$idUsuario = $resultQuery->fetch_assoc();
