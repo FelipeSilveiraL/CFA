@@ -134,7 +134,7 @@ include('menu.php');
 												<td>' . $celula['horario'] . '</td>
 												<td>' . $celula['endereco'] . ', ' . $celula['numero'] . ' - ' . $celula['cidade'] . ' - ' . $celula['estado'] . '</td>';
 
-											$query = 'SELECT CU.nome
+											$query = 'SELECT CU.nome, CU.sobre_nome
 											FROM cfa_celula_lideres CL
 											LEFT JOIN cfa_celulas CC ON (CL.id_celula = CC.id) 
 											LEFT JOIN cfa_usuarios CU ON (CL.id_usuario = CU.id)
@@ -145,7 +145,7 @@ include('menu.php');
 
 												if (!empty($lideres)) {
 													echo '<td>';
-													echo $lideres['nome'];
+													echo $lideres['nome']." ".$lideres['sobre_nome'];
 													echo '</td>';
 												}
 												$colspan--;
@@ -255,7 +255,7 @@ include('menu.php');
 											$colspan = 3;
 
 											echo '<tr>
-													<td><a href="novoMembro.php?pagina=3&idMembro=' . $semCelula['id'] . '">' . $semCelula['nome'] . '</a></td>
+													<td><a href="novoMembro.php?pagina=3&idMembro=' . $semCelula['id'] . '">' . $semCelula['nome'] ." ". $semCelula['sobre_nome'] . '</a></td>
 													<td>
 														<div class="profile-userpic">
 															<img src="' . $semCelula['foto_perfil'] . '" class="img-responsive" style="margin-left: 42%;" alt="">

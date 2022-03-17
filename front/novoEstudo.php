@@ -8,11 +8,11 @@ setlocale(LC_TIME, 'pt_BR', 'pt_BR.utf-8', 'pt_BR.utf-8', 'portuguese');
 date_default_timezone_set('America/Sao_Paulo');
 
 
-include('../bd/conexao.php');
-include('../back/query.php');
 include('head.php');
 include('header.php');
 include('menu.php');
+include('../back/query.php');
+include('../bd/conexao.php');
 
 
 if (!empty($_GET['idEstudo'])) {
@@ -104,14 +104,14 @@ if (!empty($_GET['idEstudo'])) {
 
 											$resultUsuarios = $conn->query($queryUsuarios);
 											while ($usuarios = $resultUsuarios->fetch_assoc()) {
-												echo '<option value="' . $usuarios['id'] . '">' . $usuarios['nome'] . '</option>';
+												echo '<option value="' . $usuarios['id'] . '">' . $usuarios['nome'] . " " . $usuarios['sobre_nome'] . '</option>';
 											}
 										} else {
 											echo '<option>Selecione...</option>';
 
 											$resultUsuarios = $conn->query($queryUsuarios);
 											while ($usuarios = $resultUsuarios->fetch_assoc()) {
-												echo '<option value="' . $usuarios['id'] . '">' . $usuarios['nome'] . '</option>';
+												echo '<option value="' . $usuarios['id'] . '">' . $usuarios['nome'] . " " . $usuarios['sobre_nome'] . '</option>';
 											}
 										}
 										?>

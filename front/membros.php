@@ -149,7 +149,7 @@ if(!empty($_GET['mes'])){
 											include('../back/faixaEtaria.php');
 
 											echo '<tr>
-												<td>' . $usuarios['nome'] . '</td>
+												<td>' . $usuarios['nome'] . " " . $usuarios['sobre_nome'] .'</td>
 												<td>' . $usuarios['email'] . '</td>
 												<td><a href="javascript:" title="' . $idade . ' anos">' . $usuarios['data_nascimento'] . '</a></td>
 												<td>' . $usuarios['celular'] . '</td>
