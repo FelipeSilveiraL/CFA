@@ -1,6 +1,5 @@
 
 	<?php
-	//sessões do portal
 	session_start();
 	// Desligue todos os relatórios de erros
 	error_reporting(0);

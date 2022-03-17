@@ -1,4 +1,5 @@
 <?php
+session_start();
 include('head.php');
 include('header.php');
 include('../back/menu.php');
@@ -113,7 +114,7 @@ $result = $conn->query($queryListaDados);
 														
 															<div class="panel panel-default">
 																<div class="panel-body">
-																	<form class="form-horizontal" action="../back/alterarMenu.php?opcao=2&id=' . $listaMenus['id'] . '&db='.$menuBanco.'&idMenu='.$_GET['idMenu'].'" method="post">
+																	<form class="form-horizontal" action="../back/alterarMenu.php?opcao=2&id=' . $listaMenus['id'] . '&db=' . $menuBanco . '&idMenu=' . $_GET['idMenu'] . '" method="post">
 																		<fieldset>
 																			<!-- Name input-->
 																			<div class="form-group">
@@ -153,7 +154,7 @@ $result = $conn->query($queryListaDados);
 														</div>
 														<div class="modal-footer">
 															<button type="button" class="btn btn-info" data-dismiss="modal">Não</button>
-															<a href="../back/alterarMenu.php?opcao=3&id=' . $listaMenus['id'] . '&db='.$menuBanco.'&idMenu='.$_GET['idMenu'].'" class="btn btn-danger">Sim</a>
+															<a href="../back/alterarMenu.php?opcao=3&id=' . $listaMenus['id'] . '&db=' . $menuBanco . '&idMenu=' . $_GET['idMenu'] . '" class="btn btn-danger">Sim</a>
 														</div>
 														</div>
 													</div>

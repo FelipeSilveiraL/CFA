@@ -1,5 +1,6 @@
-<!--HEAD-->
-<?php include('head.php');
+<?php
+session_start();
+include('head.php');
 /* <!--FIM HEAD--> */
 
 /* <!--HEADER--> */
