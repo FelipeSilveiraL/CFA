@@ -1,14 +1,11 @@
 <?php
 session_start();
 
-if ($_SESSION['email'] == NULL) {
-	header('Location: ../adm.php?erro=1');
-}
+$_SESSION['email'] != NULL ?: header('Location: ../adm.php?erro=1');
+$_SESSION['tela_configuracao'] == 1 ?: header('location: dashboard.php?pagina=1');
 
 include('head.php');
 include('header.php');
-/* PERMISSÃO */
-$_SESSION['tela_configuracao'] == 1 ?: header('location: dashboard.php?pagina=1');
 include('menu.php');
 ?>
 

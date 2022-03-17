@@ -2,7 +2,7 @@
 <head>
 	<meta charset="utf-8">	
 	<!--TITLE-->
-	<title>Comunidade Familiar Adoração</title>
+	<title>Centro Familiar Adoração</title>
 	<!-- ICONE ABA -->
 	<link rel="icon" href="../images/icons/biblia.png" />
 	

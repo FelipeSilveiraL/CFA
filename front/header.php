@@ -1,9 +1,6 @@
 <?php
-//incluindo o banco de dados
 require_once('../bd/conexao.php');
-//incluindo as permissões
 require_once('../back/permissao.php');
-//incluindo as querys
 require_once('../back/query.php');
 
 ?>

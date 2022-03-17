@@ -1,23 +1,18 @@
 <?php
 session_start();
 
-if ($_SESSION['email'] == NULL) {
-	header('Location: ../adm.php?erro=1');
-}
+$_SESSION['email'] != NULL ?: header('Location: ../adm.php?erro=1');
+$_SESSION['tela_estudos'] == 1 ?: header('location: dashboard.php?pagina=1');
 
 setlocale(LC_TIME, 'pt_BR', 'pt_BR.utf-8', 'pt_BR.utf-8', 'portuguese');
 date_default_timezone_set('America/Sao_Paulo');
 
 
-include('head.php');
-
-include('header.php');
 include('../bd/conexao.php');
-/* PERMISSÃO */
-$_SESSION['tela_estudos'] == 1 ?: header('location: dashboard.php?pagina=1');
-
-include('menu.php');
 include('../back/query.php');
+include('head.php');
+include('header.php');
+include('menu.php');
 
 
 if (!empty($_GET['idEstudo'])) {

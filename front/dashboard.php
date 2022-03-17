@@ -1,22 +1,11 @@
 <?php
 session_start();
 
-if ($_SESSION['email'] == NULL) {
-	header('Location: ../adm.php?erro=1');
-}
+$_SESSION['email'] != NULL ?: header('Location: ../adm.php?erro=1');
 
-include('head.php'); 
-?>
-<!--FIM HEAD-->
-
-<!--HEADER-->
-<?php include('header.php'); ?>
-<!--FIM HEADER-->
-
-
-<!--MENU LATERAL-->
-<?php include('menu.php'); ?>
-<!--FIM MENU LATERAL-->
+include('head.php');
+include('header.php');
+include('menu.php'); ?>
 
 <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
 	<!--DIV é finalizada no footer.php-->

@@ -1,22 +1,11 @@
 <?php
 session_start();
 
-if ($_SESSION['email'] == NULL) {
-	header('Location: ../adm.php?erro=1');
-}
-
-include('head.php');
-/* <!--FIM HEAD--> */
-
-/* <!--HEADER--> */
-include('header.php');
-/* <!--FIM HEADER--> */
-
-
-/* <!--PERMISSÃO--> */
+$_SESSION['email'] != NULL ?: header('Location: ../adm.php?erro=1');
 $_SESSION['tela_celula'] == 1 ?: header('location: dashboard.php?pagina=1');
 
-/* <!--MENU LATERAL--> */
+include('head.php');
+include('header.php');
 include('menu.php');
 
 ?>

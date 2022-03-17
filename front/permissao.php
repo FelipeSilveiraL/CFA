@@ -1,20 +1,16 @@
 <?php
 session_start();
 
-if ($_SESSION['email'] == NULL) {
-	header('Location: ../adm.php?erro=1');
-}
-
-include('head.php');
-include('header.php');
-/* PERMISSÃO */
+$_SESSION['email'] != NULL ?: header('Location: ../adm.php?erro=1');
 
 if ($_GET['idMembro'] != $_SESSION['id_usuario']) {
 	$_SESSION['tela_membros'] == 1 ?: header('location: dashboard.php?pagina=1');
 }
 
-include('menu.php');
 include('../back/query.php');
+include('head.php');
+include('header.php');
+include('menu.php');
 
 if (!empty($_GET['idMembro'])) {
 	//coletando dados do membro
