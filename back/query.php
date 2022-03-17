@@ -70,7 +70,7 @@ LEFT JOIN cfa_celulas CC ON (U.celula = CC.id)";
 /* ============================================================================== */
 
 //COLETANDO DADOS DO SISTEMA
-$querysistema = "SELECT * FROM cfa_sistema";
+$querysistema = 'SELECT * FROM cfa_sistema';
 $result = $conn->query($querysistema);
 $sistema = $result->fetch_assoc();
 

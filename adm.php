@@ -1,18 +1,15 @@
 <?php
 session_start();
-// Desligue todos os relatórios de erros
-/* ini_set('display_errors', 1);
-error_reporting(E_ALL); */
 
+if ($_SESSION['email'] != NULL) { //verifiando se o usuário já esta logado
+	header('Location: front/dashboard.php');
+}
 require_once('bd/conexao.php');
 require_once('back/query.php');
 
 //ações automaticas do sistemas
 require_once('back/processAutomaticos.php');
 
-if ($_SESSION['email'] != NULL) { //verifiando se o usuário já esta logado
-	header('Location: dashboard.php?pagina=1');
-}
 
 switch ($_GET['pag']) {
 	case '1':
