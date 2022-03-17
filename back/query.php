@@ -116,6 +116,7 @@ $countCelula = "SELECT COUNT(id) AS quantidade FROM cfa_usuarios";
 //COLETANDO DADOS DOS LIDERES DAS CELULAS
 $queryLIderesCelulas = "SELECT 
 U.nome,
+U.sobre_nome,
 U.id
 FROM cfa_celula_lideres CLC
 LEFT JOIN cfa_usuarios U ON (CLC.id_usuario = U.id)";

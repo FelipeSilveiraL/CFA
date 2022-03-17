@@ -106,7 +106,7 @@ if (!empty($_GET['idCelula'])) {
 							</div>
 							<div class="col-xs-12">
 								<div class="form-group">
-									<label>Data da Inalguração</label>
+									<label>Data da Inauguração</label>
 									<input type="text" class="form-control" name="data_abertura" maxlength="10" placeholder="xx/xx/xxxx" value="<?= !empty($membro['data_abertura']) ? $membro['data_abertura'] : ""  ?>">
 								</div>
 							</div>
@@ -227,7 +227,7 @@ if (!empty($_GET['idCelula'])) {
 							echo '<li class="todo-list-item">
 							<div class="checkbox textNome">
 								<a href="novoMembro.php?pagina=3&idMembro=' . $listalideres['id'] . '">
-									<label for="checkbox-1">' . $listalideres['nome'] . '</label>
+									<label for="checkbox-1">' . $listalideres['nome'] . " " . $listalideres['sobre_nome'] .'</label>
 								</a>
 							</div>
 							<div class="pull-right action-buttons"  style="display:';
@@ -249,12 +249,12 @@ if (!empty($_GET['idCelula'])) {
 									<select class="form-control largo textNome" name="lider">
 										<option>Selecione...</option>
 										<?php
-										$query = "SELECT id, nome FROM cfa_usuarios WHERE deletar = 0";
+										$query = "SELECT id, nome, sobre_nome FROM cfa_usuarios WHERE deletar = 0";
 
 										$resultadoTodos = $conn->query($query);
 
 										while ($todoMembros = $resultadoTodos->fetch_assoc()) {
-											echo '<option value="' . $todoMembros['id'] . '">' . $todoMembros['nome'] . '</option>';
+											echo '<option value="' . $todoMembros['id'] . '">' . $todoMembros['nome']." ".$todoMembros['sobre_nome'] . '</option>';
 										}
 										?>
 									</select>
@@ -289,7 +289,7 @@ if (!empty($_GET['idCelula'])) {
 							echo '<li class="todo-list-item">
 							<div class="checkbox textNome">
 								<a href="novoMembro.php?pagina=3&idMembro=' . $listaMembros['id'] . '">
-									<label for="checkbox-1">' . $listaMembros['nome'] . '</label>
+									<label for="checkbox-1">' . $listaMembros['nome'] . " " . $listaMembros['sobre_nome'] .'</label>
 								</a>
 							</div>
 							<div class="pull-right action-buttons" style="display:';
@@ -311,12 +311,12 @@ if (!empty($_GET['idCelula'])) {
 									<select class="form-control largo textNome" name="membro">
 										<option>Selecione...</option>
 										<?php
-										$query = "SELECT id, nome FROM cfa_usuarios WHERE deletar = 0";
+										$query = "SELECT id, nome, sobre_nome FROM cfa_usuarios WHERE deletar = 0";
 
 										$resultadoTodos = $conn->query($query);
 
 										while ($todoMembros = $resultadoTodos->fetch_assoc()) {
-											echo '<option value="' . $todoMembros['id'] . '">' . $todoMembros['nome'] . '</option>';
+											echo '<option value="' . $todoMembros['id'] . '">' . $todoMembros['nome']." ".$todoMembros['sobre_nome'] . '</option>';
 										}
 										?>
 									</select>
@@ -388,7 +388,7 @@ if (!empty($_GET['idCelula'])) {
 										echo '<li class="todo-list-item noPadding">
 													<div class="checkbox">
 														<input name="participante[]" type="checkbox" value="' . $participantes['id'] . '" id="checkbox-' . $participantes['id'] . '">
-														<label for="checkbox-' . $participantes['id'] . '">' . $participantes['nome'] . '</label>
+														<label for="checkbox-' . $participantes['id'] . '">' . $participantes['nome'] . " " . $participantes['sobre_nome'] .'</label>
 													</div>
 												</li>';
 									}
