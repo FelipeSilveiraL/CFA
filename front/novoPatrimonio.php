@@ -7,10 +7,10 @@ $_SESSION['tela_patrimonio'] == 1 ?: header('location: dashboard.php?pagina=1');
 setlocale(LC_TIME, 'pt_BR', 'pt_BR.utf-8', 'pt_BR.utf-8', 'portuguese');
 date_default_timezone_set('America/Sao_Paulo');
 
-include('../back/query.php');
 include('head.php');
 include('header.php');
 include('menu.php');
+include('../back/query.php');
 
 
 if (!empty($_GET['idPatrimonio'])) {
