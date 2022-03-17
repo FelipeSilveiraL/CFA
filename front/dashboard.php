@@ -28,7 +28,7 @@ include('menu.php'); ?>
 
 	<!--CONTEUDO-->
 
-	<!-- /================ COLOQUE O SEU CONTEUDO AQUI! ================/ -->
+	<h5>Em desenvolvimento</h5>
 
 	<!--/. CONTEUDO-->
 

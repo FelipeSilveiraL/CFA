@@ -2,7 +2,9 @@
 session_start();
 
 $_SESSION['email'] != NULL ?: header('Location: ../adm.php?erro=1');
-$_SESSION['tela_membros'] == 1 ?: header('location: dashboard.php?pagina=1');
+
+//Esta comentada pois essa tela é em branco
+/* $_SESSION['tela_membros'] == 1 ?: header('location: dashboard.php?pagina=1'); */
 
 include('head.php');
 include('header.php');

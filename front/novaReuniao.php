@@ -3,7 +3,7 @@
     <div class="col-lg-5" id="reuniao">
         <div class="panel panel-default">
             <div class="panel-heading textNome">
-                Reuniões - <?= strftime('%B', strtotime('today')); ?>
+                Reuniões - Mês Atual
                 <span class="pull-right clickable panel-toggle panel-button-tab-left"><em class="fa fa-toggle-up"></em></span>
             </div>
             <div class="panel-body">
