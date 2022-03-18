@@ -10,14 +10,21 @@ include('../bd/conexao.php');
 include('../back/query.php');
 
 //MEUS DADOS / CELULA
-$queryUsuarios .= " WHERE U.id = ".$_SESSION['id_usuario'];
+$queryUsuarios .= " WHERE U.id = " . $_SESSION['id_usuario'];
 $resultado = $conn->query($queryUsuarios);
 $usuario = $resultado->fetch_assoc();
 
 //MEUS ESTUDOS
-$queryEstudantes .= " WHERE CES.id_usuario = ".$_SESSION['id_usuario'];
+$queryEstudantes .= " WHERE CES.id_usuario = " . $_SESSION['id_usuario'];
 $resultadoEstudos = $conn->query($queryEstudantes);
 ?>
+
+<head>
+	<!-- CSS -->
+	<link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
+	<!-- JavaScript -->
+	<script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
+</head>
 
 <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
 	<!--DIV é finalizada no footer.php-->
@@ -38,7 +45,38 @@ $resultadoEstudos = $conn->query($queryEstudantes);
 	</div>
 	<!--/. TITULO DA PAGINA-->
 
+	<!--COMUNICADOS-->
+	<div class="row">
+		<div class="col-md-12">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					Comunicados
+					<span class="pull-right clickable panel-toggle panel-button-tab-left"><em class="fa fa-toggle-up"></em></span>
+				</div>
+				<div class="panel-body">
+
+					<!-- Flickity HTML init -->
+					<div class="carousel js-flickity">
+						<!-- images from unsplash.com -->
+						<div class="carousel-cell">
+							<img src="../images/comunicados/01.jpeg"/>
+						</div>
+						<div class="carousel-cell">
+							<img src="../images/comunicados/02.jpeg"/>
+						</div>
+						<div class="carousel-cell">
+							<img src="../images/comunicados/03.jpeg"/>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--/. COMUNICADOS-->
+
 	<!--MEUS DADOS-->
+
 	<div class="row">
 
 		<div class="col-lg-4">
@@ -54,7 +92,7 @@ $resultadoEstudos = $conn->query($queryEstudantes);
 
 				</div>
 				<div class="panel-body">
-					<p><strong class="primary-font">Nome:</strong> <?= $usuario['nome'] ." ".$usuario['sobre_nome'] ?></p>
+					<p><strong class="primary-font">Nome:</strong> <?= $usuario['nome'] . " " . $usuario['sobre_nome'] ?></p>
 					<p><strong class="primary-font">Email:</strong> <?= $usuario['email'] ?></p>
 					<p><strong class="primary-font">Whatsapp:</strong> <?= $usuario['celular'] ?></p>
 					<p><strong class="primary-font">Estado civil:</strong> <?= $usuario['estado_civil'] ?></p>
@@ -78,7 +116,7 @@ $resultadoEstudos = $conn->query($queryEstudantes);
 					<p><strong class="primary-font">Nome:</strong> <?= $usuario['celula'] ?></p>
 					<p><strong class="primary-font">Dia semana:</strong> <?= $usuario['dia_semana'] ?></p>
 					<p><strong class="primary-font">horario:</strong> <?= $usuario['horario'] ?>h</p>
-					<p><strong class="primary-font">Endereço:</strong> <?= $usuario['endereco'] .", ". $usuario['numero_celula'] ?> </p>
+					<p><strong class="primary-font">Endereço:</strong> <?= $usuario['endereco'] . ", " . $usuario['numero_celula'] ?> </p>
 				</div>
 			</div>
 		</div>
@@ -95,24 +133,20 @@ $resultadoEstudos = $conn->query($queryEstudantes);
 				</div>
 				<div class="panel-body">
 					<?php
-						while($estudos = $resultadoEstudos->fetch_assoc()){
-							echo '
-							<p><strong class="primary-font">Nome:</strong> '.$estudos['nomeEstudo'].'</p>
-							<p><strong class="primary-font">Inicio:</strong> '.date('d/m/Y', strtotime($estudos['data_inicio'])).'</p>
-							<p><strong class="primary-font">Término:</strong> '.date('d/m/Y', strtotime($estudos['data_fim'])).'</p>
-							<p><strong class="primary-font">Status:</strong> '.$estudos['status'].'</p>
+					while ($estudos = $resultadoEstudos->fetch_assoc()) {
+						echo '
+							<p><strong class="primary-font">Nome:</strong> ' . $estudos['nomeEstudo'] . '</p>
+							<p><strong class="primary-font">Inicio:</strong> ' . date('d/m/Y', strtotime($estudos['data_inicio'])) . '</p>
+							<p><strong class="primary-font">Término:</strong> ' . date('d/m/Y', strtotime($estudos['data_fim'])) . '</p>
+							<p><strong class="primary-font">Status:</strong> ' . $estudos['status'] . '</p>
 							<hr>';
-						}
+					}
 					?>
 				</div>
 			</div>
 		</div>
 	</div>
 	<!--/. MEUS DADOS-->
-
-	<!--MEUS CURSOS-->
-
-	<!--/. MEUS CURSOS-->
 
 	<!--FOOTER-->
 	<?php include('footer.php'); ?>
