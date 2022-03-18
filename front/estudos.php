@@ -108,7 +108,7 @@ include('menu.php');
 											echo '<tr>
 												<td>' . $estudos['id'] . '</td>
 												<td style="text-transform: capitalize" >' . $estudos['nome'] . '</td>
-												<td>' . $estudos['lecionador'] . '</td>
+												<td>' . $estudos['lecionador'] .  " " . $estudos['sobre_nome'] .'</td>
 												<td>' . $countEst['quantidade'] . '</td>
 												<td>
 													<div class="pull-right action-buttons tabela">

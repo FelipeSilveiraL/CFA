@@ -99,7 +99,7 @@ if (!empty($_GET['idEstudo'])) {
 									<select class="form-control" name="lecionador">
 										<?php
 										if (!empty($estudos['id_usuario'])) {
-											echo '<option value="' . $estudos['id_usuario'] . '">' . $estudos['lecionador'] . '</option>';
+											echo '<option value="' . $estudos['id_usuario'] . '">' . $estudos['lecionador'] . " " . $estudos['sobre_nome'] . '</option>';
 											echo '<option>------------</option>';
 
 											$resultUsuarios = $conn->query($queryUsuarios);
@@ -193,7 +193,7 @@ if (!empty($_GET['idEstudo'])) {
 										while ($estudantes = $resultEstudantes->fetch_assoc()) {
 											echo '
 												<tr>
-													<td><a href="novoMembro.php?pagina=3&idMembro='.$estudantes['id_usuario'].'">' . $estudantes['estudante'] . '</a></td>
+													<td><a href="novoMembro.php?pagina=3&idMembro='.$estudantes['id_usuario'].'">' . $estudantes['estudante'] . " " . $estudantes['sobre_nome'] .'</a></td>
 													<td>' . $estudantes['email'] . '</td>
 													<td>' . date('d/m/Y', strtotime($estudantes['data_inicio'])) . '</td>
 													<td>' . date('d/m/Y', strtotime($estudantes['data_fim'])) . '</td>

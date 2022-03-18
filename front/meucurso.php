@@ -4,7 +4,7 @@
 						<div class="panel-heading textNome">
 							<i class="fas fa-book"></i> Meus Cursos
 						</div>
-						<div class="panel-body">
+						<div class="panel-body" id="meuCurso">
 							<div class="col-md-12">
 								<div class="row">
 									<div class="panel panel-primary filterable col-md-13">

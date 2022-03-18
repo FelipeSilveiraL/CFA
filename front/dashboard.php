@@ -5,7 +5,19 @@ $_SESSION['email'] != NULL ?: header('Location: ../adm.php?erro=1');
 
 include('head.php');
 include('header.php');
-include('menu.php'); ?>
+include('menu.php');
+include('../bd/conexao.php');
+include('../back/query.php');
+
+//MEUS DADOS / CELULA
+$queryUsuarios .= " WHERE U.id = ".$_SESSION['id_usuario'];
+$resultado = $conn->query($queryUsuarios);
+$usuario = $resultado->fetch_assoc();
+
+//MEUS ESTUDOS
+$queryEstudantes .= " WHERE CES.id_usuario = ".$_SESSION['id_usuario'];
+$resultadoEstudos = $conn->query($queryEstudantes);
+?>
 
 <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
 	<!--DIV é finalizada no footer.php-->
@@ -26,11 +38,81 @@ include('menu.php'); ?>
 	</div>
 	<!--/. TITULO DA PAGINA-->
 
-	<!--CONTEUDO-->
+	<!--MEUS DADOS-->
+	<div class="row">
 
-	<h5>Em desenvolvimento</h5>
+		<div class="col-lg-4">
+			<div class="panel panel-default">
+				<div class="panel-heading textNome" id="lider">
+					Meus Dados
+					<span class="pull-right clickable panel-toggle panel-button-tab-right"><em class="fa fa-toggle-up" aria-hidden="true"></em></span>
+					<span class="pull-right panel-toggle panel-button-tab-left">
+						<a href="novoMembro.php?pagina=3&idMembro=<?= $_SESSION['id_usuario'] ?>" title="Editar meu cadastro">
+							<i class="fa-solid fa-pen"></i>
+						</a>
+					</span>
 
-	<!--/. CONTEUDO-->
+				</div>
+				<div class="panel-body">
+					<p><strong class="primary-font">Nome:</strong> <?= $usuario['nome'] ." ".$usuario['sobre_nome'] ?></p>
+					<p><strong class="primary-font">Email:</strong> <?= $usuario['email'] ?></p>
+					<p><strong class="primary-font">Whatsapp:</strong> <?= $usuario['celular'] ?></p>
+					<p><strong class="primary-font">Estado civil:</strong> <?= $usuario['estado_civil'] ?></p>
+					<p><strong class="primary-font">Incargo:</strong> <?= $usuario['cargo'] ?></p>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-lg-4">
+			<div class="panel panel-default" id="membro">
+				<div class="panel-heading textNome">
+					Minha Célula
+					<span class="pull-right clickable panel-toggle panel-button-tab-right"><em class="fa fa-toggle-up" aria-hidden="true"></em></span>
+					<span class="pull-right panel-toggle panel-button-tab-left">
+						<a href="novaCelula.php?pagina=4&idCelula=<?= $usuario['id_celula'] ?>" title="Ver mais">
+							<i class="fa-solid fa-eye"></i>
+						</a>
+					</span>
+				</div>
+				<div class="panel-body">
+					<p><strong class="primary-font">Nome:</strong> <?= $usuario['celula'] ?></p>
+					<p><strong class="primary-font">Dia semana:</strong> <?= $usuario['dia_semana'] ?></p>
+					<p><strong class="primary-font">horario:</strong> <?= $usuario['horario'] ?>h</p>
+					<p><strong class="primary-font">Endereço:</strong> <?= $usuario['endereco'] .", ". $usuario['numero_celula'] ?> </p>
+				</div>
+			</div>
+		</div>
+		<div class="col-lg-4">
+			<div class="panel panel-default" id="membro">
+				<div class="panel-heading textNome">
+					Meus cursos
+					<span class="pull-right clickable panel-toggle panel-button-tab-right"><em class="fa fa-toggle-up" aria-hidden="true"></em></span>
+					<span class="pull-right panel-toggle panel-button-tab-left">
+						<a href="novoMembro.php?pagina=3&idMembro=5#meuCurso" title="Ver mais">
+							<i class="fa-solid fa-eye"></i>
+						</a>
+					</span>
+				</div>
+				<div class="panel-body">
+					<?php
+						while($estudos = $resultadoEstudos->fetch_assoc()){
+							echo '
+							<p><strong class="primary-font">Nome:</strong> '.$estudos['nomeEstudo'].'</p>
+							<p><strong class="primary-font">Inicio:</strong> '.date('d/m/Y', strtotime($estudos['data_inicio'])).'</p>
+							<p><strong class="primary-font">Término:</strong> '.date('d/m/Y', strtotime($estudos['data_fim'])).'</p>
+							<p><strong class="primary-font">Status:</strong> '.$estudos['status'].'</p>
+							<hr>';
+						}
+					?>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--/. MEUS DADOS-->
+
+	<!--MEUS CURSOS-->
+
+	<!--/. MEUS CURSOS-->
 
 	<!--FOOTER-->
 	<?php include('footer.php'); ?>

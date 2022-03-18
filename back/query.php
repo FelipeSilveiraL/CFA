@@ -58,7 +58,12 @@ P.estudos_excluir,
 MEC.nome AS estado_civil,
 MG.nome AS genero,
 MC.nome AS cargo,
-CC.nome AS celula
+CC.nome AS celula,
+CC.dia_semana,
+CC.horario,
+CC.endereco,
+CC.numero AS numero_celula,
+CC.id AS id_celula
 
 FROM  cfa_usuarios U
 LEFT JOIN cfa_permissao P ON (U.id = P.id_usuario)
@@ -224,6 +229,7 @@ CFAE.observacao,
 CFAE.data_criacao, 
 
 CFAU.nome AS lecionador,
+CFAU.sobre_nome,
 CFAU.id AS id_usuario
 
 FROM
@@ -244,6 +250,7 @@ CE.nome AS nomeEstudo,
 CE.id AS id_estudo, 
 
 CU.nome AS estudante,
+CU.sobre_nome,
 CU.email
 
 FROM cfa_estudantes CES
