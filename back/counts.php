@@ -2,51 +2,51 @@
 
 //ANIVERSARIOS
 /* ============================================================================== */
-$queryJaneiro = "SELECT COUNT(id) AS aniversarios FROM cfa_usuarios WHERE deletar = 0 AND data_nascimento like '%/01/%'";
+$queryJaneiro = "SELECT COUNT(id) AS aniversarios FROM cfa_usuarios WHERE deletar = 0 AND data_nascimento like '%-01-%'";
 $resultJan = $conn->query($queryJaneiro);
 $janeiro = $resultJan->fetch_assoc();
 
-$queryFevereiro = "SELECT COUNT(id) AS aniversarios FROM cfa_usuarios WHERE deletar = 0 AND data_nascimento like '%/02/%'";
+$queryFevereiro = "SELECT COUNT(id) AS aniversarios FROM cfa_usuarios WHERE deletar = 0 AND data_nascimento like '%-02-%'";
 $resultFev = $conn->query($queryFevereiro);
 $fevereiro = $resultFev->fetch_assoc();
 
-$queryMarco = "SELECT COUNT(id) AS aniversarios FROM cfa_usuarios WHERE deletar = 0 AND data_nascimento like '%/03/%'";
+$queryMarco = "SELECT COUNT(id) AS aniversarios FROM cfa_usuarios WHERE deletar = 0 AND data_nascimento like '%-03-%'";
 $resultMar = $conn->query($queryMarco);
 $marco = $resultMar->fetch_assoc();
 
-$queryAbril = "SELECT COUNT(id) AS aniversarios FROM cfa_usuarios WHERE deletar = 0 AND data_nascimento like '%/04/%'";
+$queryAbril = "SELECT COUNT(id) AS aniversarios FROM cfa_usuarios WHERE deletar = 0 AND data_nascimento like '%-04-%'";
 $resultAbr = $conn->query($queryAbril);
 $abril = $resultAbr->fetch_assoc();
 
-$queryMaio = "SELECT COUNT(id) AS aniversarios FROM cfa_usuarios WHERE deletar = 0 AND data_nascimento like '%/05/%'";
+$queryMaio = "SELECT COUNT(id) AS aniversarios FROM cfa_usuarios WHERE deletar = 0 AND data_nascimento like '%-05-%'";
 $resultMai = $conn->query($queryMaio);
 $maio = $resultMai->fetch_assoc();
 
-$queryJunho = "SELECT COUNT(id) AS aniversarios FROM cfa_usuarios WHERE deletar = 0 AND data_nascimento like '%/06/%'";
+$queryJunho = "SELECT COUNT(id) AS aniversarios FROM cfa_usuarios WHERE deletar = 0 AND data_nascimento like '%-06-%'";
 $resultJun = $conn->query($queryJunho);
 $junho = $resultJun->fetch_assoc();
 
-$queryJulho = "SELECT COUNT(id) AS aniversarios FROM cfa_usuarios WHERE deletar = 0 AND data_nascimento like '%/07/%'";
+$queryJulho = "SELECT COUNT(id) AS aniversarios FROM cfa_usuarios WHERE deletar = 0 AND data_nascimento like '%-07-%'";
 $resultJul = $conn->query($queryJulho);
 $julho = $resultJul->fetch_assoc();
 
-$queryAgosto = "SELECT COUNT(id) AS aniversarios FROM cfa_usuarios WHERE deletar = 0 AND data_nascimento like '%/08/%'";
+$queryAgosto = "SELECT COUNT(id) AS aniversarios FROM cfa_usuarios WHERE deletar = 0 AND data_nascimento like '%-08-%'";
 $resultAgo = $conn->query($queryAgosto);
 $agosto = $resultAgo->fetch_assoc();
 
-$querySetembro = "SELECT COUNT(id) AS aniversarios FROM cfa_usuarios WHERE deletar = 0 AND data_nascimento like '%/09/%'";
+$querySetembro = "SELECT COUNT(id) AS aniversarios FROM cfa_usuarios WHERE deletar = 0 AND data_nascimento like '%-09-%'";
 $resultSet = $conn->query($querySetembro);
 $setembro = $resultSet->fetch_assoc();
 
-$queryOutubro = "SELECT COUNT(id) AS aniversarios FROM cfa_usuarios WHERE deletar = 0 AND data_nascimento like '%/10/%'";
+$queryOutubro = "SELECT COUNT(id) AS aniversarios FROM cfa_usuarios WHERE deletar = 0 AND data_nascimento like '%-10-%'";
 $resultOut = $conn->query($queryOutubro);
 $outubro = $resultOut->fetch_assoc();
 
-$queryNovembro = "SELECT COUNT(id) AS aniversarios FROM cfa_usuarios WHERE deletar = 0 AND data_nascimento like '%/11/%'";
+$queryNovembro = "SELECT COUNT(id) AS aniversarios FROM cfa_usuarios WHERE deletar = 0 AND data_nascimento like '%-11-%'";
 $resultNov = $conn->query($queryNovembro);
 $novembro = $resultNov->fetch_assoc();
 
-$queryDezembro = "SELECT COUNT(id) AS aniversarios FROM cfa_usuarios WHERE deletar = 0 AND data_nascimento like '%/12/%'";
+$queryDezembro = "SELECT COUNT(id) AS aniversarios FROM cfa_usuarios WHERE deletar = 0 AND data_nascimento like '%-12-%'";
 $resultDez = $conn->query($queryDezembro);
 $dezembro = $resultDez->fetch_assoc();
 

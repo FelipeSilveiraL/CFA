@@ -13,7 +13,7 @@ include('menu.php');
 $mesAtual = date('m');
 
 if(!empty($_GET['mes'])){
-	$queryUsuarios .= " WHERE U.deletar = 0 AND U.data_nascimento like '%/".$_GET['mes']."/%'";
+	$queryUsuarios .= " WHERE U.deletar = 0 AND U.data_nascimento like '%-".$_GET['mes']."-%'";
 	include('../back/counts.php');
 }else{
 	$queryUsuarios .= " WHERE U.deletar = 0";
@@ -276,7 +276,7 @@ if(!empty($_GET['mes'])){
 											$idade = date('Y') - date('Y', strtotime($usuariosAni['data_nascimento']));
 
 											echo '<tr>
-											<td>'.$usuariosAni['data_nascimento'].'</td>
+											<td>'.date('d', strtotime($usuariosAni['data_nascimento'])).'</td>
 											<td>'.$idade.' Anos</td>
 											<td>
 												<div class="profile-userpic">

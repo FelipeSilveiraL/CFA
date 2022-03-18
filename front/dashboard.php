@@ -17,6 +17,12 @@ $usuario = $resultado->fetch_assoc();
 //MEUS ESTUDOS
 $queryEstudantes .= " WHERE CES.id_usuario = " . $_SESSION['id_usuario'];
 $resultadoEstudos = $conn->query($queryEstudantes);
+
+//ANIVERSARIANTES
+$mesAtual = date('m');
+$queryAniversario = "SELECT id, nome, sobre_nome, data_nascimento FROM cfa_usuarios WHERE deletar = 0 AND data_nascimento like '%-" . $mesAtual . "-%'";
+$resultAniversario = $conn->query($queryAniversario);
+
 ?>
 
 <head>
@@ -47,7 +53,7 @@ $resultadoEstudos = $conn->query($queryEstudantes);
 
 	<!--COMUNICADOS-->
 	<div class="row">
-		<div class="col-md-12">
+		<div class="col-md-7">
 			<div class="panel panel-default">
 				<div class="panel-heading">
 					Comunicados
@@ -59,15 +65,47 @@ $resultadoEstudos = $conn->query($queryEstudantes);
 					<div class="carousel js-flickity">
 						<!-- images from unsplash.com -->
 						<div class="carousel-cell">
-							<img src="../images/comunicados/01.jpeg"/>
+							<img src="../images/comunicados/01.jpeg" />
 						</div>
 						<div class="carousel-cell">
-							<img src="../images/comunicados/02.jpeg"/>
+							<img src="../images/comunicados/02.jpeg" />
 						</div>
 						<div class="carousel-cell">
-							<img src="../images/comunicados/03.jpeg"/>
+							<img src="../images/comunicados/03.jpeg" />
 						</div>
 					</div>
+
+				</div>
+			</div>
+		</div>
+
+		<div class="col-md-5">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					Aniversariantes neste mês
+					<span class="pull-right clickable panel-toggle panel-button-tab-left"><em class="fa fa-toggle-up"></em></span>
+				</div>
+				<div class="panel-body">
+					<table class="table table-bordered table-hover">
+						<thead>
+							<tr>
+								<td>Nome</td>
+								<td>dia</td>
+							</tr>
+						</thead>
+						<tbody>
+							<?php
+								while($aniversario = $resultAniversario->fetch_assoc()){
+									echo '
+									<tr>
+										<td><a href="novoMembro.php?pagina=3&idMembro='.$aniversario['id'].'"> '.$aniversario['nome'].' '.$aniversario['sobre_nome'].'</a></td>
+										<td>'.date('d', strtotime($aniversario[''])).'</td>
+									</tr>';
+								}
+
+							?>
+						</tbody>
+					</table>
 
 				</div>
 			</div>
