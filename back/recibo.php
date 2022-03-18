@@ -14,9 +14,13 @@ require_once('../bd/conexao.php');
 require_once('query.php');
 
 //coletando informações do patrimonio
-$queryPatrimonio .= " WHERE CFP.id = " . $_GET['idPatrimonio'];
+$queryPatrimonio .= " WHERE CFP.id = " . $_POST['aquipamento'];
 $result = $conn->query($queryPatrimonio);
 $patrimonio = $result->fetch_assoc();
+
+//informando que foi gerado o recebi
+$updatePatrimonio = "UPDATE cfa_patrimonio SET recibo_emitido = '0' WHERE id = " . $_POST['aquipamento'];
+$resultPatrimonio = $conn->query($updatePatrimonio);
 
 $nomeArq = "ReciboDoacao_".$patrimonio['nome_doador'];
 $saida = "portrait";
@@ -32,22 +36,45 @@ $html = '<!DOCTYPE html>
 
     .data{margin-top: 10%;}
 
+    #titulo {
+        text-align: center;
+        color: gray;
+        font-size: 25px;
+        margin-bottom: 10%;
+    }
+    .nome{font-weight: bold;}
+    .info{font-size: 18px;}
+    #recibo {
+        text-align: center;
+        font-size: 20px;
+        font-weight: bold;
+    }
+    #text {
+        text-align: justify;
+        width: 84%;
+        margin-left: 7%;
+        margin-top: 5%;
+        margin-bottom: 5%;
+        font-size: 18px;
+    }
+
 </style>
 
 <body>
     <div id="corpo">
         <div id="titulo">
-            <p><span class="conteudo">' . $sistema['cfa_titulo'] . '</span></p>
-            <p><span class="conteudo">CNPJ - ' . $sistema['cfa_cnpj'] . '</span></p>
-            <p><span class="conteudo">' . $sistema['cfa_endereco'] . '</span></p>
-            <p><span class="conteudo">contato@cfasitiocercado.com.br</span></p>            
+            <p><span class="conteudo nome">' . $sistema['cfa_titulo'] . '</span></p>
+            <p class="info"><i><span class="conteudo">CNPJ - ' . $sistema['cfa_cnpj'] . '</span><br />
+            <span class="conteudo">' . $sistema['cfa_endereco'] . '</span><br />
+            <span class="conteudo">contato@cfasitiocercado.com.br</span></i></p>            
         </div>
         <div id="corpo">
-            <p>RECIBO DE DOAÇÃO</p>
-            <p>Centro Familiar de Adoração de Sitio Cercado, entidade sem fins lucrativos, 
+            <p id="recibo" >RECIBO DE DOAÇÃO</p>
+            <p id="text">'.$sistema['cfa_titulo'].', entidade sem fins lucrativos, 
             inscrita no CNPJ '.$sistema['cfa_cnpj'].' , com sede na ' . $sistema['cfa_endereco'] . ',
-            declara ter recebido de '.$patrimonio['nome_doador'].', (nacionalidade), (estado civil), (profissão), inscrito(a) 
-            no CPF sob o nº (informar) e no RG nº (informar), em DOAÇÃO a importância de R$ X.XXX,XX (valor por extenso), 
+            declara ter recebido de '.$patrimonio['nome_doador'].', '.$patrimonio['nacionalidade_doador'].', 
+            '.$patrimonio['civil_doador'].', '.$patrimonio['profissao_doador'].', inscrito(a) 
+            no CPF sob o nº '.$patrimonio['cpf_doador'].' e no RG nº '.$patrimonio['rg_doador'].', em DOAÇÃO a importância de '.$patrimonio['valor'].', 
             declarando ainda que os recursos serão aplicados integralmente na realização de seus objetivos sociais, 
             sem distribuição de lucros, bonificações ou vantagens a dirigentes, mantenedores ou associados, 
             sob nenhuma forma ou pretexto.</p>
@@ -55,7 +82,7 @@ $html = '<!DOCTYPE html>
     </div>
     <div id="rodape">
         <div id="data">
-            <p>Curitiba - PR, ' . strftime('%d de %B de %Y', strtotime('today')) . '</p>
+            <p>Curitiba,______ de ____________ de 20_______</p>
         </div>
         <div class="assinaturas">
             <div id="assinaturaIgreja" class="pull-right">
@@ -64,7 +91,7 @@ $html = '<!DOCTYPE html>
             </div>
             <div id="assinaturaDoador">
                 <p class="tag">___________________________________________________</p>
-                <p class="assinante">Assinatura: Doador</p>
+                <p class="assinante">Assinatura: '.$patrimonio['nome_doador'].'</p>
             </div>
         </div>
     </div>
@@ -72,8 +99,8 @@ $html = '<!DOCTYPE html>
 
 </html>';
 
-echo $html;
-exit;
+/* echo $html;
+exit; */
 
 // instantiate and use the dompdf class
 $dompdf = new Dompdf();

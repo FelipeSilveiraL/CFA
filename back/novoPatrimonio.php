@@ -92,6 +92,7 @@ $cpfdoador = $_POST['cpfDoador'];
 $nacionalidadeDoador = $_POST['nacionalidadeDoador'];
 $civilDoador = $_POST['civilDoador'];
 $profissaoDoador = $_POST['profissaoDoador'];
+$rgDoador = $_POST['rgDoador'];
 
 if($origem == '7'){
 	$reciboemitido = '1';
@@ -122,6 +123,7 @@ if (!empty($_GET['idPatrimonio'])) {
 				nacionalidade_doador = '$nacionalidadeDoador',
 				profissao_doador = '$profissaoDoador',
 				civil_doador = '$civilDoador',
+				rg_doador = '$rgDoador',
 				recibo_emitido = '$reciboemitido'	
 			
 			WHERE (id = " . $_GET['idPatrimonio'] . ")";
@@ -177,6 +179,7 @@ if (!empty($_GET['idPatrimonio'])) {
 					nacionalidade_doador,
 					civil_doador,
 					profissao_doador,
+					rg_doador,
 					recibo_emitido)
 				VALUES
 					('$nome',
@@ -196,6 +199,7 @@ if (!empty($_GET['idPatrimonio'])) {
 					'$nacionalidadeDoador',
 					'$civilDoador',
 					'$profissaoDoador',
+					'$rgDoador',
 					'$reciboemitido')";
 }
 

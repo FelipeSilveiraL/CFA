@@ -176,6 +176,12 @@ if (!empty($_GET['idPatrimonio'])) {
 											<input class="form-control" name="profissaoDoador" maxlength="30" value="<?= !empty($patrimonio['profissao_doador']) ? $patrimonio['profissao_doador'] : ""  ?>" id="profissaoDoador">
 										</div>
 									</div>
+									<div class="form-group">
+										<label class="col-md-3 control-label">RG Doador: </label>
+										<div class="col-md-9">
+											<input class="form-control" name="rgDoador" maxlength="30" value="<?= !empty($patrimonio['rg_doador']) ? $patrimonio['rg_doador'] : ""  ?>" id="rgDoador">
+										</div>
+									</div>
 
 
 									<div class="form-group">
@@ -303,18 +309,19 @@ if (!empty($_GET['idPatrimonio'])) {
 										</select>
 									</div>
 								</div>
+								
 
 								<div class="form-group">
-									<label class="col-md-3 control-label">Valor: </label>
+									<label class="col-md-3 control-label">Quantidade itens: </label>
 									<div class="col-md-9">
-										<input class="form-control" placeholder="R$ 0.000,00" name="valor" maxlength="10" value="<?= !empty($patrimonio['valor']) ? $patrimonio['valor'] : ""  ?>">
+										<input type="number" class="form-control" name="quantidade" value="<?= !empty($patrimonio['quantidade']) ? $patrimonio['quantidade'] : ""  ?>">
 									</div>
 								</div>
 
 								<div class="form-group">
-									<label class="col-md-3 control-label">Quantidade: </label>
+									<label class="col-md-3 control-label">Valor total: </label>
 									<div class="col-md-9">
-										<input type="number" class="form-control" name="quantidade" value="<?= !empty($patrimonio['quantidade']) ? $patrimonio['quantidade'] : ""  ?>">
+										<input class="form-control" placeholder="R$ 0.000,00" name="valor" maxlength="50" value="<?= !empty($patrimonio['valor']) ? $patrimonio['valor'] : ""  ?>">
 									</div>
 								</div>
 							</div>
@@ -580,7 +587,7 @@ if (!empty($_GET['idPatrimonio'])) {
 								while ($recibo = $resultRecibo->fetch_assoc()) {
 									echo '
 										<tr>
-											<td><input type="checkbox" name="aquipamento[]" value="' . $recibo['id'] . '" class="equip" checked></td>
+											<td><input type="radio" name="aquipamento" value="' . $recibo['id'] . '" class="equip"></td>
 											<td>' . $recibo['nome'] . '</td>
 											<td>' . $recibo['codigo'] . '</td>
 										</tr>';
