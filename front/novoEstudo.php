@@ -64,6 +64,7 @@ if (!empty($_GET['idEstudo'])) {
 
 	<div class="row">
 		<div class="col-lg-12">
+
 			<div class="row">
 				<div class="col-lg-12">
 					<div class="alert bg-success" role="alert" id="msnAlertaSuccess" style="display: <?= $_GET['msn'] == 1 ? "block" : "none" ?>;">
@@ -71,7 +72,6 @@ if (!empty($_GET['idEstudo'])) {
 					</div>
 				</div>
 			</div>
-
 			<div class="row">
 				<div class="col-lg-12">
 					<div class="alert bg-info" role="alert" id="msnAlertaInfo" style="display: <?= $_GET['msn'] == 2 ? "block" : "none" ?>;">
@@ -85,17 +85,17 @@ if (!empty($_GET['idEstudo'])) {
 					<i class="fas fa-book-open"></i> <?= $titulo ?>
 				</div>
 				<div class="panel-body">
-					<div class="col-md-6">
-						<form role="form" method="POST" action="../back/novoEstudo.php?idEstudo=<?= $_GET['idEstudo'] ?>">
-							<div class="col-xs-12">
-								<div class="form-group">
-									<label>Nome Estudo:</label>
+					<form class="form-horizontal" role="form" method="POST" action="../back/novoEstudo.php?idEstudo=<?= $_GET['idEstudo'] ?>">
+						<fieldset>
+							<div class="form-group">
+								<label class="col-md-3 control-label">Nome Estudo:</label>
+								<div class="col-md-9">
 									<input class="form-control" name="nomeEstudo" maxlength="45" value="<?= !empty($estudos['nome']) ? $estudos['nome'] : ""  ?>" required>
 								</div>
 							</div>
-							<div class="col-xs-12">
-								<div class="form-group">
-									<label>Professor:</label>
+							<div class="form-group">
+								<label class="col-md-3 control-label">Professor:</label>
+								<div class="col-md-9">
 									<select class="form-control" name="lecionador">
 										<?php
 										if (!empty($estudos['id_usuario'])) {
@@ -118,24 +118,23 @@ if (!empty($_GET['idEstudo'])) {
 									</select>
 								</div>
 							</div>
-					</div>
-					<div class="col-md-6">
-						<div class="col-md-12">
 							<div class="form-group">
-								<label>Observações:</label>
-								<textarea class="form-control" id="message" name="observacao" placeholder="..." rows="10"><?= !empty($estudos['observacao']) ? $estudos['observacao'] : ""  ?></textarea>
+								<label class="col-md-3 control-label">Observações:</label>
+								<div class="col-md-9">
+									<textarea class="form-control" id="message" name="observacao" placeholder="..." rows="10"><?= !empty($estudos['observacao']) ? $estudos['observacao'] : ""  ?></textarea>
+								</div>
 							</div>
-						</div>
-
-						<div style="display: <?= $_SESSION['estudos_adicionar'] == 1 ? "block" : "none" ?>;">
-							<button type="submit" class="btn btn-success" id="enviar">
-								<i class="fas fa-share fa-sm text-white-50"></i>&nbsp;<?= $button ?>
-							</button>
-							<button type="reset" class="btn btn-info pull-right">
-								<i class="fas fa-broom fa-sm text-white-50"></i>&nbsp;Desfazer
-							</button>
-						</div>
-					</div>
+							<div class="form-group" style="display: <?= $_SESSION['estudos_adicionar'] == 1 ? "block" : "none" ?>;">
+								<div class="col-md-12 widget-right">									
+									<button type="reset" class="btn btn-info">
+										<i class="fas fa-broom fa-sm text-white-50"></i>&nbsp;Desfazer
+									</button>
+									<button type="submit" class="btn btn-success pull-right" id="enviar">
+										<i class="fas fa-share fa-sm text-white-50"></i>&nbsp;<?= $button ?>
+									</button>
+								</div>
+							</div>
+						</fieldset>
 					</form>
 				</div>
 			</div>
@@ -193,7 +192,7 @@ if (!empty($_GET['idEstudo'])) {
 										while ($estudantes = $resultEstudantes->fetch_assoc()) {
 											echo '
 												<tr>
-													<td><a href="novoMembro.php?pagina=3&idMembro='.$estudantes['id_usuario'].'">' . $estudantes['estudante'] . " " . $estudantes['sobre_nome'] .'</a></td>
+													<td><a href="novoMembro.php?pagina=3&idMembro=' . $estudantes['id_usuario'] . '">' . $estudantes['estudante'] . " " . $estudantes['sobre_nome'] . '</a></td>
 													<td>' . $estudantes['email'] . '</td>
 													<td>' . date('d/m/Y', strtotime($estudantes['data_inicio'])) . '</td>
 													<td>' . date('d/m/Y', strtotime($estudantes['data_fim'])) . '</td>
@@ -244,13 +243,13 @@ if (!empty($_GET['idEstudo'])) {
 
 							while ($user = $resultUsuario->fetch_assoc()) {
 								echo '<tr>
-										<td><input type="checkbox" onclick="requerir'.$user['nome'].'()" name="aluno[]" value="' . $user['id'] . '"></td>
+										<td><input type="checkbox" onclick="requerir' . $user['nome'] . '()" name="aluno[]" value="' . $user['id'] . '"></td>
 										<td><label>' . $user['nome'] . ' ' . $user['sobre_nome'] . '</label></td>
 										<td>' . $user['email'] . '</td>
-										<td><input type="date" name="data_inicio' . $user['id'] . '" id="dataInicio'.$user['nome'].'"></td>
-										<td><input type="date" name="data_fim' . $user['id'] . '" id="dataFim'.$user['nome'].'"></td>
+										<td><input type="date" name="data_inicio' . $user['id'] . '" id="dataInicio' . $user['nome'] . '"></td>
+										<td><input type="date" name="data_fim' . $user['id'] . '" id="dataFim' . $user['nome'] . '"></td>
 										<td>
-										<select name="status' . $user['id'] . '" id="status'.$user['nome'].'">
+										<select name="status' . $user['id'] . '" id="status' . $user['nome'] . '">
 											<option value="">Selecione...</option>
 											<option value="Cursando">Cursando</option>
 											<option value="Concluido">Concluido</option>
@@ -258,16 +257,16 @@ if (!empty($_GET['idEstudo'])) {
 										</td>
 									</tr>';
 
-									echo '
+								echo '
 									<script>
-										function requerir'.$user['nome'].'() {
-											var x = document.getElementById("dataInicio'.$user['nome'].'").required;
-											var y = document.getElementById("dataFim'.$user['nome'].'").required;
-											var k = document.getElementById("status'.$user['nome'].'").required;
+										function requerir' . $user['nome'] . '() {
+											var x = document.getElementById("dataInicio' . $user['nome'] . '").required;
+											var y = document.getElementById("dataFim' . $user['nome'] . '").required;
+											var k = document.getElementById("status' . $user['nome'] . '").required;
 
-											if(x == false){document.getElementById("dataInicio'.$user['nome'].'").required = true;}
-											if(y == false){document.getElementById("dataFim'.$user['nome'].'").required = true;}
-											if(k == false){document.getElementById("status'.$user['nome'].'").required = true;}
+											if(x == false){document.getElementById("dataInicio' . $user['nome'] . '").required = true;}
+											if(y == false){document.getElementById("dataFim' . $user['nome'] . '").required = true;}
+											if(k == false){document.getElementById("status' . $user['nome'] . '").required = true;}
 										}
 									</script>
 									

@@ -1742,3 +1742,10 @@ p.back-link {
     padding: 15px !important;
     padding-bottom: 34px !important;
 }
+
+@media only screen and (max-width: 990px) {
+    .endereco{
+        display: none;
+    }
+
+}

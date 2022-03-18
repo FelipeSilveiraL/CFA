@@ -20,16 +20,16 @@ if (!empty($_GET['idPatrimonio'])) {
 	$patrimonio = $resultPatrimonio->fetch_assoc();
 
 	if ($patrimonio['id_origem'] == 7) {
-		
+
 		$buttonRecibo = "Emitir Recibo";
 		$reciboBotao = "block";
 
-		if($patrimonio['recibo_emitido'] == 1){
+		if ($patrimonio['recibo_emitido'] == 1) {
 			$recibo = "block";
-		}else {
+		} else {
 			$recibo = "none";
 		}
-	}else{
+	} else {
 		$reciboBotao = "none";
 		$recibo = "none";
 	}
@@ -124,218 +124,224 @@ if (!empty($_GET['idPatrimonio'])) {
 					<span class="pull-right clickable panel-toggle panel-button-tab-left"><em class="fa fa-toggle-up"></em></span>
 				</div>
 				<div class="panel-body">
-					<div class="col-md-6">
-						<form role="form" method="POST" action="../back/novoPatrimonio.php?idPatrimonio=<?= $_GET['idPatrimonio'] ?>" enctype="multipart/form-data">
-
-
-							<div class="col-xs-6">
+					<form class="form-horizontal" role="form" method="POST" action="../back/novoPatrimonio.php?idPatrimonio=<?= $_GET['idPatrimonio'] ?>" enctype="multipart/form-data">
+						<fieldset>
+							<div class="col-md-6">
 								<div class="form-group">
-									<label>Origem</label>
-									<select class="form-control" name="origem" onchange="myFunctionOrigem()" id="listOrigem" required>
-										<?php
-										if (!empty($patrimonio['id_origem'])) {
-											echo '<option value="' . $patrimonio['id_origem'] . '">' . $patrimonio['origem'] . '</option>';
-											echo '<option>------------</option>';
-											while ($origem = $resultOrigem->fetch_assoc()) {
-												echo '<option value="' . $origem['id'] . '">' . $origem['nome'] . '</option>';
-											}
-										} else {
-											echo '<option value="">Selecione...</option>';
+									<label class="col-md-3 control-label">Origem: </label>
+									<div class="col-md-9">
+										<select class="form-control" name="origem" onchange="myFunctionOrigem()" id="listOrigem" required>
+											<?php
+											if (!empty($patrimonio['id_origem'])) {
+												echo '<option value="' . $patrimonio['id_origem'] . '">' . $patrimonio['origem'] . '</option>';
+												echo '<option>------------</option>';
+												while ($origem = $resultOrigem->fetch_assoc()) {
+													echo '<option value="' . $origem['id'] . '">' . $origem['nome'] . '</option>';
+												}
+											} else {
+												echo '<option value="">Selecione...</option>';
 
-											while ($origem = $resultOrigem->fetch_assoc()) {
-												echo '<option value="' . $origem['id'] . '">' . $origem['nome'] . '</option>';
+												while ($origem = $resultOrigem->fetch_assoc()) {
+													echo '<option value="' . $origem['id'] . '">' . $origem['nome'] . '</option>';
+												}
 											}
-										}
-										?>
-									</select>
-								</div>
-							</div>
-
-							<div id="doador" style="display: <?= empty($patrimonio['cpf_doador']) ? 'none' : 'block'; ?>;">
-								<div class="col-xs-12">
-									<div class="form-group">
-										<label>Nome doador: </label>
-										<input class="form-control" name="nomeDoador" maxlength="50" value="<?= !empty($patrimonio['nome_doador']) ? $patrimonio['nome_doador'] : ""  ?>" id="nomeDoador">
+											?>
+										</select>
 									</div>
 								</div>
-								<div class="col-xs-5">
+								<div class="doador" style="display: none;" id="doador">
 									<div class="form-group">
-										<label>CPF doador: </label>
-										<input class="form-control" name="cpfDoador" value="<?= !empty($patrimonio['cpf_doador']) ? $patrimonio['cpf_doador'] : ""  ?>" id="cpfDoador" onkeydown="javascript: fMasc(this, mCPF );" maxlength="14" onblur="ValidarCPF(this)" disabled>
-									</div>
-								</div>
-								<div class="col-xs-12">
-									<div class="form-group">
-										<label>Termo LGPD e GDPR:</label>
-										<div class="checkbox">
-											<label style="color: red">
-												<input type="checkbox" id="lgpd" onclick="myFuncionTermo()">Sou consciente das minhas responsabilidades com os dados cadastrados, em conformidade com a LGPD e GDPR.<p> <a href="../images/termo-LGPD.pdf" target="_blank"> Termo LGPD </a></p>
-											</label>
+										<label class="col-md-3 control-label">Nome doador: </label>
+										<div class="col-md-9">
+											<input class="form-control" name="nomeDoador" maxlength="50" value="<?= !empty($patrimonio['nome_doador']) ? $patrimonio['nome_doador'] : ""  ?>" id="nomeDoador">
 										</div>
 									</div>
-								</div>
-							</div>
-							<div class="col-xs-12">
-								<div class="form-group">
-									<label>Nome / Modelo</label>
-									<input class="form-control" name="nome" maxlength="50" value="<?= !empty($patrimonio['nome']) ? $patrimonio['nome'] : ""  ?>" required>
-								</div>
-							</div>
 
-							<div class="col-xs-12">
-								<div class="form-group">
-									<label>Código</label>
-									<input type="text" class="form-control" name="codigo" maxlength="20" value="<?= !empty($patrimonio['codigo']) ? $patrimonio['codigo'] : ""  ?>">
-								</div>
-							</div>
 
-							<div class="col-xs-6">
+									<div class="form-group">
+										<label class="col-md-3 control-label">Termo LGPD e GDPR: </label>
+
+										<div class="col-md-9">
+											<div class="checkbox">
+												<label style="color: red">
+													<input type="checkbox" id="lgpd" onclick="myFuncionTermo()">Sou consciente das minhas responsabilidades com os dados cadastrados, em conformidade com a LGPD e GDPR.<p> <a href="../images/termo-LGPD.pdf" target="_blank"> Termo LGPD </a></p>
+												</label>
+											</div>
+										</div>
+									</div>
+
+									<div class="form-group">
+										<label class="col-md-3 control-label">CPF doador: </label>
+										<div class="col-md-9">
+											<input class="form-control" name="cpfDoador" value="<?= !empty($patrimonio['cpf_doador']) ? $patrimonio['cpf_doador'] : ""  ?>" id="cpfDoador" onkeydown="javascript: fMasc(this, mCPF );" maxlength="14" onblur="ValidarCPF(this)" disabled>
+										</div>
+									</div>
+									<hr>
+								</div>
 								<div class="form-group">
-									<label>Categoria</label>
-									<select class="form-control" name="categoria">
-										<?php
-										if (!empty($patrimonio['id_categoria'])) {
-											echo '<option value="' . $patrimonio['id_categoria'] . '">' . $patrimonio['categoria'] . '</option>';
-											echo '<option>------------</option>';
-											while ($categoria = $resultCategoria->fetch_assoc()) {
-												echo '<option value="' . $categoria['id'] . '">' . $categoria['nome'] . '</option>';
+									<label class="col-md-3 control-label">Modelo: </label>
+									<div class="col-md-9">
+										<input class="form-control" name="nome" maxlength="50" value="<?= !empty($patrimonio['nome']) ? $patrimonio['nome'] : ""  ?>" required>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label class="col-md-3 control-label">Código: </label>
+									<div class="col-md-9">
+										<input type="text" class="form-control" name="codigo" maxlength="20" value="<?= !empty($patrimonio['codigo']) ? $patrimonio['codigo'] : ""  ?>">
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label class="col-md-3 control-label">Categoria: </label>
+									<div class="col-md-9">
+										<select class="form-control" name="categoria">
+											<?php
+											if (!empty($patrimonio['id_categoria'])) {
+												echo '<option value="' . $patrimonio['id_categoria'] . '">' . $patrimonio['categoria'] . '</option>';
+												echo '<option>------------</option>';
+												while ($categoria = $resultCategoria->fetch_assoc()) {
+													echo '<option value="' . $categoria['id'] . '">' . $categoria['nome'] . '</option>';
+												}
+											} else {
+												echo '<option>Selecione...</option>';
+
+												while ($categoria = $resultCategoria->fetch_assoc()) {
+													echo '<option value="' . $categoria['id'] . '">' . $categoria['nome'] . '</option>';
+												}
 											}
-										} else {
-											echo '<option>Selecione...</option>';
-
-											while ($categoria = $resultCategoria->fetch_assoc()) {
-												echo '<option value="' . $categoria['id'] . '">' . $categoria['nome'] . '</option>';
-											}
-										}
-										?>
-									</select>
+											?>
+										</select>
+									</div>
 								</div>
-							</div>
 
-							<div class="col-xs-6">
 								<div class="form-group">
-									<label>Local</label>
-									<select class="form-control" name="local">
-										<?php
-										if (!empty($patrimonio['id_local'])) {
-											echo '<option value="' . $patrimonio['id_local'] . '">' . $patrimonio['local'] . '</option>';
-											echo '<option>------------</option>';
-											while ($local = $resultLocal->fetch_assoc()) {
-												echo '<option value="' . $local['id'] . '">' . $local['nome'] . '</option>';
-											}
-										} else {
-											echo '<option>Selecione...</option>';
+									<label class="col-md-3 control-label">Local: </label>
+									<div class="col-md-9">
+										<select class="form-control" name="local">
+											<?php
+											if (!empty($patrimonio['id_local'])) {
+												echo '<option value="' . $patrimonio['id_local'] . '">' . $patrimonio['local'] . '</option>';
+												echo '<option>------------</option>';
+												while ($local = $resultLocal->fetch_assoc()) {
+													echo '<option value="' . $local['id'] . '">' . $local['nome'] . '</option>';
+												}
+											} else {
+												echo '<option>Selecione...</option>';
 
-											while ($local = $resultLocal->fetch_assoc()) {
-												echo '<option value="' . $local['id'] . '">' . $local['nome'] . '</option>';
+												while ($local = $resultLocal->fetch_assoc()) {
+													echo '<option value="' . $local['id'] . '">' . $local['nome'] . '</option>';
+												}
 											}
-										}
-										?>
-									</select>
+											?>
+										</select>
+									</div>
 								</div>
-							</div>
 
-							<div class="col-xs-6">
 								<div class="form-group">
-									<label>Situação</label>
-									<select class="form-control" name="situacao">
-										<?php
-										if (!empty($patrimonio['id_situacao'])) {
-											echo '<option value="' . $patrimonio['id_situacao'] . '">' . $patrimonio['situacao'] . '</option>';
-											echo '<option>------------</option>';
-											while ($situacao = $resultSituacao->fetch_assoc()) {
-												echo '<option value="' . $situacao['id'] . '">' . $situacao['nome'] . '</option>';
+									<label class="col-md-3 control-label">Situação: </label>
+									<div class="col-md-9">
+										<select class="form-control" name="situacao">
+											<?php
+											if (!empty($patrimonio['id_situacao'])) {
+												echo '<option value="' . $patrimonio['id_situacao'] . '">' . $patrimonio['situacao'] . '</option>';
+												echo '<option>------------</option>';
+												while ($situacao = $resultSituacao->fetch_assoc()) {
+													echo '<option value="' . $situacao['id'] . '">' . $situacao['nome'] . '</option>';
+												}
+											} else {
+												echo '<option>Selecione...</option>';
+
+												while ($situacao = $resultSituacao->fetch_assoc()) {
+													echo '<option value="' . $situacao['id'] . '">' . $situacao['nome'] . '</option>';
+												}
 											}
-										} else {
-											echo '<option>Selecione...</option>';
+											?>
+										</select>
+									</div>
+								</div>
 
-											while ($situacao = $resultSituacao->fetch_assoc()) {
-												echo '<option value="' . $situacao['id'] . '">' . $situacao['nome'] . '</option>';
+								<div class="form-group">
+									<label class="col-md-3 control-label">Conservação: </label>
+									<div class="col-md-9">
+										<select class="form-control" name="conservacao">
+											<?php
+											if (!empty($patrimonio['id_conservacao'])) {
+												echo '<option value="' . $patrimonio['id_conservacao'] . '">' . $patrimonio['conservacao'] . '</option>';
+												echo '<option>------------</option>';
+												while ($conservacao = $resultConservacao->fetch_assoc()) {
+													echo '<option value="' . $conservacao['id'] . '">' . $conservacao['nome'] . '</option>';
+												}
+											} else {
+												echo '<option>Selecione...</option>';
+
+												while ($conservacao = $resultConservacao->fetch_assoc()) {
+													echo '<option value="' . $conservacao['id'] . '">' . $conservacao['nome'] . '</option>';
+												}
 											}
-										}
-										?>
-									</select>
+											?>
+										</select>
+									</div>
 								</div>
-							</div>
 
-							<div class="col-xs-6">
 								<div class="form-group">
-									<label>Conservação</label>
-									<select class="form-control" name="conservacao">
-										<?php
-										if (!empty($patrimonio['id_conservacao'])) {
-											echo '<option value="' . $patrimonio['id_conservacao'] . '">' . $patrimonio['conservacao'] . '</option>';
-											echo '<option>------------</option>';
-											while ($conservacao = $resultConservacao->fetch_assoc()) {
-												echo '<option value="' . $conservacao['id'] . '">' . $conservacao['nome'] . '</option>';
-											}
-										} else {
-											echo '<option>Selecione...</option>';
-
-											while ($conservacao = $resultConservacao->fetch_assoc()) {
-												echo '<option value="' . $conservacao['id'] . '">' . $conservacao['nome'] . '</option>';
-											}
-										}
-										?>
-									</select>
+									<label class="col-md-3 control-label">Valor: </label>
+									<div class="col-md-9">
+										<input class="form-control" placeholder="R$ 0.000,00" name="valor" maxlength="10" value="<?= !empty($patrimonio['valor']) ? $patrimonio['valor'] : ""  ?>">
+									</div>
 								</div>
-							</div>
 
-							<div class="col-xs-6">
 								<div class="form-group">
-									<label>Valor</label>
-									<input class="form-control" placeholder="R$ 0.000,00" name="valor" maxlength="10" value="<?= !empty($patrimonio['valor']) ? $patrimonio['valor'] : ""  ?>">
+									<label class="col-md-3 control-label">Quantidade: </label>
+									<div class="col-md-9">
+										<input type="number" class="form-control" name="quantidade" value="<?= !empty($patrimonio['quantidade']) ? $patrimonio['quantidade'] : ""  ?>">
+									</div>
 								</div>
 							</div>
 
-							<div class="col-xs-6">
+							<div class="col-md-6">
+
 								<div class="form-group">
-									<label>Quantidade</label>
-									<input type="number" class="form-control" name="quantidade" value="<?= !empty($patrimonio['quantidade']) ? $patrimonio['quantidade'] : ""  ?>">
+									<label class="col-md-3 control-label">Data aquisição: </label>
+									<div class="col-md-9">
+										<input class="form-control" type="date" name="data_compra" maxlength="10" value="<?= !empty($patrimonio['data_aquisicao']) ? $patrimonio['data_aquisicao'] : "" ?>">
+									</div>
 								</div>
-							</div>
 
-							<div class="col-xs-12">
 								<div class="form-group">
-									<label>Data aquisição</label>
-									<input class="form-control" type="date" name="data_compra" maxlength="10" value="<?= !empty($patrimonio['data_aquisicao']) ? $patrimonio['data_aquisicao'] : "" ?>">
+									<label class="col-md-3 control-label">Doc. nº: </label>
+									<div class="col-md-9">
+										<input type="text" class="form-control" name="numero_documento" maxlength="10" value="<?= !empty($patrimonio['numero_documento']) ? $patrimonio['numero_documento'] : ""  ?>">
+									</div>
 								</div>
-							</div>
-					</div>
-					<div class="col-md-6">
 
-						<div class="col-xs-12">
-							<div class="form-group">
-								<label>Doc. nº</label>
-								<input type="text" class="form-control" name="numero_documento" maxlength="10" value="<?= !empty($patrimonio['numero_documento']) ? $patrimonio['numero_documento'] : ""  ?>">
-							</div>
-						</div>
+								<div class="form-group" <?= $file ?>>
+									<label class="col-md-3 control-label">Documento: </label>
+									<div class="col-md-9">
+										<input type="file" class="form-control" name="anexo">
+									</div>
+								</div>
 
-						<div class="col-xs-12" <?= $file ?>>
-							<div class="form-group">
-								<label>Documento</label>
-								<input type="file" class="form-control" name="anexo">
-							</div>
-						</div>
+								<div class="form-group">
+									<label class="col-md-3 control-label">Observações: </label>
+									<div class="col-md-9">
+										<textarea class="form-control" id="message" name="observacao" placeholder="..." rows="10"><?= !empty($patrimonio['observacao']) ? $patrimonio['observacao'] : ""  ?></textarea>
+									</div>
+								</div>
 
-						<div class="col-md-12">
-							<div class="form-group">
-								<label>Observações</label>
-								<textarea class="form-control" id="message" name="observacao" placeholder="..." rows="10"><?= !empty($patrimonio['observacao']) ? $patrimonio['observacao'] : ""  ?></textarea>
-							</div>
-						</div>
-
-						<div style="display: <?= $_SESSION['patrimonio_adicionar'] == 1 ? "block" : "none" ?>;">
-							<button type="submit" class="btn btn-success pull-right" id="enviar">
-								<i class="fas fa-share fa-sm text-white-50"></i>&nbsp;<?= $button ?>
-							</button>
-						</div>
-						<div style="display: <?= $reciboBotao ?>;">
-							<a href="javascript:" class="btn btn-warning" data-toggle="modal" data-target="#recibo">
-								<i class="fas fa-file-contract fa-sm text-white-50"></i>&nbsp;<?= $buttonRecibo ?>
-							</a>
-						</div>
-					</div>
+								<div class="form-group" style="display: <?= $_SESSION['patrimonio_adicionar'] == 1 ? "block" : "none" ?>;">
+									<div class="col-md-12 widget-right">
+										<button type="submit" class="btn btn-success pull-right" id="enviar">
+											<i class="fas fa-share fa-sm text-white-50"></i>&nbsp;<?= $button ?>
+										</button>
+									</div>
+									<div class="col-md-12 widget-right" style="display: <?= $reciboBotao ?>;">
+										<a href="javascript:" class="btn btn-warning" data-toggle="modal" data-target="#recibo">
+											<i class="fas fa-file-contract fa-sm text-white-50"></i>&nbsp;<?= $buttonRecibo ?>
+										</a>
+									</div>
+								</div>
+						</fieldset>
 					</form>
 				</div>
 			</div>
@@ -554,7 +560,7 @@ if (!empty($_GET['idPatrimonio'])) {
 								while ($recibo = $resultRecibo->fetch_assoc()) {
 									echo '
 										<tr>
-											<td><input type="checkbox" name="aquipamento[]" value="'.$recibo['id'].'" class="equip" checked></td>
+											<td><input type="checkbox" name="aquipamento[]" value="' . $recibo['id'] . '" class="equip" checked></td>
 											<td>' . $recibo['nome'] . '</td>
 											<td>' . $recibo['codigo'] . '</td>
 										</tr>';

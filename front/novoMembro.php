@@ -3,7 +3,22 @@ session_start();
 
 $_SESSION['email'] != NULL ?: header('Location: ../adm.php?erro=1');
 
-$_GET['idMembro'] == $_SESSION['id_usuario'] ?: header('Location: dashboard.php?pagina=1');
+if(empty($_GET['idMembro'])){
+
+	if($_SESSION['membro_adicionar'] != 1){
+		header('Location: dashboard.php?pagina=1');
+	}
+
+}else{
+
+	if($_GET['idMembro'] != $_SESSION['id_usuario']){
+
+		if($_SESSION['membro_editar'] != 1){
+			header('Location: dashboard.php?pagina=1');
+		}
+	}
+	
+}
 
 include('head.php');
 include('header.php');
@@ -237,7 +252,7 @@ if (!empty($_GET['idMembro'])) {
 							</div>
 					</div>
 					<div class="col-md-6">
-						<div class="panel-heading"><i class="fas fa-home"></i> Endereço</div>
+						<div class="panel-heading endereco"><i class="fas fa-home"></i> Endereço</div>
 						<br />
 
 						<div class="col-xs-8">

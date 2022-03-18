@@ -5,7 +5,7 @@ require_once('../back/query.php');
 
 ?>
 
-<body>
+<body onload="myFunctionOrigem()">
 	<nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
 		<div class="container-fluid">
 			<div class="navbar-header">
