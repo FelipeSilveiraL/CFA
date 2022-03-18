@@ -151,6 +151,49 @@ if(!$result = $conn->query($query)){
 }else{
 	if(!empty($_GET['idMembro'])){
 
+		//pegando ultimo membro recem cadastrado
+		$queryUltimo = "SELECT MAX(id) AS id_usuario FROM cfa_usuarios";
+		$resultUltimo = $conn->query($queryUltimo);
+		$ultimo = $resultUltimo->fetch_assoc();
+
+		//cadastrar permissões
+		$queryPermissao = "INSERT INTO cfa_permissao 
+							(id_usuario, 
+							tela_configuracoes, 
+							tela_membros, 
+							tela_celula, 
+							tela_patrimonio, 
+							tela_financeiro, 
+							tela_estudos, 
+							config_informacao, 
+							config_sistema, 
+							config_menus, 
+							membro_editar, 
+							membro_excluir, 
+							membro_adicionar, 
+							membro_permissao, 
+							celula_adicionar,
+							celula_editar, 
+							celula_excluir, 
+							celula_incluir_lider, 
+							celula_excluir_lider, 
+							celula_incluir_membro, 
+							celula_excluir_membro, 
+							celula_incluir_reuniao, 
+							patrimonio_adicionar, 
+							patrimonio_excluir,
+							financeiro_adicionar, 
+							financeiro_excluir, 
+							estudos_adicionar,
+							estudos_excluir) 
+						VALUES ('".$ultimo['id_usuario']."', 
+								'0', '0', '1', '0', '0', '0', '0', 
+								'0', '0', '0', '0', '0', '0', '0', 
+								'0', '0', '0', '0', '0', '0', '0', 
+								'0', '0', '0', '0', '0', '0')";
+								
+		$resultPermissao = $conn->query($queryPermissao);
+		
 		header('Location: ../front/novoMembro.php?pagina=3&msn=2&idMembro='.$_GET['idMembro'].'');
 
 	}else{

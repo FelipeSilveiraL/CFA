@@ -118,7 +118,7 @@ if(!empty($_GET['mes'])){
 												<input type="text" class="form-control" placeholder="E-mail" disabled>
 											</th>
 											<th>
-												<input type="text" class="form-control" placeholder="D. Nascimento" disabled>
+												<input type="text" class="form-control" placeholder="Aniversário" disabled>
 											</th>
 											<th>
 												<input type="text" class="form-control" placeholder="Telefone" disabled>
@@ -151,7 +151,7 @@ if(!empty($_GET['mes'])){
 											echo '<tr>
 												<td>' . $usuarios['nome'] . " " . $usuarios['sobre_nome'] .'</td>
 												<td>' . $usuarios['email'] . '</td>
-												<td><a href="javascript:" title="' . $idade . ' anos">' . $usuarios['data_nascimento'] . '</a></td>
+												<td><a href="javascript:" title="' . $idade . ' anos">' . date('d/m/Y', strtotime($usuarios['data_nascimento'])) . '</a></td>
 												<td>' . $usuarios['celular'] . '</td>
 												<td>' . $etaria . '</td>
 												<td>' . $usuarios['cargo'] . '</td>

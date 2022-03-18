@@ -161,7 +161,7 @@ if (!empty($_GET['idMembro'])) {
 							<div class="col-xs-6">
 								<div class="form-group">
 									<label>Data nascimento</label>
-									<input type="text" placeholder="xx/xx/xxxx" class="form-control" name="nascimento" value="<?= !empty($membro['data_nascimento']) ? $membro['data_nascimento'] : ""  ?>">
+									<input type="date" class="form-control" name="nascimento" value="<?= !empty($membro['data_nascimento']) ? $membro['data_nascimento'] : ""  ?>">
 								</div>
 							</div>
 							<div class="col-xs-6">
