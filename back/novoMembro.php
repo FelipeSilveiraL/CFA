@@ -12,7 +12,7 @@ $civil = $_POST['civil'];
 $sexo = $_POST['genero'];
 $celula = $_POST['celula'];
 $cargo = $_POST['cargo'];
-$nascimento = date('d/m/Y', strtotime($_POST['nascimento']));
+$nascimento = $_POST['nascimento'];
 $endereco = strtolower($_POST['endereco']);
 $numero = $_POST['numero'];
 $bairro = strtolower($_POST['bairro']);
@@ -150,11 +150,14 @@ if(!$result = $conn->query($query)){
 
 }else{
 	if(!empty($_GET['idMembro'])){
+		
+		header('Location: ../front/novoMembro.php?pagina=3&msn=2&idMembro='.$_GET['idMembro'].'');
 
-		//pegando ultimo membro recem cadastrado
-		$queryUltimo = "SELECT MAX(id) AS id_usuario FROM cfa_usuarios";
-		$resultUltimo = $conn->query($queryUltimo);
-		$ultimo = $resultUltimo->fetch_assoc();
+	}else{
+
+		$query = "SELECT MAX(id) as id FROM cfa_usuarios";
+		$resultQuery = $conn->query($query);
+		$idUsuario = $resultQuery->fetch_assoc();
 
 		//cadastrar permissões
 		$queryPermissao = "INSERT INTO cfa_permissao 
@@ -186,21 +189,13 @@ if(!$result = $conn->query($query)){
 							financeiro_excluir, 
 							estudos_adicionar,
 							estudos_excluir) 
-						VALUES ('".$ultimo['id_usuario']."', 
+						VALUES ('".$ultimo['id']."', 
 								'0', '0', '1', '0', '0', '0', '0', 
 								'0', '0', '0', '0', '0', '0', '0', 
 								'0', '0', '0', '0', '0', '0', '0', 
 								'0', '0', '0', '0', '0', '0')";
 								
 		$resultPermissao = $conn->query($queryPermissao);
-		
-		header('Location: ../front/novoMembro.php?pagina=3&msn=2&idMembro='.$_GET['idMembro'].'');
-
-	}else{
-
-		$query = "SELECT MAX(id) as id FROM cfa_usuarios";
-		$resultQuery = $conn->query($query);
-		$idUsuario = $resultQuery->fetch_assoc();
 	
 		header('Location: ../front/novoMembro.php?pagina=3&msn=1&idMembro='.$idUsuario['id'].'');
 	}	
