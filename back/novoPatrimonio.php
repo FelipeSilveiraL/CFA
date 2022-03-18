@@ -89,6 +89,9 @@ $responsavel = $_SESSION['id_usuario'];
 $observacao = $_POST['observacao'];
 $nomedoador = $_POST['nomeDoador'];
 $cpfdoador = $_POST['cpfDoador'];
+$nacionalidadeDoador = $_POST['nacionalidadeDoador'];
+$civilDoador = $_POST['civilDoador'];
+$profissaoDoador = $_POST['profissaoDoador'];
 
 if($origem == '7'){
 	$reciboemitido = '1';
@@ -116,6 +119,9 @@ if (!empty($_GET['idPatrimonio'])) {
 				observacao = '$observacao',
 				nome_doador = '$nomedoador',
 				cpf_doador = '$cpfdoador',
+				nacionalidade_doador = '$nacionalidadeDoador',
+				profissao_doador = '$profissaoDoador',
+				civil_doador = '$civilDoador',
 				recibo_emitido = '$reciboemitido'	
 			
 			WHERE (id = " . $_GET['idPatrimonio'] . ")";
@@ -168,6 +174,9 @@ if (!empty($_GET['idPatrimonio'])) {
 					observacao,
 					nome_doador,
 					cpf_doador,
+					nacionalidade_doador,
+					civil_doador,
+					profissao_doador,
 					recibo_emitido)
 				VALUES
 					('$nome',
@@ -184,6 +193,9 @@ if (!empty($_GET['idPatrimonio'])) {
 					'$observacao',
 					'$nomedoador',
 					'$cpfdoador',
+					'$nacionalidadeDoador',
+					'$civilDoador',
+					'$profissaoDoador',
 					'$reciboemitido')";
 }
 

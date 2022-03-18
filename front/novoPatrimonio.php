@@ -156,6 +156,26 @@ if (!empty($_GET['idPatrimonio'])) {
 											<input class="form-control" name="nomeDoador" maxlength="50" value="<?= !empty($patrimonio['nome_doador']) ? $patrimonio['nome_doador'] : ""  ?>" id="nomeDoador">
 										</div>
 									</div>
+									<div class="form-group">
+										<label class="col-md-3 control-label">Nacionalidade: </label>
+										<div class="col-md-9">
+											<input class="form-control" name="nacionalidadeDoador" maxlength="30" value="<?= !empty($patrimonio['nacionalidade_doador']) ? $patrimonio['nacionalidade_doador'] : ""  ?>" id="nacionalidadeDoador">
+										</div>
+									</div>
+
+									<div class="form-group">
+										<label class="col-md-3 control-label">Estado Civil: </label>
+										<div class="col-md-9">
+											<input class="form-control" name="civilDoador" maxlength="20" value="<?= !empty($patrimonio['civil_doador']) ? $patrimonio['civil_doador'] : ""  ?>" id="civilDoador">
+										</div>
+									</div>
+
+									<div class="form-group">
+										<label class="col-md-3 control-label">Profissão: </label>
+										<div class="col-md-9">
+											<input class="form-control" name="profissaoDoador" maxlength="30" value="<?= !empty($patrimonio['profissao_doador']) ? $patrimonio['profissao_doador'] : ""  ?>" id="profissaoDoador">
+										</div>
+									</div>
 
 
 									<div class="form-group">
@@ -334,11 +354,11 @@ if (!empty($_GET['idPatrimonio'])) {
 										<button type="submit" class="btn btn-success pull-right" id="enviar">
 											<i class="fas fa-share fa-sm text-white-50"></i>&nbsp;<?= $button ?>
 										</button>
-									</div>
-									<div class="col-md-12 widget-right" style="display: <?= $reciboBotao ?>;">
-										<a href="javascript:" class="btn btn-warning" data-toggle="modal" data-target="#recibo">
-											<i class="fas fa-file-contract fa-sm text-white-50"></i>&nbsp;<?= $buttonRecibo ?>
-										</a>
+										<div style="display: <?= $reciboBotao ?>;">
+											<a href="javascript:" class="btn btn-warning" data-toggle="modal" data-target="#recibo">
+												<i class="fas fa-file-contract fa-sm text-white-50"></i>&nbsp;<?= $buttonRecibo ?>
+											</a>
+										</div>
 									</div>
 								</div>
 						</fieldset>
