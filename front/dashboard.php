@@ -116,7 +116,7 @@ $resultadoEstudos = $conn->query($queryEstudantes);
 					<p><strong class="primary-font">Nome:</strong> <?= $usuario['celula'] ?></p>
 					<p><strong class="primary-font">Dia semana:</strong> <?= $usuario['dia_semana'] ?></p>
 					<p><strong class="primary-font">horario:</strong> <?= $usuario['horario'] ?>h</p>
-					<p><strong class="primary-font">Endereço:</strong> <?= $usuario['endereco'] . ", " . $usuario['numero_celula'] ?> </p>
+					<p><strong class="primary-font">Endereço:</strong> <?= $usuario['endereco_celula'] . ", " . $usuario['numero_celula'] ?> </p>
 				</div>
 			</div>
 		</div>

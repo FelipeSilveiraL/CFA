@@ -61,7 +61,7 @@ MC.nome AS cargo,
 CC.nome AS celula,
 CC.dia_semana,
 CC.horario,
-CC.endereco,
+CC.endereco AS endereco_celula,
 CC.numero AS numero_celula,
 CC.id AS id_celula
 
