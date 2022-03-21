@@ -37,6 +37,7 @@ class BackupDatabase
         $this->username = $username;
         $this->password = $password;
     }
+}
 
     /**
  * Gera um backup
@@ -44,8 +45,7 @@ class BackupDatabase
  * @return void
  * @throws Exception
  */
-public function generate()
-{
+public function generate(){
     // Se as informações de conexão com o banco de dados não foram definidas
     if (empty($this->database) or empty($this->username) or empty($this->host)) {
         throw new \Exception('As informações de conexão com o banco de dados não foram definidas');
@@ -107,4 +107,4 @@ private function clearOldFiles()
 
 }
 
-    ?>
+?>
