@@ -5,7 +5,7 @@
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '1abaa999c5f401fb289b7fc2446093eca0f94c4d',
+        'reference' => '584597d4a97176f129014757d7c2eccf5601a03b',
         'name' => '__root__',
         'dev' => true,
     ),
@@ -16,7 +16,7 @@
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '1abaa999c5f401fb289b7fc2446093eca0f94c4d',
+            'reference' => '584597d4a97176f129014757d7c2eccf5601a03b',
             'dev_requirement' => false,
         ),
         'dompdf/dompdf' => array(
@@ -26,6 +26,15 @@
             'install_path' => __DIR__ . '/../dompdf/dompdf',
             'aliases' => array(),
             'reference' => 'aa594c1cdbcdab04977fdd0fff669a017fb50ef4',
+            'dev_requirement' => false,
+        ),
+        'ifsnop/mysqldump-php' => array(
+            'pretty_version' => 'v2.9',
+            'version' => '2.9.0.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../ifsnop/mysqldump-php',
+            'aliases' => array(),
+            'reference' => 'fc9c119fe5d70af9a685cad6a8ac612fd7589e25',
             'dev_requirement' => false,
         ),
         'laminas/laminas-escaper' => array(

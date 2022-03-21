@@ -20,6 +20,10 @@ class ComposerStaticInitbc53e0d47a081002b25f846d717d7d8a
         array (
             'Laminas\\Escaper\\' => 16,
         ),
+        'I' => 
+        array (
+            'Ifsnop\\' => 7,
+        ),
         'F' => 
         array (
             'FontLib\\' => 8,
@@ -46,6 +50,10 @@ class ComposerStaticInitbc53e0d47a081002b25f846d717d7d8a
         'Laminas\\Escaper\\' => 
         array (
             0 => __DIR__ . '/..' . '/laminas/laminas-escaper/src',
+        ),
+        'Ifsnop\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/ifsnop/mysqldump-php/src/Ifsnop',
         ),
         'FontLib\\' => 
         array (
