@@ -73,6 +73,9 @@ $resultAniversario = $conn->query($queryAniversario);
 						<div class="carousel-cell">
 							<img src="../images/comunicados/03.jpeg" />
 						</div>
+						<div class="carousel-cell">
+							<img src="../images/comunicados/04.jpeg" />
+						</div>
 					</div>
 
 				</div>
