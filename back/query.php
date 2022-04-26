@@ -6,12 +6,15 @@ $queryUsuarios = "SELECT
 U.id,
 U.nome,
 U.sobre_nome,
+U.rg,
+U.nome_conjuge,
 U.email,
 U.senha,
 U.foto_perfil,
 U.cadastrado_por,
 U.data_criacao,
 U.celular,
+U.telefone,
 U.celula AS id_celula,
 U.estado_civil AS id_estado_civil,
 U.sexo AS id_sexo,
@@ -259,4 +262,15 @@ CU.email
 
 FROM cfa_estudantes CES
 LEFT JOIN cfa_estudos CE ON (CES.id_estudo = CE.id)
-LEFT JOIN cfa_usuarios CU ON (CES.id_usuario = CU.id)";                        
+LEFT JOIN cfa_usuarios CU ON (CES.id_usuario = CU.id)";   
+
+$queryFilhos = "SELECT 
+
+CF.id, 
+CF.nome AS nome_filho, 
+CU.nome, 
+CU.sobre_nome 
+
+FROM cfa_filhos CF 
+
+LEFT JOIN cfa_usuarios CU ON (CF.id_pais = CU.id)";

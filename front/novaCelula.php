@@ -404,10 +404,17 @@ if (!empty($_GET['idCelula'])) {
 							<label class="col-md-3 control-label" for="email">Visitantes:</label>
 							<div class="col-md-9">
 								<table id="myTable" class="table table-borderless" style="margin-left: -11px;">
+								<thead>
+									<th>Nome</th>
+									<th>Data Nascimento</th>
+								</thead>
 									<tbody>
 										<tr>
 											<td class="col-sm-9" style="border-top: none;">
-												<input type="text" name="nomeVisitante0" class="form-control" placeholder="Nome visitante" />
+												<input type="text" name="nomePlus0" class="form-control" placeholder="Nome" />
+											</td>
+											<td class="col-sm-9" style="border-top: none;">
+												<input type="date" name="dataNascimento0" class="form-control"/>
 											</td>
 											<td class="col-sm-2" style="border-top: none;">
 												<a class="deleteRow"></a>
@@ -418,7 +425,7 @@ if (!empty($_GET['idCelula'])) {
 									<tfoot>
 										<tr>
 											<td colspan="1" style="border-top: none;">
-												<input style=" width: 50%; margin-left: 24%" type="button" class="btn btn-sm btn-block btn-success" id="addrow" value="Novo Visitante" />
+												<input style=" width: 50%; margin-left: 24%" type="button" class="btn btn-sm btn-block btn-success" id="addrow" value="Novo" />
 											</td>
 										</tr>
 										<tr>

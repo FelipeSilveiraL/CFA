@@ -112,3 +112,14 @@ function filhos() {
 		document.getElementById('addFilho').style.display = "none";
 	}
 }
+
+function cargoMembro() {
+	var cargo = document.getElementById('cargo').value;
+
+	if(cargo == 5){
+		document.getElementById('mostrarSenha').style.display = "block";
+
+	}else{
+		document.getElementById('mostrarSenha').style.display = "none";
+	}
+}

@@ -5,12 +5,15 @@ include('../bd/conexao.php');
 
 //variaveis do formulario
 $email = $_POST['email'];
-$senha = $_POST['senha'];
+$senha = !empty($_POST['senha']) ? $_POST['senha'] : "cfasitiocercado312";
 $nome  = $_POST['nome'];
 $sobrenome = $_POST['sobrenome'];
+$rg = $_POST['rg'];
 $civil = $_POST['civil'];
+$conjuge = $_POST['nome_conjuge'];
 $sexo = $_POST['genero'];
 $celula = $_POST['celula'];
+$telefone = $_POST['telefone'];
 $cargo = $_POST['cargo'];
 $nascimento = $_POST['nascimento'];
 $endereco = strtolower($_POST['endereco']);
@@ -57,9 +60,10 @@ if(!empty($_GET['idMembro'])){
 	}
 
 	$query = "UPDATE cfa_usuarios SET 
-	
+					rg = '".$rg."',
 					nome = '".$nome."',
 					sobre_nome = '".$sobrenome."',
+					nome_conjuge '".$conjuge."',
 					email = '".$email."',";
 					$query .= empty($senha) ? "" : "senha = '".  $hash."',";
 					$query .= $foto."
@@ -68,6 +72,7 @@ if(!empty($_GET['idMembro'])){
 					estado_civil = '".$civil."',
 					sexo = '".$sexo."',
 					celula = '".$celula."',
+					telefone = '".$telefone."',
 					cargo = '".$cargo."',
 					data_nascimento = '".$nascimento."',
 					endereco = '".$endereco."',
@@ -78,10 +83,7 @@ if(!empty($_GET['idMembro'])){
 					estado = '".$estado."',
 					cidade = '".$cidade."',
 					celular = '".$celular."'
-				
-				
 				WHERE (id = '".$_GET['idMembro']."')";
-
 }else{
 
 	//subindo arq foto
@@ -102,8 +104,10 @@ if(!empty($_GET['idMembro'])){
 	}
 
 	$query = "INSERT INTO cfa_usuarios 
-					(nome,
-					sobre_nome, 
+					(rg,
+					nome,
+					sobre_nome,
+					nome_conjuge,
 					email, 
 					senha,
 					foto_perfil,
@@ -121,10 +125,13 @@ if(!empty($_GET['idMembro'])){
 					pais,
 					estado,
 					cidade,
-					celular)
+					celular,
+					telefone)
 				VALUES
-					('".$nome."',
+					('".$rg."',
+					'".$nome."',
 					'".$sobrenome."',
+					'".$conjuge."',
 					'".$email."',
 					'".$hash."',
 					'".$foto."',
@@ -142,7 +149,8 @@ if(!empty($_GET['idMembro'])){
 					'".$pais."',
 					'".$estado."',
 					'".$cidade."',
-					'".$celular."')";
+					'".$celular."',
+					'".$telefone."')";
 	}
 if(!$result = $conn->query($query)){
 
@@ -189,13 +197,26 @@ if(!$result = $conn->query($query)){
 							financeiro_excluir, 
 							estudos_adicionar,
 							estudos_excluir) 
-						VALUES ('".$ultimo['id']."', 
+						VALUES ('".$idUsuario['id']."', 
 								'0', '0', '1', '0', '0', '0', '0', 
 								'0', '0', '0', '0', '0', '0', '0', 
 								'0', '0', '0', '0', '0', '0', '0', 
 								'0', '0', '0', '0', '0', '0')";
 								
 		$resultPermissao = $conn->query($queryPermissao);
+
+		//CADASTRAR FILHOS
+		for ($i=0; $_POST['nomePlus'.$i.''] != null; $i++) { 
+
+			$insertVisitante = "INSERT INTO cfa_filhos (id_pais, nome, data_nascimento) 
+									VALUES 
+										('".$idUsuario['id']."', '".$_POST['nomePlus'.$i.'']."', '".$_POST['dataNascimento'.$i.'']."')";
+	
+			if(!$resultInsertVisitante = $conn->query($insertVisitante)){
+				printf("Error[".$i."]: %s\n:", $conn->error);  
+			}  
+	
+		}
 	
 		header('Location: ../front/novoMembro.php?pagina=3&msn=1&idMembro='.$idUsuario['id'].'');
 	}	

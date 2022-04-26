@@ -14,6 +14,7 @@
 <script src="../js/custom.js"></script>
 <script src="../js/tabela.js"></script>
 <script src="../js/tabelaVisitantes.js"></script>
+<script src="../js/config.js"></script>
 
 <!-- <script>
 	window.onload = function () {

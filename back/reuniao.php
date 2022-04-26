@@ -16,11 +16,11 @@ if(!$resultInsertReuniao = $conn->query($insertReuniao)){
     $idReuniao = $resultID->fetch_assoc();
 
     //SALVAR VISITANTES
-    for ($i=0; $_POST['nomeVisitante'.$i.''] != null; $i++) { 
+    for ($i=0; $_POST['nomePlus'.$i.''] != null; $i++) { 
 
         $insertVisitante = "INSERT INTO cfa_visitantes (id_reuniao, nome) 
                                 VALUES 
-                                    ('".$idReuniao['id_reuniao']."', '".$_POST['nomeVisitante'.$i.'']."')";
+                                    ('".$idReuniao['id_reuniao']."', '".$_POST['nomePlus'.$i.'']."')";
 
         if(!$resultInsertVisitante = $conn->query($insertVisitante)){
             printf("Error[".$i."]: %s\n:", $conn->error);  

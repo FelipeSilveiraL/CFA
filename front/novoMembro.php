@@ -145,17 +145,6 @@ if (!empty($_GET['idMembro'])) {
 									<input type="mail" class="form-control" style="text-transform: lowercase;" name="email" maxlength="100" value="<?= !empty($membro['email']) ? $membro['email'] : ""  ?>">
 								</div>
 							</div>
-							<div class="col-xs-12" style="display: none;">
-								<div class="input-group" style="margin-bottom: 15px;">
-									<label>Senha:</label>
-									<input id="btn-input" class="form-control input-md" type="password" name="senha" maxlength="20">
-									<span class="input-group-btn">
-										<a href="javascript:" class="btn btn-danger btn-md" id="btn-todo" onclick="ver()" style="margin-top: 25px;">
-											<i class="fas fa-eye" style="margin-top: 10px;"></i>
-										</a>
-									</span>
-								</div>
-							</div>
 							<div class="col-xs-6">
 								<div class="form-group">
 									<label>RG:</label>
@@ -226,7 +215,7 @@ if (!empty($_GET['idMembro'])) {
 							<div class="col-xs-6">
 								<div class="form-group">
 									<label>incargo:</label>
-									<select class="form-control" name="cargo">
+									<select class="form-control" name="cargo" id="cargo" onchange="cargoMembro()">
 										<?php
 										if (!empty($membro['cargo'])) {
 											echo '<option value="' . $membro['id_cargo'] . '">' . $membro['cargo'] . '</option>';
@@ -260,11 +249,43 @@ if (!empty($_GET['idMembro'])) {
 									</select>
 								</div>
 							</div>
+
+							<div class="col-xs-12" style="display: none;" id="mostrarSenha">
+								<div class="input-group" style="margin-bottom: 15px;">
+									<label>Senha:</label>
+									<input id="btn-input" class="form-control input-md" type="password" name="senha" maxlength="20">
+									<span class="input-group-btn">
+										<a href="javascript:" class="btn btn-danger btn-md" id="btn-todo" onclick="ver()" style="margin-top: 25px;">
+											<i class="fas fa-eye" style="margin-top: 10px;"></i>
+										</a>
+									</span>
+								</div>
+							</div>
 							<div id="conjuge" style="display: none;">
 								<div class="col-xs-12">
 									<div class="form-group">
 										<label>Cônjuge:</label>
-										<input type="text" class="form-control" name="nome_conjuge" value="<?= !empty($membro['nome_conjuge']) ? $membro['nome_conjuge'] : ""  ?>">
+										<input type="text" id="myInput" name="nome_conjuge">
+									</div>
+									<div>
+										<p id="no-results"></p>
+										<ul id="myUL">
+											<?php
+											$resultadoConjuge = $conn->query($queryUsuarios);
+											while ($conjuge = $resultadoConjuge->fetch_assoc()) {
+												echo '
+													<li><a href="javascript:" onclick="teste' . $conjuge['id'] . '()" id="nomeConjuge' . $conjuge['id'] . '">' . $conjuge['nome'] . " " . $conjuge['sobre_nome'] . '</a></li>
+													<script>
+														function teste' . $conjuge['id'] . '(){
+															var test = document.getElementById("nomeConjuge' . $conjuge['id'] . '").innerHTML
+															document.getElementById("myInput").value = test
+															document.getElementById("myUL").style.display = "none"
+														}
+													</script>
+													';
+											}
+											?>
+										</ul>
 									</div>
 								</div>
 								<div class="col-xs-12">
@@ -288,7 +309,7 @@ if (!empty($_GET['idMembro'])) {
 											<tbody>
 												<tr>
 													<td class="col-sm-9" style="border-top: none;">
-														<input type="text" name="nomePlus0" class="form-control"/>
+														<input type="text" name="nomePlus0" class="form-control" />
 													</td>
 													<td class="col-sm-9" style="border-top: none;">
 														<input type="date" name="dataNascimento0" class="form-control" />
@@ -362,11 +383,11 @@ if (!empty($_GET['idMembro'])) {
 						<div style="display: <?= $_SESSION['membro_editar'] == 1 ? "block" : "none" ?>;">
 							<div class="col-xs-12">
 								<div class="form-group">
-									<label>Termo LGPD e GDPR:</label>
+									<label>Termo LGPD e GDPR</label>
 									<div class="checkbox">
 										<label style="color: red">
 											<input type="checkbox" id="lgpd" onclick="termo()">Sou consciente das minhas responsabilidades com os dados cadastrados, em conformidade com a LGPD e GDPR.<p> <a href="../images/termo-LGPD.pdf" target="_blank"> Termo LGPD </a></p>
-											:</label>
+										</label>
 									</div>
 								</div>
 							</div>

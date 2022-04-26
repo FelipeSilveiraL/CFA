@@ -22,6 +22,9 @@
 	<link rel="stylesheet" href="../membros/styleTabela.css">
     <script src="../membros/js.js"></script>
 
+	<!--CONJUGE-->
+	<link rel="stylesheet" href="../css/conjuge.css">
+
 	<!-- icones -->
 	<script src="https://kit.fontawesome.com/550b39a8de.js" crossorigin="anonymous"></script>
 	<!--CPF-->
