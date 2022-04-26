@@ -261,11 +261,11 @@ if (!empty($_GET['idMembro'])) {
 									</span>
 								</div>
 							</div>
-							<div id="conjuge" style="display: none;">
+							<div id="conjuge" style="display: <?= !empty($membro['nome_conjuge'] ) ? "block" : "none" ?>;">
 								<div class="col-xs-12">
 									<div class="form-group">
 										<label>Cônjuge:</label>
-										<input type="text" id="myInput" name="nome_conjuge">
+										<input type="text" id="myInput" name="nome_conjuge" value="<?= !empty($membro['nome_conjuge']) ? $membro['nome_conjuge'] : ""  ?>">
 									</div>
 									<div>
 										<p id="no-results"></p>
