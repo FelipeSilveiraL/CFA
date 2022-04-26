@@ -5,9 +5,9 @@ $(document).ready(function() {
         var newRow = $("<tr>");
         var cols = "";
 
-        cols += '<td  style="border-top: none;"><input type="text" class="form-control" name="nomeVisitante' + counter + '"/></td>';
+        cols += '<td  style="border-top: none;"><input type="text" class="form-control" name="nomePlus' + counter + '"/></td><td  style="border-top: none;"><input type="date" class="form-control" name="dataNascimento' + counter + '"/></td>';
 
-        cols += '<td  colspan="1" style="text-align: left; border-top: none;"><input type="button" style="width: 100%;height:46px;margin-top: 0px;margin-left: -12px;" class="ibtnDel btn btn-sm btn-danger" value="Excluir"></td>';
+        cols += '<td  colspan="1" style="text-align: left; border-top: none;"><input type="button" class="ibtnDel btn btn-sm btn-danger" value="Excluir"></td>';
         newRow.append(cols);
         $("table.table-borderless").append(newRow);
         counter++;

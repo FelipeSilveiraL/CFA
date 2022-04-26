@@ -12,10 +12,10 @@ include('menu.php');
 
 $mesAtual = date('m');
 
-if(!empty($_GET['mes'])){
-	$queryUsuarios .= " WHERE U.deletar = 0 AND U.data_nascimento like '%-".$_GET['mes']."-%'";
+if (!empty($_GET['mes'])) {
+	$queryUsuarios .= " WHERE U.deletar = 0 AND U.data_nascimento like '%-" . $_GET['mes'] . "-%'";
 	include('../back/counts.php');
-}else{
+} else {
 	$queryUsuarios .= " WHERE U.deletar = 0";
 }
 
@@ -51,7 +51,7 @@ if(!empty($_GET['mes'])){
 	<div class="row" id="msnAlertaInfo" style="display: <?= $_GET['msn'] == 1 ? "block" : "none" ?>;">
 		<div class="col-lg-12">
 			<div class="alert bg-warning" role="alert">
-				<em class="fa fa-lg fa-warning">&nbsp;</em> Membro desativado com sucesso! 
+				<em class="fa fa-lg fa-warning">&nbsp;</em> Membro desativado com sucesso!
 				<a href="javascript:" class="pull-right" onclick="fecharInfo()">
 					<em class="fa fa-lg fa-close"></em>
 				</a>
@@ -103,6 +103,9 @@ if(!empty($_GET['mes'])){
 										<a href="../back/excel.php?modo=2" class="btn btn-sm btn-primary">
 											<i class="fab fa-windows"></i> Excel
 										</a>
+										<a href="../documentos/fichaCadastro.docx" class="btn btn-sm btn-warning" download="">
+											<i class="fas fa-file"></i> Ficha Cadastro
+										</a>
 										<a href="novoMembro.php?pagina=3" class="btn btn-sm btn-success" style="display: <?= $_SESSION['membro_adicionar'] == 1 ? "inline-block" : "none" ?>;">
 											<i class="fas fa-plus"></i> Novo Membro
 										</a>
@@ -149,7 +152,7 @@ if(!empty($_GET['mes'])){
 											include('../back/faixaEtaria.php');
 
 											echo '<tr>
-												<td>' . $usuarios['nome'] . " " . $usuarios['sobre_nome'] .'</td>
+												<td>' . $usuarios['nome'] . " " . $usuarios['sobre_nome'] . '</td>
 												<td>' . $usuarios['email'] . '</td>
 												<td><a href="javascript:" title="' . $idade . ' anos">' . date('d/m/Y', strtotime($usuarios['data_nascimento'])) . '</a></td>
 												<td>' . $usuarios['celular'] . '</td>
@@ -162,10 +165,10 @@ if(!empty($_GET['mes'])){
 															<em class="fa fa-eye"></em>
 														</a>
 														<a href="excluirMembro.php?pagina=3&idMembro=' . $usuarios['id'] . '" class="trash" title="Excluir" style="display:';
-														
-														echo $_SESSION['membro_excluir'] == 1 ? 'inline-block' : 'none';
-														
-														echo ';
+
+											echo $_SESSION['membro_excluir'] == 1 ? 'inline-block' : 'none';
+
+											echo ';
 														margin-right: 5px;
 														margin-left: 4px;">
 															<em class="fa fa-trash"></em>
@@ -267,8 +270,8 @@ if(!empty($_GET['mes'])){
 										</tr>
 									</thead>
 									<tbody>
-									<?php
-										
+										<?php
+
 										$resultUsuariosAniversario = $conn->query($queryUsuarios);
 
 										while ($usuariosAni = $resultUsuariosAniversario->fetch_assoc()) {
@@ -276,19 +279,19 @@ if(!empty($_GET['mes'])){
 											$idade = date('Y') - date('Y', strtotime($usuariosAni['data_nascimento']));
 
 											echo '<tr>
-											<td>'.date('d', strtotime($usuariosAni['data_nascimento'])).'</td>
-											<td>'.$idade.' Anos</td>
+											<td>' . date('d', strtotime($usuariosAni['data_nascimento'])) . '</td>
+											<td>' . $idade . ' Anos</td>
 											<td>
 												<div class="profile-userpic">
-													<img src="'.$usuariosAni['foto_perfil'].'" class="img-responsive" style="margin-left: 42%;" alt="">
+													<img src="' . $usuariosAni['foto_perfil'] . '" class="img-responsive" style="margin-left: 42%;" alt="">
 												</div>
 											</td>
 											<td>
-												<a href="novoMembro.php?pagina=3&idMembro='.$usuariosAni['id'].'" title="ver membro" class="textNome">'.$usuariosAni['nome']." ".$usuariosAni['sobre_nome'].'</a>
+												<a href="novoMembro.php?pagina=3&idMembro=' . $usuariosAni['id'] . '" title="ver membro" class="textNome">' . $usuariosAni['nome'] . " " . $usuariosAni['sobre_nome'] . '</a>
 											</td>
 										</tr>';
 										}
-									?>										
+										?>
 									</tbody>
 								</table>
 							</div>

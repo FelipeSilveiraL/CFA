@@ -3,21 +3,19 @@ session_start();
 
 $_SESSION['email'] != NULL ?: header('Location: ../adm.php?erro=1');
 
-if(empty($_GET['idMembro'])){
+if (empty($_GET['idMembro'])) {
 
-	if($_SESSION['membro_adicionar'] != 1){
+	if ($_SESSION['membro_adicionar'] != 1) {
 		header('Location: dashboard.php?pagina=1');
 	}
+} else {
 
-}else{
+	if ($_GET['idMembro'] != $_SESSION['id_usuario']) {
 
-	if($_GET['idMembro'] != $_SESSION['id_usuario']){
-
-		if($_SESSION['membro_editar'] != 1){
+		if ($_SESSION['membro_editar'] != 1) {
 			header('Location: dashboard.php?pagina=1');
 		}
 	}
-	
 }
 
 include('head.php');
@@ -131,25 +129,25 @@ if (!empty($_GET['idMembro'])) {
 							</div>
 							<div class="col-xs-6">
 								<div class="form-group">
-									<label>Nome</label>
+									<label>Nome:</label>
 									<input class="form-control" name="nome" maxlength="20" value="<?= !empty($membro['nome']) ? $membro['nome'] : ""  ?>">
 								</div>
 							</div>
 							<div class="col-xs-6">
 								<div class="form-group">
-									<label>Sobrenome</label>
+									<label>Sobrenome:</label>
 									<input type="text" class="form-control" name="sobrenome" maxlength="30" value="<?= !empty($membro['sobre_nome']) ? $membro['sobre_nome'] : ""  ?>">
 								</div>
 							</div>
 							<div class="col-xs-12">
 								<div class="form-group">
-									<label>E-mail</label>
+									<label>E-mail:</label>
 									<input type="mail" class="form-control" style="text-transform: lowercase;" name="email" maxlength="100" value="<?= !empty($membro['email']) ? $membro['email'] : ""  ?>">
 								</div>
 							</div>
-							<div class="col-xs-12">
+							<div class="col-xs-12" style="display: none;">
 								<div class="input-group" style="margin-bottom: 15px;">
-									<label>Senha</label>
+									<label>Senha:</label>
 									<input id="btn-input" class="form-control input-md" type="password" name="senha" maxlength="20">
 									<span class="input-group-btn">
 										<a href="javascript:" class="btn btn-danger btn-md" id="btn-todo" onclick="ver()" style="margin-top: 25px;">
@@ -160,38 +158,31 @@ if (!empty($_GET['idMembro'])) {
 							</div>
 							<div class="col-xs-6">
 								<div class="form-group">
-									<label>Data nascimento</label>
+									<label>RG:</label>
+									<input type="text" class="form-control" name="rg" value="<?= !empty($membro['rg']) ? $membro['rg'] : ""  ?>">
+								</div>
+							</div>
+							<div class="col-xs-6">
+								<div class="form-group">
+									<label>Data nascimento:</label>
 									<input type="date" class="form-control" name="nascimento" value="<?= !empty($membro['data_nascimento']) ? $membro['data_nascimento'] : ""  ?>">
 								</div>
 							</div>
 							<div class="col-xs-6">
 								<div class="form-group">
-									<label>Whatsapp</label>
-									<input type="text" class="form-control" placeholder="(xx) xxxx - xxx" name="celular" maxlength="15" value="<?= !empty($membro['celular']) ? $membro['celular'] : ""  ?>">
+									<label>Telefone:</label>
+									<input type="text" class="form-control" placeholder="(xx) xxxx - xxxx" onkeypress="mask(this, mphone);" onblur="mask(this, mphone);" name="telefone" maxlength="15" value="<?= !empty($membro['telefone']) ? $membro['telefone'] : ""  ?>">
 								</div>
 							</div>
 							<div class="col-xs-6">
 								<div class="form-group">
-									<label>Estado Cívil</label>
-									<select class="form-control" name="civil">
-										<?php
-										if (!empty($membro['celular'])) {
-											echo '<option value="' . $membro['id_estado_civil'] . '">' . $membro['estado_civil'] . '</option>';
-											echo '<option>------------</option>';
-										} else {
-											echo '<option selected>Selecione...</option>';
-										}
-
-										while ($civil = $resultCivil->fetch_assoc()) {
-											echo '<option value="' . $civil['id'] . '">' . $civil['nome'] . '</option>';
-										}
-										?>
-									</select>
+									<label>Celular:</label>
+									<input type="text" class="form-control" placeholder="(xx) xxxx - xxxx" onkeypress="mask(this, mphone);" onblur="mask(this, mphone);" name="celular" maxlength="15" value="<?= !empty($membro['celular']) ? $membro['celular'] : ""  ?>">
 								</div>
 							</div>
 							<div class="col-xs-6">
 								<div class="form-group">
-									<label>Gênero</label>
+									<label>Gênero:</label>
 									<select class="form-control" name="genero" required>
 										<?php
 										if (!empty($membro['genero'])) {
@@ -210,7 +201,7 @@ if (!empty($_GET['idMembro'])) {
 							</div>
 							<div class="col-xs-6">
 								<div class="form-group">
-									<label>Célula</label>
+									<label>Célula:</label>
 									<select class="form-control" name="celula">
 										<?php
 										if (!empty($membro['celula'])) {
@@ -234,7 +225,7 @@ if (!empty($_GET['idMembro'])) {
 							</div>
 							<div class="col-xs-6">
 								<div class="form-group">
-									<label>incargo</label>
+									<label>incargo:</label>
 									<select class="form-control" name="cargo">
 										<?php
 										if (!empty($membro['cargo'])) {
@@ -250,6 +241,77 @@ if (!empty($_GET['idMembro'])) {
 									</select>
 								</div>
 							</div>
+							<div class="col-xs-6">
+								<div class="form-group">
+									<label>Estado Cívil:</label>
+									<select class="form-control" name="civil" id="civil" onchange="casado()">
+										<?php
+										if (!empty($membro['id_estado_civil'])) {
+											echo '<option value="' . $membro['id_estado_civil'] . '">' . $membro['estado_civil'] . '</option>';
+											echo '<option>------------</option>';
+										} else {
+											echo '<option selected>Selecione...</option>';
+										}
+
+										while ($civil = $resultCivil->fetch_assoc()) {
+											echo '<option value="' . $civil['id'] . '">' . $civil['nome'] . '</option>';
+										}
+										?>
+									</select>
+								</div>
+							</div>
+							<div id="conjuge" style="display: none;">
+								<div class="col-xs-12">
+									<div class="form-group">
+										<label>Cônjuge:</label>
+										<input type="text" class="form-control" name="nome_conjuge" value="<?= !empty($membro['nome_conjuge']) ? $membro['nome_conjuge'] : ""  ?>">
+									</div>
+								</div>
+								<div class="col-xs-12">
+									<div class="form-group">
+										<label>Filhos:</label>
+										<select class="form-control" name="possuiFilhos" id="possuiFilhos" onchange="filhos()">
+											<option selected>Selecione...</option>
+											<option value="1">sim</option>
+											<option value="2">não</option>
+										</select>
+									</div>
+								</div>
+								<!-- Filhos-->
+								<div class="col-xs-12" style="display: none;" id="addFilho">
+									<div class="form-group">
+										<table id="myTable" class="table table-borderless">
+											<thead>
+												<th>Nome</th>
+												<th>Data Nascimento</th>
+											</thead>
+											<tbody>
+												<tr>
+													<td class="col-sm-9" style="border-top: none;">
+														<input type="text" name="nomePlus0" class="form-control"/>
+													</td>
+													<td class="col-sm-9" style="border-top: none;">
+														<input type="date" name="dataNascimento0" class="form-control" />
+													</td>
+													<td class="col-sm-2" style="border-top: none;">
+														<a class="deleteRow"></a>
+
+													</td>
+												</tr>
+											</tbody>
+											<tfoot>
+												<tr>
+													<td colspan="1" style="border-top: none;">
+														<input type="button" class="btn btn-sm btn-block btn-success" id="addrow" value="adicionar" />
+													</td>
+												</tr>
+												<tr>
+												</tr>
+											</tfoot>
+										</table>
+									</div>
+								</div>
+							</div>
 					</div>
 					<div class="col-md-6">
 						<div class="panel-heading endereco"><i class="fas fa-home"></i> Endereço</div>
@@ -257,54 +319,54 @@ if (!empty($_GET['idMembro'])) {
 
 						<div class="col-xs-8">
 							<div class="form-group">
-								<label>Endereço</label>
+								<label>Endereço:</label>
 								<input class="form-control" name="endereco" maxlength="100" value="<?= !empty($membro['endereco']) ? $membro['endereco'] : ""  ?>">
 							</div>
 						</div>
 						<div class="col-xs-4">
 							<div class="form-group">
-								<label>Número</label>
+								<label>Número:</label>
 								<input class="form-control" name="numero" maxlength="10" value="<?= !empty($membro['numero']) ? $membro['numero'] : ""  ?>">
 							</div>
 						</div>
-						<div class="col-xs-12">
+						<div class="col-xs-6">
 							<div class="form-group">
-								<label>Bairro</label>
+								<label>Bairro:</label>
 								<input class="form-control" name="bairro" maxlength="50" value="<?= !empty($membro['bairro']) ? $membro['bairro'] : ""  ?>">
 							</div>
 						</div>
-						<div class="col-xs-12">
+						<div class="col-xs-6">
 							<div class="form-group">
-								<label>CEP</label>
+								<label>CEP:</label>
 								<input class="form-control" name="cep" maxlength="10" value="<?= !empty($membro['cep']) ? $membro['cep'] : ""  ?>">
 							</div>
 						</div>
 						<div class="col-xs-6">
 							<div class="form-group">
-								<label>País</label>
+								<label>Natural de:</label>
 								<input type="text" class="form-control" name="pais" maxlength="10" value="<?= !empty($membro['pais']) ? $membro['pais'] : ""  ?>">
 							</div>
 						</div>
 						<div class="col-xs-6">
 							<div class="form-group">
-								<label>Estado</label>
+								<label>Estado:</label>
 								<input type="text" class="form-control" name="estado" maxlength="10" value="<?= !empty($membro['estado']) ? $membro['estado'] : ""  ?>">
 							</div>
 						</div>
 						<div class="col-xs-12">
 							<div class="form-group">
-								<label>Cidade</label>
+								<label>Cidade:</label>
 								<input type="text" class="form-control" name="cidade" maxlength="20" value="<?= !empty($membro['cidade']) ? $membro['cidade'] : ""  ?>">
 							</div>
 						</div>
 						<div style="display: <?= $_SESSION['membro_editar'] == 1 ? "block" : "none" ?>;">
 							<div class="col-xs-12">
 								<div class="form-group">
-									<label>Termo LGPD e GDPR</label>
+									<label>Termo LGPD e GDPR:</label>
 									<div class="checkbox">
 										<label style="color: red">
 											<input type="checkbox" id="lgpd" onclick="termo()">Sou consciente das minhas responsabilidades com os dados cadastrados, em conformidade com a LGPD e GDPR.<p> <a href="../images/termo-LGPD.pdf" target="_blank"> Termo LGPD </a></p>
-										</label>
+											:</label>
 									</div>
 								</div>
 							</div>
@@ -319,7 +381,7 @@ if (!empty($_GET['idMembro'])) {
 					</form>
 				</div>
 			</div>
-			<?php empty($_GET['idMembro']) ?: include('meucurso.php')?>
+			<?php empty($_GET['idMembro']) ?: include('meucurso.php') ?>
 		</div><!-- /.col-->
 		<!--/. CONTEUDO-->
 
