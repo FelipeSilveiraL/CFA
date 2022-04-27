@@ -5,7 +5,11 @@ include('../bd/conexao.php');
 
 //variaveis do formulario
 $email = $_POST['email'];
-$senha = !empty($_POST['senha']) ? $_POST['senha'] : "cfasitiocercado312";
+if(!empty($_GET['idMembro'])){
+	$senha = $_POST['senha'];
+}else{
+	$senha = !empty($_POST['senha']) ? $_POST['senha'] : "cfasitiocercado312";
+}
 $nome  = $_POST['nome'];
 $sobrenome = $_POST['sobrenome'];
 $rg = $_POST['rg'];
@@ -63,9 +67,9 @@ if(!empty($_GET['idMembro'])){
 					rg = '".$rg."',
 					nome = '".$nome."',
 					sobre_nome = '".$sobrenome."',
-					nome_conjuge '".$conjuge."',
+					nome_conjuge = '".$conjuge."',
 					email = '".$email."',";
-					$query .= empty($senha) ? "" : "senha = '".  $hash."',";
+					$query .= empty($senha) ? "" : "senha = '".$hash."',";
 					$query .= $foto."
 					editado_por = '".$responsavel."',
 					data_alteracao = '".$datahoje."',
@@ -85,7 +89,18 @@ if(!empty($_GET['idMembro'])){
 					celular = '".$celular."'
 				WHERE (id = '".$_GET['idMembro']."')";
 
+	//CADASTRAR MAIS UM FILHO
+	for ($i=0; $_POST['nomePlus'.$i.''] != null; $i++) { 
 
+		$insertVisitante = "INSERT INTO cfa_filhos (id_pais, nome, data_nascimento) 
+								VALUES 
+									('".$idUsuario['id']."', '".$_POST['nomePlus'.$i.'']."', '".$_POST['dataNascimento'.$i.'']."')";
+
+		if(!$resultInsertVisitante = $conn->query($insertVisitante)){
+			printf("Error[".$i."]: %s\n:", $conn->error);  
+		}  
+
+	}
 				
 }else{
 
@@ -154,15 +169,13 @@ if(!empty($_GET['idMembro'])){
 					'".$cidade."',
 					'".$celular."',
 					'".$telefone."')";
-	}
+}
 if(!$result = $conn->query($query)){
-
 	printf("Error message[1]: %s\n", $conn->error);
-
 }else{
 	if(!empty($_GET['idMembro'])){
 		
-		header('Location: ../front/novoMembro.php?pagina=3&msn=2&idMembro='.$_GET['idMembro'].'');
+		/* header('Location: ../front/novoMembro.php?pagina=3&msn=2&idMembro='.$_GET['idMembro'].''); */
 
 	}else{
 
