@@ -84,6 +84,9 @@ if(!empty($_GET['idMembro'])){
 					cidade = '".$cidade."',
 					celular = '".$celular."'
 				WHERE (id = '".$_GET['idMembro']."')";
+
+
+				
 }else{
 
 	//subindo arq foto

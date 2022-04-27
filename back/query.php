@@ -264,11 +264,11 @@ FROM cfa_estudantes CES
 LEFT JOIN cfa_estudos CE ON (CES.id_estudo = CE.id)
 LEFT JOIN cfa_usuarios CU ON (CES.id_usuario = CU.id)";   
 
-$queryFilhos = "SELECT 
-
-CF.id, 
+$queryFilhos = "SELECT
+CF.id,
+CF.data_nascimento, 
 CF.nome AS nome_filho, 
-CU.nome, 
+CU.nome AS nome_pais, 
 CU.sobre_nome 
 
 FROM cfa_filhos CF 

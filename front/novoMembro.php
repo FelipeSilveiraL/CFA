@@ -261,12 +261,12 @@ if (!empty($_GET['idMembro'])) {
 									</span>
 								</div>
 							</div>
-							<div id="conjuge" style="display: <?= !empty($membro['nome_conjuge'] ) ? "block" : "none" ?>;">
+							<div id="conjuge" style="display: <?= !empty($membro['nome_conjuge']) ? "block" : "none" ?>;">
 								<div class="col-xs-12">
 									<div class="form-group">
-										<label>Cônjuge:</label>
-										<input type="text" id="myInput" name="nome_conjuge" value="<?= !empty($membro['nome_conjuge']) ? $membro['nome_conjuge'] : ""  ?>">
-									</div>
+										<label>Cônjuge:</label>										
+											<input type="text" id="myInput" name="nome_conjuge" value="<?= !empty($membro['nome_conjuge']) ? $membro['nome_conjuge'] : ""  ?>">
+										</div>
 									<div>
 										<p id="no-results"></p>
 										<ul id="myUL">
@@ -288,9 +288,29 @@ if (!empty($_GET['idMembro'])) {
 										</ul>
 									</div>
 								</div>
+								<?php
+								$queryFilhos .= " WHERE CF.id_pais = " . $membro['id'];
+								if($resultadoFilhos = $conn->query($queryFilhos)){
+									while ($filhos = $resultadoFilhos->fetch_assoc()) {
+										echo '<div class="col-xs-6">
+												<div class="form-group">
+													<label>Filhos:</label>
+													<input type="text" class="form-control" style="text-transform: uppercase;" name="filhos[]" maxlength="100" value="' . $filhos['nome_filho'] . '">
+												</div>
+											</div>
+											<div class="col-xs-6">
+												<div class="form-group">
+													<label>Data nascimento:</label>
+													<input type="date" class="form-control" name="data_nascimento[]" value="' . $filhos['data_nascimento'] . '">
+												</div>
+											</div>
+											';
+									}
+								}
+								?>
 								<div class="col-xs-12">
 									<div class="form-group">
-										<label>Filhos:</label>
+										<label>filhos:</label>
 										<select class="form-control" name="possuiFilhos" id="possuiFilhos" onchange="filhos()">
 											<option selected>Selecione...</option>
 											<option value="1">sim</option>
