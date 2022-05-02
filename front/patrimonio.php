@@ -67,6 +67,9 @@ include('menu.php');
 										<a href="../back/excel.php?modo=3" class="btn btn-sm btn-primary">
 											<i class="fab fa-windows"></i> Excel
 										</a>
+										<a href="../documentos/reciboDoacao.docx" class="btn btn-sm btn-warning" download="">
+											<i class="fas fa-file" aria-hidden="true"></i> Recibo de Doação
+										</a>
 										<a href="novoPatrimonio.php?pagina=5" class="btn btn-sm btn-success" style="display: <?= $_SESSION['patrimonio_adicionar'] == 1 ? "inline-block" : "none" ?>;">
 											<i class="fas fa-plus"></i> Patrimônio
 										</a>

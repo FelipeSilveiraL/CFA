@@ -29,6 +29,14 @@ U.estado,
 U.cidade,
 U.deletar,
 U.alterarSenha,
+U.data_batismo,
+U.igreja_batismo,
+U.igreja_anterior,
+U.pastor,
+U.cargos_exercidos,
+U.cargos_desejados,
+U.talentos,
+U.aceito_por,
 
 P.tela_configuracoes,
 P.tela_membros,
@@ -274,3 +282,5 @@ CU.sobre_nome
 FROM cfa_filhos CF 
 
 LEFT JOIN cfa_usuarios CU ON (CF.id_pais = CU.id)";
+
+$queryApostilas = "SELECT * FROM cfa_apostilas";

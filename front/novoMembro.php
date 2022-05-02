@@ -295,20 +295,17 @@ if (!empty($_GET['idMembro'])) {
 										echo '<div class="col-xs-6">
 												<div class="form-group">
 													<label>Filhos:</label>
-													<input type="text" class="form-control" style="text-transform: uppercase;" name="filhos'.$filhos['id'].'" maxlength="100" value="' . $filhos['nome_filho'] . '">
+													<input type="text" class="form-control" style="text-transform: uppercase;" name="filhos' . $filhos['id'] . '" maxlength="100" value="' . $filhos['nome_filho'] . '">
 												</div>
 											</div>
 											<div class="col-xs-6">
 												<div class="form-group">
 													<label>Data nascimento:</label>
-													<input type="date" class="form-control" name="data_nascimento'.$filhos['id'].'" value="' . $filhos['data_nascimento'] . '">
+													<input type="date" class="form-control" name="data_nascimento' . $filhos['id'] . '" value="' . $filhos['data_nascimento'] . '">
 												
-													<div class="pull-right action-buttons">
-														<a href="../back/removeFilho.php?pagina='.$_GET['pagina'].'&idMembro='.$_GET['idMembro'].'&idFilho='.$filhos['id'].'&config=1" class="trash" title="Excluir">
+													<div class="pull-right action-buttons removeFilhos">
+														<a href="../back/removeFilho.php?pagina=' . $_GET['pagina'] . '&idMembro=' . $_GET['idMembro'] . '&idFilho=' . $filhos['id'] . '&config=1" class="trash" title="Excluir">
 															<em class="fa fa-trash" aria-hidden="true"></em>
-														</a>
-														<a href="../back/removeFilho.php?pagina='.$_GET['pagina'].'&idMembro='.$_GET['idMembro'].'&idFilho='.$filhos['id'].'&config=2" class="trash" title="Atualizar">
-															<em class="fa fa-check" aria-hidden="true"></em>
 														</a>
 													</div>
 												</div>
@@ -362,6 +359,91 @@ if (!empty($_GET['idMembro'])) {
 									</div>
 								</div>
 							</div>
+					</div>
+					<div class="col-md-6">
+						<div class="panel-heading endereco"><i class="fas fa-book-open"></i> Dados Eclesiásticos</div>
+						<br />
+
+						<div class="col-xs-6">
+							<div class="form-group">
+								<label>Data batismo nas águas:</label>
+								<input type="date" class="form-control" name="data_batismo" value="<?= !empty($membro['data_batismo']) ? $membro['data_batismo'] : ""  ?>">
+							</div>
+						</div>
+
+						<div class="col-xs-6">
+							<div class="form-group">
+								<label>Igreja:</label>
+								<input class="form-control" name="igreja_batismo" maxlength="100" value="<?= !empty($membro['igreja_batismo']) ? $membro['igreja_batismo'] : ""  ?>">
+							</div>
+						</div>
+
+						<div class="col-xs-6">
+							<div class="form-group">
+								<label>Igreja anterior:</label>
+								<input class="form-control" name="igreja_anterior" maxlength="100" value="<?= !empty($membro['igreja_anterior']) ? $membro['igreja_anterior'] : ""  ?>">
+							</div>
+						</div>
+
+						<div class="col-xs-6">
+							<div class="form-group">
+								<label>Pastor:</label>
+								<input class="form-control" name="pastor" maxlength="100" value="<?= !empty($membro['pastor']) ? $membro['pastor'] : ""  ?>">
+							</div>
+						</div>
+
+						<div class="col-xs-12">
+							<div class="form-group">
+								<label>Cargos exercidos:</label>
+								<input class="form-control" name="cargos_exercidos" placeholder="Ex: Obreiro, ministro de louvor, etc..." maxlength="100" value="<?= !empty($membro['cargos_exercidos']) ? $membro['cargos_exercidos'] : ""  ?>">
+							</div>
+						</div>
+
+						<div class="col-xs-12">
+							<div class="form-group">
+								<label>Deseja exercer flguma função na igreja? Qual?:</label>
+								<input class="form-control" name="cargos_desejados" placeholder="Ex: Obreiro, ministro de louvor, etc..." maxlength="100" value="<?= !empty($membro['cargos_desejados']) ? $membro['cargos_desejados'] : ""  ?>">
+							</div>
+						</div>
+
+						<div class="col-xs-12">
+							<div class="form-group">
+								<label>Talentos/Ministérios que possui:</label>
+								<input class="form-control" name="talentos" placeholder="Ex: Tocar instrumentos, pregar a palavra, etc..." maxlength="100" value="<?= !empty($membro['talentos']) ? $membro['talentos'] : ""  ?>">
+							</div>
+						</div>
+
+						<div class="col-xs-12">
+							<div class="form-group">
+								<label>Aceito por:</label>
+								<select class="form-control" name="aceito_por">
+									<?php
+
+									if (!empty($membro['aceito_por'])) {
+										switch ($membro['aceito_por']) {
+											case '1':
+												echo '<option value="1">Batismo</option>';
+												break;
+
+											case '2':
+												echo '<option value="2">Adesão</option>';
+												break;
+											case '3':
+												echo '<option value="3">Trasnferencia de igreja</option>';
+												break;
+										}
+										echo '<option>------------</option>';
+									}else{
+										echo '<option selected>Selecione...</option>';
+									}
+									?>
+									<option value="1">Batismo</option>
+									<option value="2">Adesão</option>
+									<option value="3">Trasnferencia de igreja</option>
+								</select>
+							</div>
+						</div>
+
 					</div>
 					<div class="col-md-6">
 						<div class="panel-heading endereco"><i class="fas fa-home"></i> Endereço</div>

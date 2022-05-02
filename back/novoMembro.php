@@ -30,6 +30,14 @@ $cep = $_POST['cep'];
 $datahoje = date('d/m/Y');
 $responsavel = $_SESSION['id_usuario'];
 $celular = $_POST['celular'];
+$databatismo = $_POST['data_batismo'];
+$igrejabatismo = $_POST['igreja_batismo'];
+$igrejaanterior = $_POST['igreja_anterior'];
+$pastor = $_POST['pastor'];
+$cargosexercidos = $_POST['cargos_exercidos'];
+$cargosdesejados = $_POST['cargos_desejados'];
+$talentos = $_POST['talentos'];
+$aceitopor = $_POST['aceito_por'];
  
 // Gera um hash baseado em bcrypt
 $custo = '10';
@@ -85,22 +93,30 @@ if(!empty($_GET['idMembro'])){
 					cep = '".$cep."',
 					pais = '".$pais."',
 					estado = '".$estado."',
-					cidade = '".$cidade."',
-					celular = '".$celular."'
+					cidade = '".$cidade."',					
+					celular = '".$celular."',
+					data_batismo = '".$databatismo."',
+					igreja_batismo = '".$igrejabatismo."',
+					igreja_anterior = '".$igrejaanterior."',
+					pastor = '".$pastor."',
+					cargos_exercidos = '".$cargosexercidos."',
+					cargos_desejados = '".$cargosdesejados."',
+					talentos = '".$talentos."',
+					aceito_por = '".$aceitopor."'
+
 				WHERE (id = '".$_GET['idMembro']."')";
 
 	//CADASTRAR MAIS UM FILHO
 	for ($i=0; $_POST['nomePlus'.$i.''] != null; $i++) { 
-
 		$insertVisitante = "INSERT INTO cfa_filhos (id_pais, nome, data_nascimento) 
 								VALUES 
-									('".$idUsuario['id']."', '".$_POST['nomePlus'.$i.'']."', '".$_POST['dataNascimento'.$i.'']."')";
+									('".$_GET['idMembro']."', '".$_POST['nomePlus'.$i.'']."', '".$_POST['dataNascimento'.$i.'']."')";
 
 		if(!$resultInsertVisitante = $conn->query($insertVisitante)){
 			printf("Error[".$i."]: %s\n:", $conn->error);  
 		}  
-
 	}
+	header('Location: ../front/novoMembro.php?pagina=3&idMembro='.$_GET['idMembro'].'&msn=2');
 				
 }else{
 
@@ -144,7 +160,15 @@ if(!empty($_GET['idMembro'])){
 					estado,
 					cidade,
 					celular,
-					telefone)
+					telefone,
+					data_batismo,
+					igreja_batismo,
+					igreja_anterior,
+					pastor,
+					cargos_exercidos,
+					cargos_desejados,
+					talentos,
+					aceito_por)
 				VALUES
 					('".$rg."',
 					'".$nome."',
@@ -168,7 +192,15 @@ if(!empty($_GET['idMembro'])){
 					'".$estado."',
 					'".$cidade."',
 					'".$celular."',
-					'".$telefone."')";
+					'".$telefone."',
+					'".$databatismo."',
+					'".$igrejabatismo."',
+					'".$igrejaanterior."',
+					'".$pastor."',
+					'".$cargosexercidos."',
+					'".$cargosdesejados."',
+					'".$talentos."',
+					'".$aceitopor."')";
 }
 if(!$result = $conn->query($query)){
 	printf("Error message[1]: %s\n", $conn->error);

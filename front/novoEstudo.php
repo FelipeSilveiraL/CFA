@@ -85,7 +85,7 @@ if (!empty($_GET['idEstudo'])) {
 					<i class="fas fa-book-open"></i> <?= $titulo ?>
 				</div>
 				<div class="panel-body">
-					<form class="form-horizontal" role="form" method="POST" action="../back/novoEstudo.php?idEstudo=<?= $_GET['idEstudo'] ?>">
+					<form class="form-horizontal" role="form" method="POST" action="../back/novoEstudo.php?idEstudo=<?= $_GET['idEstudo'] ?>" enctype="multipart/form-data">
 						<fieldset>
 							<div class="form-group">
 								<label class="col-md-3 control-label">Nome Estudo:</label>
@@ -124,8 +124,14 @@ if (!empty($_GET['idEstudo'])) {
 									<textarea class="form-control" id="message" name="observacao" placeholder="..." rows="10"><?= !empty($estudos['observacao']) ? $estudos['observacao'] : ""  ?></textarea>
 								</div>
 							</div>
+							<div class="form-group">
+								<label class="col-md-3 control-label">Apostila:</label>
+								<div class="col-md-9">
+									<input type="file" name="apostila">
+								</div>
+							</div>
 							<div class="form-group" style="display: <?= $_SESSION['estudos_adicionar'] == 1 ? "block" : "none" ?>;">
-								<div class="col-md-12 widget-right">									
+								<div class="col-md-12 widget-right">
 									<button type="reset" class="btn btn-info">
 										<i class="fas fa-broom fa-sm text-white-50"></i>&nbsp;Desfazer
 									</button>
@@ -136,6 +142,51 @@ if (!empty($_GET['idEstudo'])) {
 							</div>
 						</fieldset>
 					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row" <?= $display ?> id="apostilas">
+		<div class="col-lg-12">
+			<div class="panel panel-default">
+				<div class="panel-heading textNome">
+					<i class="fas fa-book"></i> Apostilas
+				</div>
+				<div class="panel-body">
+					<div class="col-md-12">
+						<div class="row">
+							<div class="panel panel-primary filterable col-md-13">
+								<table class="table table-bordered table-hover table-responsive">
+									<thead>
+										<tr class="filters">
+											<th>
+												<input type="text" class="form-control" placeholder="Nome" disabled>
+											</th>
+											<th>
+												<input type="text" class="form-control" placeholder="Arquivo" disabled>
+											</th>
+										</tr>
+									</thead>
+									<tbody>
+										<?php
+										$queryApostilas .= " WHERE id_curso = " . $_GET['idEstudo'];
+										$resultApostilas = $conn->query($queryApostilas);
+
+										while ($apostilas = $resultApostilas->fetch_assoc()) {
+											echo '
+												<tr>
+													<td>' . $apostilas['nome'] . '</td>
+													<td><a href="' . $apostilas['caminho'] . '" target="_blank"><i class="fas fa-file fa-2x"></i></a></td>
+													
+												</tr>';
+										}
+
+										?>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -212,6 +263,7 @@ if (!empty($_GET['idEstudo'])) {
 			</div>
 		</div>
 	</div>
+
 </div>
 <!-- ESTUDANTES-->
 <div class="modal fade" id="aluno" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

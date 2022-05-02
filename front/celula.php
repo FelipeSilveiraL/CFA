@@ -162,7 +162,6 @@ include('menu.php');
 											echo $_SESSION['celula_excluir'] == 1 ? 'inline-block' : 'none';
 
 											echo ';
-														margin-right: 5px;
 														margin-left: 4px;">
 															<em class="fa fa-trash"></em>
 														</a>

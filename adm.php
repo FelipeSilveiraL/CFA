@@ -172,7 +172,7 @@ switch ($_GET['pag']) {
 	<script>
 		//escondendo msn
 
-		function msnONE(){
+		function msnONE() {
 			document.getElementById("msnOne").style.display = "none";
 		}
 
